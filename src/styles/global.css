@@ -47,7 +47,15 @@
   }
 
   .brutalist-card:hover {
-    background-color: var(--color-dark-surface);
+    background-image:
+      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)' opacity='0.09'/></svg>"),
+      linear-gradient(
+        to right,
+        rgba(22, 27, 34, 0.1),
+        rgba(22, 27, 34, 0.82) 50%,
+        rgba(22, 27, 34, 0.1)
+      );
+    background-color: transparent;
   }
 
   /* Wrapper con borde exterior + crosshairs en las 4 esquinas */
@@ -90,6 +98,33 @@
     height: 18px;
     top: -9px;
     left: 0;
+  }
+
+  /* Nav sidebar estilo brittanychiang */
+  .nav-link {
+    @apply flex items-center gap-4 py-1 transition-all duration-200;
+  }
+
+  .nav-line {
+    @apply h-px flex-shrink-0 transition-all duration-200;
+    width: 2rem;
+    background-color: var(--color-dark-border);
+  }
+
+  .nav-text {
+    @apply text-xs font-mono uppercase tracking-widest transition-colors duration-200;
+    color: theme('colors.gray.500');
+  }
+
+  .nav-link:hover .nav-line,
+  .nav-link.active .nav-line {
+    width: 4rem;
+    background-color: white;
+  }
+
+  .nav-link:hover .nav-text,
+  .nav-link.active .nav-text {
+    color: white;
   }
 
   .section-label {

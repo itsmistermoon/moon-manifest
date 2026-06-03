@@ -17,7 +17,7 @@ export default {
         },
         accent: {
           blue: '#556af3',
-          purple: '#2e1b9c',
+          purple: '#8b5cf6',
           yellow: '#e3b341',
         },
       },
