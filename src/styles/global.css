@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --grid-size: 24px;
+  --color-dark-line:     theme('colors.dark.line');
+  --color-dark-surface:  theme('colors.dark.surface');
+  --color-dark-border:   theme('colors.dark.border');
+  --color-accent-blue:   theme('colors.accent.blue');
+  --color-accent-purple: theme('colors.accent.purple');
+  --color-accent-yellow: theme('colors.accent.yellow');
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-dark-bg text-gray-300 font-body antialiased;
+    background-image: radial-gradient(rgba(48, 54, 61, 0.4) 1.2px, transparent 1.2px);
+    background-size: var(--grid-size) var(--grid-size);
+    /* center top ancla los puntos desde el centro horizontal:
+       max-w-6xl es 1152px = 48×24px → los bordes caen en puntos exactos */
+    background-position: center top;
+  }
+
+  ::selection {
+    @apply bg-accent-blue/30 text-white;
+  }
+}
+
+@layer components {
+  .font-display {
+    font-stretch: 125%;
+    letter-spacing: -0.01em;
+  }
+
+  /* Sin borde propio: el borde exterior viene del corner-box,
+     los divisores internos se declaran explícitamente en el template */
+  .brutalist-card {
+    @apply relative;
+    background-color: transparent;
+    border-radius: 0;
+    transition: background-color 0.2s ease;
+  }
+
+  .brutalist-card:hover {
+    background-color: var(--color-dark-surface);
+  }
+
+  /* Wrapper con borde exterior + crosshairs en las 4 esquinas */
+  .corner-box {
+    position: relative;
+    border: 1px solid var(--color-dark-line);
+  }
+
+  .corner-box .c {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 2;
+  }
+
+  .corner-box .c.tl { top: -1px;    left: -1px; }
+  .corner-box .c.tr { top: -1px;    right: -1px; }
+  .corner-box .c.bl { bottom: -1px; left: -1px; }
+  .corner-box .c.br { bottom: -1px; right: -1px; }
+  .corner-box .c.tm { top: -1px;    left: 50%; }
+  .corner-box .c.bm { bottom: -1px; left: 50%; }
+
+  /* Las barras de la cruz comparten grosor y color con el borde */
+  .corner-box .c::before,
+  .corner-box .c::after {
+    content: '';
+    position: absolute;
+    background-color: var(--color-dark-line);
+  }
+
+  .corner-box .c::before {
+    width: 18px;
+    height: 1px;
+    top: 0;
+    left: -9px;
+  }
+
+  .corner-box .c::after {
+    width: 1px;
+    height: 18px;
+    top: -9px;
+    left: 0;
+  }
+
+  .section-label {
+    @apply text-xs font-display font-medium uppercase tracking-widest mb-6 flex items-center;
+    color: var(--color-accent-blue);
+  }
+
+  .section-label::before {
+    content: '';
+    @apply w-6 h-px mr-3;
+    background-color: var(--color-accent-blue);
+  }
+}

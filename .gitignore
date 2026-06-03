@@ -1,0 +1,18 @@
+# Build output
+dist/
+.astro/
+.vercel/output/
+
+# Dependencies
+node_modules/
+
+# Local
+.DS_Store
+.env
+.env.*
+
+# Project-specific (not part of the site)
+dojos_final.pdf
+wiki/
+.claude/
+.commandcode/

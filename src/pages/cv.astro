@@ -1,0 +1,284 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const experience = [
+  {
+    role: 'Cofundador · Desarrollo & Gestión',
+    company: 'Imaquinaria Estudio / Tienda SPA',
+    period: '2016 – Actualidad',
+    location: 'Temuco',
+    bullets: [
+      'Diseñé y desplegué una plataforma serverless de fidelización gamificada en producción como proyecto final del programa AWS Re/Start 2026.',
+      'Stack completo: Lambda, API Gateway, DynamoDB, Cognito, CloudFront, S3 y SES; backend en FastAPI/Python y frontend en React 19 con TypeScript.',
+      'CI/CD con GitHub Actions, arquitectura multi-tenant.',
+      'Gestión de identidad visual, producción de contenido y canales de venta del emprendimiento.',
+    ],
+  },
+  {
+    role: 'Cofundador · Administrador Web y Editor',
+    company: 'Cuarto Mundo',
+    period: '2014 – Actualidad',
+    location: 'Chile',
+    bullets: [
+      'Administración y personalización de plataforma WordPress para medio digital de cultura pop.',
+      'Gestión editorial y producción de contenido desde la fundación.',
+    ],
+  },
+  {
+    role: 'Administrador de Servidores Web',
+    company: 'Lazos S.A.',
+    period: '2014 – 2015',
+    location: 'Temuco',
+    bullets: [
+      'Administración de servidores e implementación de funcionalidades para clientes.',
+      'Replicación de navegación e intranet de CONAF para migración interna.',
+    ],
+  },
+  {
+    role: 'Diseñador UI · Desarrollador Web',
+    company: 'iClub S.A.',
+    period: '2011 – 2012',
+    location: 'Temuco',
+    bullets: [
+      'Diseño de UI para app Android de pedidos en restaurantes.',
+      'Desarrollo de sitio web corporativo.',
+    ],
+  },
+];
+
+const education = [
+  {
+    title: 'AWS Re/Start — Graduate',
+    institution: 'Amazon Web Services',
+    period: '2026',
+    location: 'Temuco, Chile',
+    description: 'Programa intensivo de cloud computing. Badge oficial. AWS Cloud Practitioner en proceso de certificación.',
+  },
+  {
+    title: 'Analista Programador',
+    institution: 'Instituto Santo Tomás',
+    period: '2011 – 2015',
+    location: 'Temuco',
+    description: 'Desarrollo de software, bases de datos MySQL, redes y administración de sistemas.',
+  },
+  {
+    title: 'Aprende Python Desde Cero',
+    institution: 'Temuco Lab',
+    period: '2025',
+    location: '',
+    description: 'Lógica de programación, sintaxis Python, Google Colab, librería pandas.',
+  },
+  {
+    title: 'PrintLab: Innovando en 3D',
+    institution: 'Temuco Lab',
+    period: '2025',
+    location: '',
+    description: 'Modelado en Onshape (cloud), impresión 3D, Cura Slicer.',
+  },
+];
+
+const skills = [
+  {
+    category: 'Cloud / AWS',
+    items: ['Lambda', 'API Gateway', 'DynamoDB', 'Cognito', 'CloudFront', 'S3', 'SES', 'CloudWatch', 'AWS SAM'],
+  },
+  {
+    category: 'Desarrollo',
+    items: ['Python', 'FastAPI', 'React 19', 'TypeScript', 'HTML / CSS', 'MySQL'],
+  },
+  {
+    category: 'Plataformas & Herramientas',
+    items: ['WordPress', 'GitHub Actions', 'VS Code', 'Affinity Suite', 'Adobe CC', 'Docker'],
+  },
+  {
+    category: 'IA & Agentes de Código',
+    items: ['Claude Code', 'OpenAI Codex', 'Windsurf', 'Hermes Agent', 'Ollama', 'Perplexity'],
+  },
+];
+---
+
+<BaseLayout title="CV · Juan Pablo Armstrong">
+  <div class="max-w-4xl mx-auto px-6 py-12 md:py-20">
+    
+    <!-- Header -->
+    <header class="mb-12">
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-display font-bold text-white mb-2 leading-[1.1]">
+            Juan Pablo Armstrong
+          </h1>
+          <p class="text-xl text-accent-blue font-medium">Analista Programador · Cloud / AWS</p>
+        </div>
+        <a href="/cv.pdf" download class="inline-flex items-center px-5 py-2.5 bg-accent-yellow hover:bg-yellow-500 text-black font-semibold text-sm transition-colors shrink-0">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          Descargar PDF
+        </a>
+      </div>
+      
+      <div class="flex flex-wrap gap-4 text-sm text-gray-400">
+        <span class="flex items-center">
+          <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          Temuco, Chile
+        </span>
+        <span class="flex items-center">
+          <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+          +569 7850 5946
+        </span>
+        <a href="mailto:j.p.armstrong@me.com" class="flex items-center hover:text-accent-blue transition-colors">
+          <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          j.p.armstrong@me.com
+        </a>
+      </div>
+    </header>
+
+    <div class="space-y-12">
+      
+      <!-- Perfil -->
+      <section>
+        <h2 class="section-label">Perfil</h2>
+        <p class="text-gray-300 leading-relaxed text-base">
+          Analista Programador con experiencia en desarrollo web, administración de servidores y diseño de interfaces.
+          Graduate del programa AWS Re/Start 2026, con proyecto serverless en producción, en proceso de certificación
+          AWS Cloud Practitioner. Autodidacta activo, inglés avanzado (TOEFL 101/120), orientado a resultados concretos.
+        </p>
+      </section>
+
+      <!-- Proyecto Destacado -->
+      <section>
+        <h2 class="section-label">Proyecto Destacado</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+        <div class="brutalist-card border-0 p-6 md:p-8">
+          <h3 class="text-2xl font-display font-bold text-white mb-2">Plataforma de fidelización serverless</h3>
+          <p class="text-accent-blue font-medium text-sm mb-4">Proyecto final AWS Re/Start 2026 — sistema en producción</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+            <div>
+              <span class="text-gray-500 text-xs font-mono uppercase">Backend</span>
+              <p class="text-gray-300">FastAPI / Python sobre AWS Lambda</p>
+            </div>
+            <div>
+              <span class="text-gray-500 text-xs font-mono uppercase">Frontend</span>
+              <p class="text-gray-300">React 19 + TypeScript</p>
+            </div>
+            <div>
+              <span class="text-gray-500 text-xs font-mono uppercase">Servicios AWS</span>
+              <p class="text-gray-300">Lambda · API Gateway · DynamoDB · Cognito · CloudFront · S3 · SES · CloudWatch</p>
+            </div>
+            <div>
+              <span class="text-gray-500 text-xs font-mono uppercase">DevOps</span>
+              <p class="text-gray-300">GitHub Actions CI/CD · AWS SAM</p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <span class="text-gray-500 text-xs font-mono uppercase">Arquitectura</span>
+            <p class="text-gray-300">Multi-tenant, serverless</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-dark-border flex flex-wrap gap-5 items-center">
+            <a href="/proyecto" class="inline-flex items-center text-sm font-semibold text-accent-blue hover:text-white transition-colors">
+              Ver caso de estudio →
+            </a>
+            <a href="https://df25g3qcnocfo.cloudfront.net/" target="_blank" rel="noopener" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">
+              Ver plataforma →
+            </a>
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <!-- Experiencia -->
+      <section>
+        <h2 class="section-label">Experiencia</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          {experience.map((exp, i) => (
+            <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t border-dark-border' : ''} group`}>
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-1">
+                <h3 class="text-lg font-semibold text-white group-hover:text-accent-blue transition-colors">{exp.role}</h3>
+                <span class="text-xs font-mono text-gray-500 mt-1 sm:mt-0">{exp.period}</span>
+              </div>
+              <p class="text-gray-400 text-sm mb-3">{exp.company}{exp.location && ` · ${exp.location}`}</p>
+              <ul class="space-y-1.5">
+                {exp.bullets.map((bullet) => (
+                  <li class="text-gray-400 text-sm leading-relaxed flex gap-2">
+                    <span class="text-dark-border mt-1.5 shrink-0">—</span>
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Formación -->
+      <section>
+        <h2 class="section-label">Formación</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          {education.map((edu, i) => (
+            <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t border-dark-border' : ''} group`}>
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-1">
+                <h3 class="text-lg font-semibold text-white group-hover:text-accent-blue transition-colors">{edu.title}</h3>
+                <span class="text-xs font-mono text-gray-500 mt-1 sm:mt-0">{edu.period}</span>
+              </div>
+              <p class="text-gray-400 text-sm mb-3">{edu.institution}{edu.location && ` · ${edu.location}`}</p>
+              <p class="text-gray-400 text-sm leading-relaxed">{edu.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Habilidades -->
+      <section>
+        <h2 class="section-label">Habilidades</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          <span class="c tm"></span><span class="c bm"></span>
+          <div class="grid grid-cols-1 md:grid-cols-2">
+          {skills.map((skill, i) => {
+            const isSecondCol = i % 2 === 1;
+            const isThirdRow = i >= 2;
+            return (
+              <div class={`brutalist-card p-5 border-0 ${isSecondCol ? 'md:border-l border-dark-border' : ''} ${isThirdRow ? 'border-t border-dark-border' : ''} group`}>
+                <h4 class="text-white font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">{skill.category}</h4>
+                <div class="flex flex-wrap gap-1.5">
+                  {skill.items.map((item) => (
+                    <span class="px-2.5 py-1 text-xs font-mono text-gray-300 bg-dark-bg border border-dark-border">{item}</span>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+          </div>
+        </div>
+      </section>
+
+      <!-- Idioma -->
+      <section>
+        <h2 class="section-label">Idioma</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          <div class="brutalist-card border-0 p-5 group">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-white font-semibold mb-1 group-hover:text-accent-blue transition-colors">Inglés</h4>
+                <p class="text-gray-400 text-sm">Avanzado — TOEFL 101/120 (2013)</p>
+              </div>
+              <span class="text-xs font-mono text-accent-yellow border border-accent-yellow/20 px-2 py-1">C1</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="mt-16 pt-8 border-t border-dark-border text-center">
+      <a href="/" class="text-sm text-gray-500 hover:text-accent-blue transition-colors">← Volver al portfolio</a>
+    </footer>
+  </div>
+</BaseLayout>
