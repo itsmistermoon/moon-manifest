@@ -3,7 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  site: 'https://itsmistermoon.dev',
+  site: 'https://jparmstrong.vercel.app',
   integrations: [tailwind()],
   output: 'static',
   adapter: vercel(),
