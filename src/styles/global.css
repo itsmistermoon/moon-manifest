@@ -38,15 +38,19 @@
   }
 
   /* Sin borde propio: el borde exterior viene del corner-box,
-     los divisores internos se declaran explícitamente en el template */
+     los divisores internos se declaran explícitamente en el template.
+     El overlay de hover vive en ::after con opacity para que
+     el fade-in/out sea real (background-image no es transicionable). */
   .brutalist-card {
     @apply relative;
     background-color: transparent;
     border-radius: 0;
-    transition: background-color 0.2s ease;
   }
 
-  .brutalist-card:hover {
+  .brutalist-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
     background-image:
       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)' opacity='0.09'/></svg>"),
       linear-gradient(
@@ -55,7 +59,15 @@
         rgba(22, 27, 34, 0.82) 50%,
         rgba(22, 27, 34, 0.1)
       );
-    background-color: transparent;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+    /* z-index: -1 lo ubica sobre el background del padre pero bajo el contenido */
+    z-index: -1;
+  }
+
+  .brutalist-card:hover::after {
+    opacity: 1;
   }
 
   /* Wrapper con borde exterior + crosshairs en las 4 esquinas */
