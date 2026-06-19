@@ -76,40 +76,34 @@
     border: 1px solid var(--color-dark-line);
   }
 
+  /* SVG path de Firecrawl: estrella de 4 puntas con brazos cóncavos (22×21px).
+     La intersección de la cruz está en (50%, 50%), centrada con transform.
+     El color viene del background-color; mask-image define la forma. */
   .corner-box .c {
     position: absolute;
-    width: 0;
-    height: 0;
+    display: block;
+    width: 22px;
+    height: 21px;
+    background-color: var(--color-dark-line);
+    mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 21'><path d='M10.5 4C10.5 7.31371 7.81371 10 4.5 10H0.5V11H4.5C7.81371 11 10.5 13.6863 10.5 17V21H11.5V17C11.5 13.6863 14.1863 11 17.5 11H21.5V10H17.5C14.1863 10 11.5 7.31371 11.5 4V0H10.5V4Z' fill='black'/></svg>");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 21'><path d='M10.5 4C10.5 7.31371 7.81371 10 4.5 10H0.5V11H4.5C7.81371 11 10.5 13.6863 10.5 17V21H11.5V17C11.5 13.6863 14.1863 11 17.5 11H21.5V10H17.5C14.1863 10 11.5 7.31371 11.5 4V0H10.5V4Z' fill='black'/></svg>");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
     z-index: 2;
   }
 
-  .corner-box .c.tl { top: -1px;    left: -1px; }
-  .corner-box .c.tr { top: -1px;    right: -1px; }
-  .corner-box .c.bl { bottom: -1px; left: -1px; }
-  .corner-box .c.br { bottom: -1px; right: -1px; }
-  .corner-box .c.tm { top: -1px;    left: 50%; }
-  .corner-box .c.bm { bottom: -1px; left: 50%; }
+  .corner-box .c.tl { top: -0.5px; left: -0.5px;  transform: translate(-50%, -50%); }
+  .corner-box .c.tr { top: -0.5px; right: -0.5px; transform: translate(50%, -50%); }
+  .corner-box .c.bl { bottom: -0.5px; left: -0.5px;  transform: translate(-50%, 50%); }
+  .corner-box .c.br { bottom: -0.5px; right: -0.5px; transform: translate(50%, 50%); }
+  .corner-box .c.tm { top: -0.5px;    left: 50%; transform: translate(-50%, -50%); }
+  .corner-box .c.bm { bottom: -0.5px; left: 50%; transform: translate(-50%, 50%); }
 
-  /* Las barras de la cruz comparten grosor y color con el borde */
-  .corner-box .c::before,
-  .corner-box .c::after {
-    content: '';
-    position: absolute;
-    background-color: var(--color-dark-line);
-  }
-
-  .corner-box .c::before {
-    width: 18px;
-    height: 1px;
-    top: 0;
-    left: -9px;
-  }
-
-  .corner-box .c::after {
-    width: 1px;
-    height: 18px;
-    top: -9px;
-    left: 0;
+  /* Variante acento: color amarillo para el corner-box de proyecto destacado */
+  .corner-yellow .c {
+    background-color: var(--color-accent-yellow);
   }
 
   /* Nav sidebar estilo brittanychiang */

@@ -154,7 +154,7 @@ const skills = [
           <h2 class="section-label">02. Proyecto Destacado</h2>
           
           {projects.map((project) => (
-            <div class="corner-box">
+            <div class="corner-box corner-yellow">
               <span class="c tl"></span><span class="c tr"></span>
               <span class="c bl"></span><span class="c br"></span>
             <article class="brutalist-card border-0 p-6 md:p-8 group">
@@ -227,17 +227,16 @@ const skills = [
             Ese background informa cómo construyo productos: con criterio visual desde el primer commit.
           </p>
 
-          <div class="space-y-6 mb-8">
+          <div class="corner-box mb-8">
+            <span class="c tl"></span><span class="c tr"></span>
+            <span class="c bl"></span><span class="c br"></span>
             {designProjects.map((project, i) => (
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener"
-                class={`brutalist-card corner-box group flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+                class={`brutalist-card group flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} ${i > 0 ? 'border-t border-dark-border' : ''}`}
               >
-                <span class="c tl"></span><span class="c tr"></span>
-                <span class="c bl"></span><span class="c br"></span>
-
                 <!-- Imagen -->
                 <div class="md:w-2/5 flex-shrink-0 bg-dark-surface overflow-hidden border-b md:border-b-0 border-dark-border" style={i % 2 === 0 ? 'border-right: 1px solid var(--color-dark-border)' : 'border-left: 1px solid var(--color-dark-border)'}>
                   {project.image.startsWith('http') ? (
@@ -321,5 +320,6 @@ const skills = [
   }, { rootMargin: '-30% 0px -60% 0px' });
 
   sections.forEach(s => observer.observe(s));
+
 </script>
 </BaseLayout>
