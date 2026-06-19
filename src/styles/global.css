@@ -135,6 +135,7 @@
 
   .section-label {
     @apply text-xs font-display font-medium uppercase tracking-widest mb-6 flex items-center;
+    height: 24px; /* 24px altura + 24px margin-bottom = 48px = 2×24 exacto */
     color: var(--color-accent-blue);
   }
 

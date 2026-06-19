@@ -128,10 +128,10 @@ const skills = [
       </aside>
 
       <!-- Columna Derecha: Contenido -->
-      <main class="md:col-span-8 space-y-24">
-        
+      <main class="md:col-span-8">
+
         <!-- Sobre mí -->
-        <section id="sobre-mi">
+        <section id="sobre-mi" data-grid-section>
           <h2 class="section-label">01. Sobre mí</h2>
           <div class="space-y-4 text-gray-300 leading-relaxed text-base">
             <p>
@@ -150,7 +150,7 @@ const skills = [
         </section>
 
         <!-- Proyecto Destacado -->
-        <section id="proyecto">
+        <section id="proyecto" data-grid-section class="pt-24">
           <h2 class="section-label">02. Proyecto Destacado</h2>
           
           {projects.map((project) => (
@@ -198,7 +198,7 @@ const skills = [
         </section>
 
         <!-- Experiencia -->
-        <section id="experiencia">
+        <section id="experiencia" data-grid-section class="pt-24">
           <h2 class="section-label">03. Experiencia</h2>
           
           <div class="corner-box">
@@ -220,16 +220,15 @@ const skills = [
         </section>
 
         <!-- Diseño Gráfico -->
-        <section id="diseno">
+        <section id="diseno" data-grid-section class="pt-24">
           <h2 class="section-label">05. Diseño Gráfico</h2>
-          <p class="text-gray-400 leading-relaxed text-base mb-8">
-            Antes de programar, diseñé. Trabajo en identidad visual, diseño editorial e interfaces desde 2014.
-            Ese background informa cómo construyo productos: con criterio visual desde el primer commit.
-          </p>
-
           <div class="corner-box mb-8">
             <span class="c tl"></span><span class="c tr"></span>
             <span class="c bl"></span><span class="c br"></span>
+            <p class="text-gray-400 leading-relaxed text-sm p-5 border-b border-dark-border">
+              Antes de programar, diseñé. Trabajo en identidad visual, diseño editorial e interfaces desde 2014.
+              Ese background informa cómo construyo productos: con criterio visual desde el primer commit.
+            </p>
             {designProjects.map((project, i) => (
               <a
                 href={project.link}
@@ -272,7 +271,7 @@ const skills = [
         </section>
 
         <!-- Stack Tecnológico -->
-        <section id="stack">
+        <section id="stack" data-grid-section class="pt-24">
           <h2 class="section-label">06. Stack Tecnológico</h2>
           <div class="corner-box">
             <span class="c tl"></span><span class="c tr"></span>
@@ -321,5 +320,20 @@ const skills = [
 
   sections.forEach(s => observer.observe(s));
 
+  // Snap de cada sección al múltiplo de 24px — solo Y, X no se toca.
+  function snapGrid() {
+    const g = 24;
+    document.querySelectorAll<HTMLElement>('[data-grid-section]').forEach(sec => {
+      sec.style.paddingBottom = '';
+      const h = sec.getBoundingClientRect().height;
+      const pb = Math.ceil(h / g) * g - h;
+      if (pb > 0) sec.style.paddingBottom = pb + 'px';
+    });
+  }
+  // fonts.ready + 300ms cubre el reflow post-Google-Fonts que deshacía el snap.
+  const fontsReady = document.fonts?.ready
+    ?? new Promise<void>(r => window.addEventListener('load', () => r(), { once: true }));
+  fontsReady.then(() => { snapGrid(); setTimeout(snapGrid, 300); });
+  window.addEventListener('resize', snapGrid);
 </script>
 </BaseLayout>
