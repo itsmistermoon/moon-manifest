@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const platformUrl = 'https://df25g3qcnocfo.cloudfront.net/';
 
@@ -14,17 +14,17 @@ const decisions = [
   {
     number: '01',
     title: 'DynamoDB single-table',
-    body: '10+ entidades en una tabla. Claves PK/SK modeladas por acceso, no por entidad. Toda query incluye el tenant_id: aislamiento físico entre comercios sin infraestructura adicional.',
+    body: '10+ entities in one table. PK/SK keys modeled by access pattern, not by entity. Every query includes tenant_id: physical isolation between merchants with no additional infrastructure.',
   },
   {
     number: '02',
-    title: 'Multi-tenant desde el inicio',
-    body: 'Patrón single-tenant deployed, multi-tenant ready. Agregar un segundo comercio es registrarlo en la tabla — sin tocar lógica de negocio. La arquitectura no limita el crecimiento.',
+    title: 'Multi-tenant from day one',
+    body: 'Single-tenant deployed, multi-tenant ready pattern. Adding a second merchant means registering it in the table — no business logic changes. The architecture doesn\'t limit growth.',
   },
   {
     number: '03',
-    title: 'Pipeline con gate manual',
-    body: 'GitHub Actions despliega a staging automáticamente. Producción requiere aprobación manual. Cinco bugs capturados en staging antes de llegar al sistema real.',
+    title: 'Pipeline with manual gate',
+    body: 'GitHub Actions deploys to staging automatically. Production requires manual approval. Five bugs caught in staging before reaching the live system.',
   },
 ];
 
@@ -36,75 +36,68 @@ const stack = [
 ];
 ---
 
-<BaseLayout title="DŌJŌ · Caso de Estudio · Juan Pablo Armstrong">
+<BaseLayout title="DŌJŌ · Case Study · Juan Pablo Armstrong">
   <div class="max-w-4xl mx-auto px-6 py-12 md:py-20">
 
     <!-- Header -->
     <header class="mb-12">
-      <div class="flex justify-between items-center mb-6">
-        <p class="text-xs font-mono text-gray-500 uppercase tracking-widest">
-          Caso de estudio · AWS Re/Start 2026 · Proyecto final
-        </p>
-        <div class="flex gap-3 text-xs font-mono">
-          <span class="text-accent-yellow">ES</span>
-          <span class="text-dark-border">|</span>
-          <a href="/en/proyecto" class="text-gray-500 hover:text-gray-300 transition-colors">EN</a>
-        </div>
-      </div>
+      <p class="text-xs font-mono text-gray-500 uppercase tracking-widest mb-6">
+        Case study · AWS Re/Start 2026 · Final project
+      </p>
       <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
         <div>
           <h1 class="text-4xl md:text-5xl font-display font-bold text-white mb-2 leading-[1.1]">DŌJŌ</h1>
-          <p class="text-xl text-accent-blue font-medium">Plataforma serverless de fidelización gamificada</p>
+          <p class="text-xl text-accent-blue font-medium">Gamified serverless loyalty platform</p>
         </div>
         <a href={platformUrl} target="_blank" rel="noopener" class="inline-flex items-center px-5 py-2.5 bg-accent-yellow hover:bg-yellow-500 text-black font-semibold text-sm transition-colors shrink-0">
-          Ver plataforma
+          View platform
           <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
         </a>
       </div>
       <div class="flex flex-wrap gap-2">
-        <span class="px-3 py-1 text-xs font-mono font-medium text-accent-yellow bg-accent-yellow/10 border border-accent-yellow/20">[ EN PRODUCCIÓN ]</span>
-        <span class="px-3 py-1 text-xs font-mono text-gray-400 border border-dark-border">Fases 0 → 8 completadas</span>
-        <span class="px-3 py-1 text-xs font-mono text-gray-400 border border-dark-border">16 ADRs documentados</span>
+        <span class="px-3 py-1 text-xs font-mono font-medium text-accent-yellow bg-accent-yellow/10 border border-accent-yellow/20">[ LIVE ]</span>
+        <span class="px-3 py-1 text-xs font-mono text-gray-400 border border-dark-border">Phases 0 → 8 complete</span>
+        <span class="px-3 py-1 text-xs font-mono text-gray-400 border border-dark-border">16 ADRs documented</span>
       </div>
     </header>
 
     <div class="space-y-12">
 
-      <!-- Contexto -->
+      <!-- Problem -->
       <section>
-        <h2 class="section-label">El problema</h2>
+        <h2 class="section-label">The problem</h2>
         <div class="corner-box">
           <span class="c tl"></span><span class="c tr"></span>
           <span class="c bl"></span><span class="c br"></span>
           <div class="grid grid-cols-1 md:grid-cols-3">
             <div class="brutalist-card p-5 border-0">
-              <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-2">El cliente</span>
-              <p class="text-gray-300 text-sm leading-relaxed">Imaquinaria — tienda física de manga, anime y cultura japonesa en Temuco.</p>
+              <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-2">The client</span>
+              <p class="text-gray-300 text-sm leading-relaxed">Imaquinaria — a physical store selling manga, anime, and Japanese culture in Temuco, Chile.</p>
             </div>
             <div class="brutalist-card p-5 border-0 md:border-l border-dark-border border-t md:border-t-0">
-              <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-2">La necesidad</span>
-              <p class="text-gray-300 text-sm leading-relaxed">Sin sistema de fidelización: sin incentivo para volver, sin historial, sin datos.</p>
+              <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-2">The need</span>
+              <p class="text-gray-300 text-sm leading-relaxed">No loyalty system: no incentive to return, no purchase history, no customer data.</p>
             </div>
             <div class="brutalist-card p-5 border-0 md:border-l border-dark-border border-t md:border-t-0">
-              <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-2">Doble propósito</span>
-              <p class="text-gray-300 text-sm leading-relaxed">Sistema real para Imaquinaria + portafolio técnico cloud para empleabilidad.</p>
+              <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-2">Dual purpose</span>
+              <p class="text-gray-300 text-sm leading-relaxed">A real system for Imaquinaria + a cloud technical portfolio for employability.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- La solución -->
+      <!-- Solution -->
       <section>
-        <h2 class="section-label">La solución</h2>
+        <h2 class="section-label">The solution</h2>
         <div class="corner-box">
           <span class="c tl"></span><span class="c tr"></span>
           <span class="c bl"></span><span class="c br"></span>
           <span class="c tm"></span><span class="c bm"></span>
           <div class="grid grid-cols-1 md:grid-cols-2">
             <div class="brutalist-card p-6 border-0 group">
-              <h3 class="text-white font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">Portal del cliente</h3>
+              <h3 class="text-white font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">Customer portal</h3>
               <ul class="space-y-1.5">
-                {['Registro e inicio de sesión', 'Consulta de puntos, nivel y XP', 'Historial de compras', 'Canje de recompensas', 'Misiones activas (stamp cards)'].map(item => (
+                {['Sign up and sign in', 'Check points, level, and XP', 'Purchase history', 'Redeem rewards', 'Active missions (stamp cards)'].map(item => (
                   <li class="text-gray-400 text-sm flex gap-2">
                     <span class="text-dark-border mt-1.5 shrink-0">—</span>
                     <span>{item}</span>
@@ -113,9 +106,9 @@ const stack = [
               </ul>
             </div>
             <div class="brutalist-card p-6 border-0 md:border-l border-dark-border border-t md:border-t-0 group">
-              <h3 class="text-white font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">Panel de administración</h3>
+              <h3 class="text-white font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">Admin panel</h3>
               <ul class="space-y-1.5">
-                {['Registro de compras en caja', 'Gestión de recompensas', 'Gestión de misiones', 'Estadísticas de clientes', 'Configuración de niveles y multiplicadores'].map(item => (
+                {['Register purchases at POS', 'Manage rewards', 'Manage missions', 'Customer statistics', 'Level and multiplier configuration'].map(item => (
                   <li class="text-gray-400 text-sm flex gap-2">
                     <span class="text-dark-border mt-1.5 shrink-0">—</span>
                     <span>{item}</span>
@@ -127,46 +120,46 @@ const stack = [
         </div>
       </section>
 
-      <!-- Arquitectura -->
+      <!-- Architecture -->
       <section>
-        <h2 class="section-label">Arquitectura</h2>
+        <h2 class="section-label">Architecture</h2>
         <div class="corner-box">
           <span class="c tl"></span><span class="c tr"></span>
           <span class="c bl"></span><span class="c br"></span>
           <div class="brutalist-card p-5 border-0">
-            <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-3">Zona 1 — Borde / Público</span>
+            <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-3">Zone 1 — Edge / Public</span>
             <div class="flex flex-wrap gap-2">
-              {['CloudFront (CDN, SPA routing)', 'S3 Bucket (React static build)', 'HTTPS vía Route 53'].map(item => (
+              {['CloudFront (CDN, SPA routing)', 'S3 Bucket (React static build)', 'HTTPS via Route 53'].map(item => (
                 <span class="px-2.5 py-1 text-xs font-mono text-gray-300 bg-dark-bg border border-dark-border">{item}</span>
               ))}
             </div>
           </div>
           <div class="brutalist-card p-5 border-0 border-t border-dark-border">
-            <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-3">Zona 2 — Autenticación</span>
+            <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-3">Zone 2 — Authentication</span>
             <div class="flex flex-wrap gap-2">
-              {['API Gateway (HTTP API)', 'Cognito User Pool', 'Validación JWT en cada request'].map(item => (
+              {['API Gateway (HTTP API)', 'Cognito User Pool', 'JWT validation on every request'].map(item => (
                 <span class="px-2.5 py-1 text-xs font-mono text-gray-300 bg-dark-bg border border-dark-border">{item}</span>
               ))}
             </div>
           </div>
           <div class="brutalist-card p-5 border-0 border-t border-dark-border">
-            <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-3">Zona 3 — Cómputo / Privado</span>
+            <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-3">Zone 3 — Compute / Private</span>
             <div class="flex flex-wrap gap-2">
-              {['AWS Lambda (FastAPI + Mangum)', 'DynamoDB single-table (por tenant_id)', 'SSM · SES · CloudWatch'].map(item => (
+              {['AWS Lambda (FastAPI + Mangum)', 'DynamoDB single-table (by tenant_id)', 'SSM · SES · CloudWatch'].map(item => (
                 <span class="px-2.5 py-1 text-xs font-mono text-gray-300 bg-dark-bg border border-dark-border">{item}</span>
               ))}
             </div>
           </div>
           <div class="brutalist-card p-5 border-0 border-t border-dark-border">
             <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-3">CI/CD</span>
-            <p class="text-gray-300 text-sm">GitHub Actions — despliegue de frontend (S3 / CloudFront) y backend (<code class="font-mono text-xs">sam deploy</code>). Gate manual requerido antes de producción.</p>
+            <p class="text-gray-300 text-sm">GitHub Actions — deploys frontend (S3 / CloudFront) and backend (<code class="font-mono text-xs">sam deploy</code>). Manual gate required before production.</p>
           </div>
         </div>
       </section>
 
-      <!-- Decisiones técnicas -->
+      <!-- Technical decisions -->
       <section>
-        <h2 class="section-label">Decisiones técnicas clave</h2>
+        <h2 class="section-label">Key technical decisions</h2>
         <div class="corner-box">
           <span class="c tl"></span><span class="c tr"></span>
           <span class="c bl"></span><span class="c br"></span>
@@ -184,15 +177,15 @@ const stack = [
         </div>
       </section>
 
-      <!-- Programa de fidelización -->
+      <!-- Loyalty program -->
       <section>
-        <h2 class="section-label">Programa de fidelización</h2>
+        <h2 class="section-label">Loyalty program</h2>
         <div class="corner-box">
           <span class="c tl"></span><span class="c tr"></span>
           <span class="c bl"></span><span class="c br"></span>
           <div class="brutalist-card p-6 border-0">
-            <h3 class="text-white font-semibold mb-1 text-base">El Bushidō de Imaquinaria</h3>
-            <p class="text-gray-500 text-xs font-mono mb-5">Sistema de niveles con multiplicadores de puntos</p>
+            <h3 class="text-white font-semibold mb-1 text-base">The Imaquinaria Bushidō</h3>
+            <p class="text-gray-500 text-xs font-mono mb-5">Level system with points multipliers</p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
               {levels.map(level => (
                 <div class="border border-dark-border p-3 text-center">
@@ -202,7 +195,7 @@ const stack = [
               ))}
             </div>
             <div class="flex flex-wrap gap-2 pt-4 border-t border-dark-border">
-              {['Tier premium Kamon', 'Stamp cards digitales', '16 ADRs documentados'].map(tag => (
+              {['Premium Kamon tier', 'Digital stamp cards', '16 ADRs documented'].map(tag => (
                 <span class="px-2.5 py-1 text-xs font-mono text-gray-300 bg-dark-bg border border-dark-border">{tag}</span>
               ))}
             </div>
@@ -210,9 +203,9 @@ const stack = [
         </div>
       </section>
 
-      <!-- Stack -->
+      <!-- Full stack -->
       <section>
-        <h2 class="section-label">Stack completo</h2>
+        <h2 class="section-label">Full stack</h2>
         <div class="corner-box">
           <span class="c tl"></span><span class="c tr"></span>
           <span class="c bl"></span><span class="c br"></span>
@@ -230,9 +223,9 @@ const stack = [
 
     <footer class="mt-16 pt-8 border-t border-dark-border">
       <div class="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-        <a href="/" class="text-sm text-gray-500 hover:text-accent-blue transition-colors">← Volver al portfolio</a>
+        <a href="/en" class="text-sm text-gray-500 hover:text-accent-blue transition-colors">← Back to portfolio</a>
         <a href={platformUrl} target="_blank" rel="noopener" class="inline-flex items-center text-sm font-semibold text-accent-blue hover:text-white transition-colors">
-          Ver plataforma en vivo
+          View live platform
           <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
         </a>
       </div>
