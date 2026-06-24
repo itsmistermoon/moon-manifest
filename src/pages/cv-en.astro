@@ -3,45 +3,45 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const experience = [
   {
-    role: 'Cofundador · Desarrollo & Gestión',
+    role: 'Co-founder · Development & Operations',
     company: 'Imaquinaria Estudio / Tienda SPA',
-    period: '2016 – Actualidad',
+    period: '2016 – Present',
     location: 'Temuco',
     bullets: [
-      'Diseñé y desplegué una plataforma serverless de fidelización gamificada en producción como proyecto final del programa AWS Re/Start 2026.',
-      'Stack completo: Lambda, API Gateway, DynamoDB, Cognito, CloudFront, S3 y SES; backend en FastAPI/Python y frontend en React 19 con TypeScript.',
-      'CI/CD con GitHub Actions, arquitectura multi-tenant.',
-      'Gestión de identidad visual, producción de contenido y canales de venta del emprendimiento.',
+      'Designed and deployed a gamified serverless loyalty platform in production as the final project of the AWS Re/Start 2026 program.',
+      'Full stack: Lambda, API Gateway, DynamoDB, Cognito, CloudFront, S3, and SES; backend in FastAPI/Python and frontend in React 19 with TypeScript.',
+      'CI/CD with GitHub Actions, multi-tenant architecture.',
+      'Brand identity management, content production, and sales channel oversight.',
     ],
   },
   {
-    role: 'Cofundador · Administrador Web y Editor',
+    role: 'Co-founder · Web Administrator & Editor',
     company: 'Cuarto Mundo',
-    period: '2014 – Actualidad',
+    period: '2014 – Present',
     location: 'Chile',
     bullets: [
-      'Administración y personalización de plataforma WordPress para medio digital de cultura pop.',
-      'Gestión editorial y producción de contenido desde la fundación.',
+      'Administration and customization of a WordPress platform for a pop culture digital publication.',
+      'Editorial management and content production since founding.',
     ],
   },
   {
-    role: 'Administrador de Servidores Web',
+    role: 'Web Server Administrator',
     company: 'Lazos S.A.',
     period: '2014 – 2015',
     location: 'Temuco',
     bullets: [
-      'Administración de servidores e implementación de funcionalidades para clientes.',
-      'Replicación de navegación e intranet de CONAF para migración interna.',
+      'Server administration and feature implementation for clients.',
+      'Replicated CONAF\'s navigation and intranet for an internal migration project.',
     ],
   },
   {
-    role: 'Diseñador UI · Desarrollador Web',
+    role: 'UI Designer · Web Developer',
     company: 'iClub S.A.',
     period: '2011 – 2012',
     location: 'Temuco',
     bullets: [
-      'Diseño de UI para app Android de pedidos en restaurantes.',
-      'Desarrollo de sitio web corporativo.',
+      'UI design for an Android restaurant ordering app.',
+      'Corporate website development.',
     ],
   },
 ];
@@ -52,28 +52,28 @@ const education = [
     institution: 'Amazon Web Services',
     period: '2026',
     location: 'Temuco, Chile',
-    description: 'Programa intensivo de cloud computing. Badge oficial. AWS Cloud Practitioner en proceso de certificación.',
+    description: 'Intensive cloud computing program. Official badge. AWS Certified Cloud Practitioner.',
   },
   {
-    title: 'Analista Programador',
+    title: 'Systems Analyst Programmer',
     institution: 'Instituto Santo Tomás',
     period: '2011 – 2015',
     location: 'Temuco',
-    description: 'Desarrollo de software, bases de datos MySQL, redes y administración de sistemas.',
+    description: 'Software development, MySQL databases, networking, and systems administration.',
   },
   {
-    title: 'Aprende Python Desde Cero',
+    title: 'Learn Python From Scratch',
     institution: 'Temuco Lab',
     period: '2025',
     location: '',
-    description: 'Lógica de programación, sintaxis Python, Google Colab, librería pandas.',
+    description: 'Programming logic, Python syntax, Google Colab, pandas library.',
   },
   {
-    title: 'PrintLab: Innovando en 3D',
+    title: 'PrintLab: Innovating in 3D',
     institution: 'Temuco Lab',
     period: '2025',
     location: '',
-    description: 'Modelado en Onshape (cloud), impresión 3D, Cura Slicer.',
+    description: 'Cloud-based modeling in Onshape, 3D printing, Cura Slicer.',
   },
 ];
 
@@ -83,15 +83,15 @@ const skills = [
     items: ['Lambda', 'API Gateway', 'DynamoDB', 'Cognito', 'CloudFront', 'S3', 'SES', 'CloudWatch', 'AWS SAM'],
   },
   {
-    category: 'Desarrollo',
+    category: 'Development',
     items: ['Python', 'FastAPI', 'React 19', 'TypeScript', 'HTML / CSS', 'MySQL'],
   },
   {
-    category: 'Plataformas & Herramientas',
+    category: 'Platforms & Tools',
     items: ['WordPress', 'GitHub Actions', 'VS Code', 'Affinity Suite', 'Adobe CC', 'Docker'],
   },
   {
-    category: 'IA & Agentes de Código',
+    category: 'AI & Code Agents',
     items: ['Claude Code', 'OpenAI Codex', 'Windsurf', 'Hermes Agent', 'Ollama', 'Perplexity'],
   },
 ];
@@ -99,7 +99,7 @@ const skills = [
 
 <BaseLayout title="CV · Juan Pablo Armstrong">
   <div class="max-w-[912px] mx-auto px-6 py-12 md:py-20">
-    
+
     <!-- Header -->
     <header class="mb-12">
       <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
@@ -107,19 +107,12 @@ const skills = [
           <h1 class="text-4xl md:text-5xl font-display font-bold text-white mb-2 leading-[1.1]">
             Juan Pablo Armstrong
           </h1>
-          <p class="text-xl text-accent-blue font-medium">Analista Programador · Cloud / AWS</p>
+          <p class="text-xl text-accent-blue font-medium">Systems Analyst · Cloud / AWS</p>
         </div>
-        <a href="/cv.pdf" download class="inline-flex items-center px-5 py-2.5 bg-accent-yellow hover:bg-yellow-500 text-black font-semibold text-sm transition-colors shrink-0">
+        <a href="/cv-en.pdf" download class="inline-flex items-center px-5 py-2.5 bg-accent-yellow hover:bg-yellow-500 text-black font-semibold text-sm transition-colors shrink-0">
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-          Descargar PDF
+          Download PDF
         </a>
-      </div>
-      
-      <!-- Language switcher -->
-      <div class="mb-4 flex gap-3 text-xs font-mono">
-        <span class="text-accent-yellow">ES</span>
-        <span class="text-dark-border">|</span>
-        <a href="/cv-en" class="text-gray-500 hover:text-gray-300 transition-colors">EN</a>
       </div>
 
       <div class="flex flex-wrap gap-4 text-sm text-gray-400">
@@ -136,40 +129,47 @@ const skills = [
           j.p.armstrong@me.com
         </a>
       </div>
+
+      <!-- Language switcher -->
+      <div class="mt-4 flex gap-3 text-xs font-mono">
+        <a href="/cv" class="text-gray-500 hover:text-gray-300 transition-colors">ES</a>
+        <span class="text-dark-border">|</span>
+        <span class="text-accent-yellow">EN</span>
+      </div>
     </header>
 
     <div class="space-y-12">
-      
-      <!-- Perfil -->
+
+      <!-- Profile -->
       <section>
-        <h2 class="section-label">Perfil</h2>
+        <h2 class="section-label">Profile</h2>
         <p class="text-gray-300 leading-relaxed text-base">
-          Analista Programador con experiencia en desarrollo web, administración de servidores y diseño de interfaces.
-          Graduate del programa AWS Re/Start 2026, con proyecto serverless en producción.
-          AWS Certified Cloud Practitioner. Autodidacta activo, inglés avanzado (TOEFL 101/120), orientado a resultados concretos.
+          Systems Analyst with experience in web development, server administration, and UI design.
+          Graduate of the AWS Re/Start 2026 program, with a serverless project in production.
+          AWS Certified Cloud Practitioner. Active self-learner, advanced English (TOEFL 101/120), results-oriented.
         </p>
       </section>
 
-      <!-- Proyecto Destacado -->
+      <!-- Featured Project -->
       <section>
-        <h2 class="section-label">Proyecto Destacado</h2>
+        <h2 class="section-label">Featured Project</h2>
         <div class="corner-box">
           <span class="c tl"></span><span class="c tr"></span>
           <span class="c bl"></span><span class="c br"></span>
         <div class="brutalist-card border-0 p-6 md:p-8">
-          <h3 class="text-2xl font-display font-bold text-white mb-2">Plataforma de fidelización serverless</h3>
-          <p class="text-accent-blue font-medium text-sm mb-4">Proyecto final AWS Re/Start 2026 — sistema en producción</p>
+          <h3 class="text-2xl font-display font-bold text-white mb-2">Serverless Loyalty Platform</h3>
+          <p class="text-accent-blue font-medium text-sm mb-4">AWS Re/Start 2026 Final Project — live system in production</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
             <div>
               <span class="text-gray-500 text-xs font-mono uppercase">Backend</span>
-              <p class="text-gray-300">FastAPI / Python sobre AWS Lambda</p>
+              <p class="text-gray-300">FastAPI / Python on AWS Lambda</p>
             </div>
             <div>
               <span class="text-gray-500 text-xs font-mono uppercase">Frontend</span>
               <p class="text-gray-300">React 19 + TypeScript</p>
             </div>
             <div>
-              <span class="text-gray-500 text-xs font-mono uppercase">Servicios AWS</span>
+              <span class="text-gray-500 text-xs font-mono uppercase">AWS Services</span>
               <p class="text-gray-300">Lambda · API Gateway · DynamoDB · Cognito · CloudFront · S3 · SES · CloudWatch</p>
             </div>
             <div>
@@ -178,24 +178,24 @@ const skills = [
             </div>
           </div>
           <div class="mt-4">
-            <span class="text-gray-500 text-xs font-mono uppercase">Arquitectura</span>
+            <span class="text-gray-500 text-xs font-mono uppercase">Architecture</span>
             <p class="text-gray-300">Multi-tenant, serverless</p>
           </div>
           <div class="mt-6 pt-4 border-t border-dark-border flex flex-wrap gap-5 items-center">
             <a href="/proyecto" class="inline-flex items-center text-sm font-semibold text-accent-blue hover:text-white transition-colors">
-              Ver caso de estudio →
+              View case study →
             </a>
             <a href="https://df25g3qcnocfo.cloudfront.net/" target="_blank" rel="noopener" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">
-              Ver plataforma →
+              View platform →
             </a>
           </div>
         </div>
         </div>
       </section>
 
-      <!-- Experiencia -->
+      <!-- Experience -->
       <section>
-        <h2 class="section-label">Experiencia</h2>
+        <h2 class="section-label">Experience</h2>
         <div class="corner-box">
           <span class="c tl"></span><span class="c tr"></span>
           <span class="c bl"></span><span class="c br"></span>
@@ -219,9 +219,9 @@ const skills = [
         </div>
       </section>
 
-      <!-- Formación -->
+      <!-- Education -->
       <section>
-        <h2 class="section-label">Formación</h2>
+        <h2 class="section-label">Education</h2>
         <div class="corner-box">
           <span class="c tl"></span><span class="c tr"></span>
           <span class="c bl"></span><span class="c br"></span>
@@ -238,9 +238,9 @@ const skills = [
         </div>
       </section>
 
-      <!-- Habilidades -->
+      <!-- Skills -->
       <section>
-        <h2 class="section-label">Habilidades</h2>
+        <h2 class="section-label">Skills</h2>
         <div class="corner-box">
           <span class="c tl"></span><span class="c tr"></span>
           <span class="c bl"></span><span class="c br"></span>
@@ -264,17 +264,17 @@ const skills = [
         </div>
       </section>
 
-      <!-- Idioma -->
+      <!-- Language -->
       <section>
-        <h2 class="section-label">Idioma</h2>
+        <h2 class="section-label">Language</h2>
         <div class="corner-box">
           <span class="c tl"></span><span class="c tr"></span>
           <span class="c bl"></span><span class="c br"></span>
           <div class="brutalist-card border-0 p-5 group">
             <div class="flex items-center justify-between">
               <div>
-                <h4 class="text-white font-semibold mb-1 group-hover:text-accent-blue transition-colors">Inglés</h4>
-                <p class="text-gray-400 text-sm">Avanzado — TOEFL 101/120 (2013)</p>
+                <h4 class="text-white font-semibold mb-1 group-hover:text-accent-blue transition-colors">English</h4>
+                <p class="text-gray-400 text-sm">Advanced — TOEFL 101/120 (2013)</p>
               </div>
               <span class="text-xs font-mono text-accent-yellow border border-accent-yellow/20 px-2 py-1">C1</span>
             </div>
@@ -285,7 +285,7 @@ const skills = [
     </div>
 
     <footer class="mt-16 pt-8 border-t border-dark-border text-center">
-      <a href="/" class="text-sm text-gray-500 hover:text-accent-blue transition-colors">← Volver al portfolio</a>
+      <a href="/" class="text-sm text-gray-500 hover:text-accent-blue transition-colors">← Back to portfolio</a>
     </footer>
   </div>
 </BaseLayout>
