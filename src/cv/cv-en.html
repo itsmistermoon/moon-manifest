@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV · Juan Pablo Armstrong</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5pt;
+    color: #1a1a1a;
+    background: #fff;
+    line-height: 1.45;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 14mm 14mm 14mm 14mm;
+  }
+
+  /* ── Header ── */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3pt;
+  }
+
+  h1 {
+    font-size: 26pt;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1;
+    color: #111;
+  }
+
+  .contact {
+    text-align: right;
+    font-size: 8.5pt;
+    color: #444;
+    line-height: 1.6;
+    padding-top: 6pt;
+  }
+
+  .subtitle {
+    font-size: 9pt;
+    font-weight: 600;
+    color: #c0551e;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8pt;
+  }
+
+  hr {
+    border: none;
+    border-top: 1.5px solid #e0e0e0;
+    margin-bottom: 10pt;
+  }
+
+  /* ── Two-column layout ── */
+  .columns {
+    display: flex;
+    gap: 18pt;
+  }
+
+  .col-left  { flex: 0 0 55%; }
+  .col-right { flex: 1; }
+
+  /* ── Section titles ── */
+  .section-title {
+    font-size: 7.5pt;
+    font-weight: 700;
+    color: #c0551e;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 3pt;
+    margin-bottom: 8pt;
+  }
+
+  section { margin-bottom: 14pt; }
+
+  /* ── Profile ── */
+  .profile p { color: #333; }
+
+  /* ── Experience ── */
+  .exp-entry { margin-bottom: 10pt; }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .exp-company { font-weight: 700; font-size: 9.5pt; }
+
+  .exp-meta {
+    font-size: 8pt;
+    color: #777;
+    white-space: nowrap;
+    margin-left: 8pt;
+  }
+
+  .exp-role {
+    font-style: italic;
+    color: #555;
+    font-size: 8.5pt;
+    margin-bottom: 4pt;
+  }
+
+  .exp-bullets { list-style: none; }
+
+  .exp-bullets li {
+    position: relative;
+    padding-left: 10pt;
+    margin-bottom: 2pt;
+    color: #333;
+    font-size: 8.5pt;
+  }
+
+  .exp-bullets li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #999;
+  }
+
+  /* ── Featured Project ── */
+  .project-box {
+    border: 1px solid #e8e8e8;
+    padding: 8pt 10pt;
+    background: #fafafa;
+    margin-bottom: 0;
+  }
+
+  .project-name {
+    font-weight: 700;
+    font-size: 9.5pt;
+    margin-bottom: 2pt;
+  }
+
+  .project-sub {
+    font-size: 8pt;
+    color: #666;
+    margin-bottom: 6pt;
+  }
+
+  .project-row {
+    font-size: 8.5pt;
+    margin-bottom: 3pt;
+    color: #333;
+  }
+
+  .project-row strong { color: #111; }
+
+  /* ── Education ── */
+  .edu-entry { margin-bottom: 8pt; }
+
+  .edu-institution { font-weight: 700; font-size: 9pt; }
+
+  .edu-title {
+    font-size: 8.5pt;
+    color: #333;
+  }
+
+  .edu-meta {
+    font-size: 7.5pt;
+    color: #888;
+    margin-bottom: 2pt;
+  }
+
+  .edu-desc {
+    font-size: 8pt;
+    color: #555;
+  }
+
+  /* ── Skills ── */
+  .skill-category { margin-bottom: 8pt; }
+
+  .skill-cat-name {
+    font-weight: 600;
+    font-size: 8.5pt;
+    margin-bottom: 4pt;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3pt;
+  }
+
+  .tag {
+    border: 1px solid #d0d0d0;
+    border-radius: 2px;
+    padding: 1.5pt 5pt;
+    font-size: 7.5pt;
+    color: #333;
+    background: #fff;
+  }
+
+  /* ── Language ── */
+  .lang-row {
+    display: flex;
+    align-items: center;
+    gap: 7pt;
+  }
+
+  .lang-badge {
+    font-weight: 700;
+    font-size: 8.5pt;
+    color: #c0551e;
+    border: 1.5px solid #c0551e;
+    padding: 1pt 4pt;
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header>
+    <div>
+      <h1>Juan Pablo Armstrong</h1>
+      <div class="subtitle">Systems Analyst · Cloud / AWS</div>
+    </div>
+    <div class="contact">
+      Temuco, Chile &nbsp;•&nbsp; +569 7850 5946<br>
+      j.p.armstrong@me.com
+    </div>
+  </header>
+
+  <hr>
+
+  <div class="columns">
+
+    <!-- LEFT COLUMN -->
+    <div class="col-left">
+
+      <!-- Profile -->
+      <section class="profile">
+        <div class="section-title">Profile</div>
+        <p>
+          Systems Analyst with experience in web development, server administration, and UI design.
+          Graduate of the <strong>AWS Re/Start 2026</strong> program, <strong>AWS Certified Cloud Practitioner</strong>,
+          with a serverless project in production. Active self-learner, advanced English (TOEFL 101/120), results-oriented.
+        </p>
+      </section>
+
+      <!-- Experience -->
+      <section>
+        <div class="section-title">Experience</div>
+
+        <div class="exp-entry">
+          <div class="exp-header">
+            <span class="exp-company">Imaquinaria Estudio / Tienda SPA</span>
+            <span class="exp-meta">2016 – present · Temuco</span>
+          </div>
+          <div class="exp-role">Co-founder · Development &amp; Operations</div>
+          <ul class="exp-bullets">
+            <li>Designed and deployed a gamified serverless loyalty platform in production as the final project of the AWS Re/Start 2026 program.</li>
+            <li>Full stack: Lambda, API Gateway, DynamoDB, Cognito, CloudFront, S3, and SES; backend in FastAPI/Python and frontend in React 19 with TypeScript.</li>
+            <li>CI/CD with GitHub Actions, multi-tenant architecture.</li>
+            <li>Brand identity management, content production, and sales channel oversight.</li>
+          </ul>
+        </div>
+
+        <div class="exp-entry">
+          <div class="exp-header">
+            <span class="exp-company">Cuarto Mundo</span>
+            <span class="exp-meta">2014 – present · Chile</span>
+          </div>
+          <div class="exp-role">Co-founder · Web Administrator &amp; Editor</div>
+          <ul class="exp-bullets">
+            <li>Administration and customization of a WordPress platform for a pop culture digital publication.</li>
+            <li>Editorial management and content production since founding.</li>
+          </ul>
+        </div>
+
+        <div class="exp-entry">
+          <div class="exp-header">
+            <span class="exp-company">Lazos S.A.</span>
+            <span class="exp-meta">2014 – 2015 · Temuco</span>
+          </div>
+          <div class="exp-role">Web Server Administrator</div>
+          <ul class="exp-bullets">
+            <li>Server administration and feature implementation for clients.</li>
+            <li>Replicated CONAF's navigation and intranet for an internal migration project.</li>
+          </ul>
+        </div>
+
+        <div class="exp-entry">
+          <div class="exp-header">
+            <span class="exp-company">iClub S.A.</span>
+            <span class="exp-meta">2011 – 2012 · Temuco</span>
+          </div>
+          <div class="exp-role">UI Designer · Web Developer</div>
+          <ul class="exp-bullets">
+            <li>UI design for an Android restaurant ordering app.</li>
+            <li>Corporate website development.</li>
+          </ul>
+        </div>
+
+      </section>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-right">
+
+      <!-- Featured Project -->
+      <section>
+        <div class="section-title">Featured Project</div>
+        <div class="project-box">
+          <div class="project-name">Serverless Loyalty Platform</div>
+          <div class="project-sub">AWS Re/Start 2026 Final Project — live system in production.</div>
+          <div class="project-row"><strong>Backend:</strong> FastAPI / Python on AWS Lambda</div>
+          <div class="project-row"><strong>Frontend:</strong> React 19 + TypeScript</div>
+          <div class="project-row"><strong>AWS Services:</strong> Lambda · API Gateway · DynamoDB · Cognito · CloudFront · S3 · SES · CloudWatch</div>
+          <div class="project-row"><strong>DevOps:</strong> GitHub Actions CI/CD · AWS SAM</div>
+          <div class="project-row"><strong>Architecture:</strong> Multi-tenant, serverless</div>
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section>
+        <div class="section-title">Education</div>
+
+        <div class="edu-entry">
+          <div class="edu-institution">Amazon Web Services</div>
+          <div class="edu-title">AWS Re/Start — Graduate 2026</div>
+          <div class="edu-meta">Temuco, Chile</div>
+          <div class="edu-desc">Intensive cloud computing program. Official badge. AWS Certified Cloud Practitioner.</div>
+        </div>
+
+        <div class="edu-entry">
+          <div class="edu-institution">Instituto Santo Tomás</div>
+          <div class="edu-title">Systems Analyst Programmer</div>
+          <div class="edu-meta">2011 – 2015 · Temuco</div>
+          <div class="edu-desc">Software development, MySQL databases, networking, and systems administration.</div>
+        </div>
+
+        <div class="edu-entry">
+          <div class="edu-institution">Temuco Lab · 2025</div>
+          <div class="edu-title">Learn Python From Scratch</div>
+          <div class="edu-desc">Programming logic, Python syntax, Google Colab, pandas library.</div>
+        </div>
+
+        <div class="edu-entry">
+          <div class="edu-institution">Temuco Lab · 2025</div>
+          <div class="edu-title">PrintLab: Innovating in 3D</div>
+          <div class="edu-desc">Cloud-based modeling in Onshape, 3D printing, Cura Slicer.</div>
+        </div>
+
+      </section>
+
+      <!-- Skills -->
+      <section>
+        <div class="section-title">Skills</div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Cloud / AWS</div>
+          <div class="tags">
+            <span class="tag">Lambda</span>
+            <span class="tag">API Gateway</span>
+            <span class="tag">DynamoDB</span>
+            <span class="tag">Cognito</span>
+            <span class="tag">CloudFront</span>
+            <span class="tag">S3</span>
+            <span class="tag">SES</span>
+            <span class="tag">CloudWatch</span>
+            <span class="tag">AWS SAM</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Development</div>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">React 19</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">HTML / CSS</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Platforms &amp; Tools</div>
+          <div class="tags">
+            <span class="tag">WordPress</span>
+            <span class="tag">GitHub Actions</span>
+            <span class="tag">VS Code</span>
+            <span class="tag">Affinity Suite</span>
+            <span class="tag">Adobe CC</span>
+            <span class="tag">Docker</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">AI &amp; Code Agents</div>
+          <div class="tags">
+            <span class="tag">Claude Code</span>
+            <span class="tag">OpenAI Codex</span>
+            <span class="tag">Hermes Agent</span>
+            <span class="tag">Ollama</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Language -->
+      <section>
+        <div class="section-title">Language</div>
+        <div class="lang-row">
+          <span class="lang-badge">EN</span>
+          <span>Advanced English — TOEFL 101/120 (2013)</span>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
