@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="ADR-0019: Data Migration Runner · DŌJŌ">
+  <div class="max-w-2xl mx-auto px-6 py-12 md:py-20">
+    <a href="/en/project" class="text-xs font-mono text-gray-500 hover:text-accent-blue transition-colors mb-8 block">← Back to case study</a>
+
+    <header class="mb-10">
+      <p class="text-xs font-mono text-gray-600 uppercase tracking-widest mb-2">ADR-0019 · 2026-06-01 · Accepted</p>
+      <h1 class="text-3xl font-display font-bold text-white leading-tight">Idempotent data migration runner on deploy</h1>
+    </header>
+
+    <div class="prose-adr space-y-8">
+
+      <section>
+        <h2>Context</h2>
+        <p>Data migrations on DynamoDB lived as ad-hoc scripts executed manually after each deploy. The problem: they depended on human discipline to remember to run them, run them in order, and not accidentally re-run them.</p>
+        <p><strong>The incident that motivated this ADR:</strong> a deploy introduced code that expected a renamed field in DynamoDB. The operator forgot to run the migration script. The bug silently reached production because the system had no way to detect the "new code + old data" state.</p>
+      </section>
+
+      <section>
+        <h2>Decision</h2>
+        <p>Implement a Python runner integrated into the CI/CD pipeline with the following properties:</p>
+
+        <h3>Tracking in the single-table itself</h3>
+        <p>Instead of creating a new table, the main DynamoDB table is reused with a dedicated namespace:</p>
+        <pre><code>PK = "MIGRATIONS#GLOBAL"
+SK = "MIG#&#123;YYYYMMDD_HHMMSS&#125;_&#123;slug&#125;"</code></pre>
+        <p>This maintains the project's single-table convention and avoids an additional AWS resource. The <code>MIGRATIONS#GLOBAL</code> namespace is physically isolated from the tenant namespace — no domain query can accidentally touch it.</p>
+
+        <h3>Order by timestamp in filename</h3>
+        <p>Naming convention: <code>YYYYMMDD_HHMMSS_&#123;slug&#125;.py</code>. The runner sorts lexicographically and applies in order. No explicit DAG required — data migrations rarely have non-trivial dependencies.</p>
+
+        <h3>Forward-only (no rollbacks)</h3>
+        <p>DynamoDB does not guarantee cross-partition cross-item transactions. Implementing "down migrations" is expensive and rarely correct: you cannot undo a field that was already modified by production traffic.</p>
+        <p>If an applied migration leaves incorrect data, the fix is another forward migration. Each migration must be idempotent and resumable.</p>
+
+        <h3>Pipeline integration</h3>
+        <pre><code>1. sam build
+2. sam deploy          # code + infra
+3. migration runner    # data
+4. smoke test          # validates consistency</code></pre>
+        <p>If the runner fails, the pipeline fails and the smoke test does not run. The signal is clear: the data is not in the state the new code expects.</p>
+      </section>
+
+      <section>
+        <h2>Consequences</h2>
+        <p><strong>Positive:</strong> zero manual post-deploy steps. Historical visibility: querying <code>MIGRATIONS#GLOBAL</code> lists all applied migrations with timestamp and author. A hash of the script content retroactively detects if someone edited it after it was applied.</p>
+        <p><strong>Negative:</strong> longer pipeline for heavy migrations. The "no ad-hoc UpdateItem in production" convention depends on human code review until a CI lint is added.</p>
+      </section>
+
+      <section>
+        <h2>Discarded alternatives</h2>
+        <p><strong>Alembic-style tools for DynamoDB:</strong> existing ones assume a relational model. Plain Python maintains consistency with the rest of the infrastructure.</p>
+        <p><strong>Explicit down migrations:</strong> high maintenance cost, low real value in single-table NoSQL. Forward-only is the standard practice in DynamoDB.</p>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose-adr h2 {
+    @apply text-xs font-mono text-gray-500 uppercase tracking-widest mb-3;
+  }
+  .prose-adr h3 {
+    @apply text-sm font-semibold text-gray-400 mt-5 mb-2;
+  }
+  .prose-adr p {
+    @apply text-gray-300 text-sm leading-relaxed mb-3;
+  }
+  .prose-adr pre {
+    @apply bg-dark-bg border border-dark-border p-4 mb-3 overflow-x-auto;
+  }
+  .prose-adr pre code {
+    @apply font-mono text-xs text-gray-300 bg-transparent px-0 py-0;
+  }
+  .prose-adr code {
+    @apply font-mono text-xs text-accent-yellow bg-accent-yellow/10 px-1 py-0.5;
+  }
+  .prose-adr strong {
+    @apply text-gray-200 font-semibold;
+  }
+  .prose-adr section {
+    @apply pb-8 border-b border-dark-border last:border-0 last:pb-0;
+  }
+</style>

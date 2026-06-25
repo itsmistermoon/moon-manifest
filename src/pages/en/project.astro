@@ -15,17 +15,42 @@ const decisions = [
     number: '01',
     title: 'DynamoDB single-table',
     body: '10+ entities in one table. PK/SK keys modeled by access pattern, not by entity. Every query includes tenant_id: physical isolation between merchants with no additional infrastructure.',
+    adr: { label: 'ADR-0006', href: '/en/project/adr/ADR-0006-aws-production-architecture' },
   },
   {
     number: '02',
     title: 'Multi-tenant from day one',
     body: 'Single-tenant deployed, multi-tenant ready pattern. Adding a second merchant means registering it in the table — no business logic changes. The architecture doesn\'t limit growth.',
+    adr: null,
   },
   {
     number: '03',
     title: 'Pipeline with manual gate',
-    body: 'GitHub Actions deploys to staging automatically. Production requires manual approval. Five bugs caught in staging before reaching the live system.',
+    body: 'GitHub Actions deploys to staging automatically. Production requires manual approval via issue. Five bugs caught in staging before reaching the live system.',
+    adr: { label: 'ADR-0023', href: '/en/project/adr/ADR-0023-iam-roles-as-iac' },
   },
+  {
+    number: '04',
+    title: 'Data migrations as code',
+    body: 'Idempotent Python runner integrated in the CI/CD pipeline. Every DynamoDB data change goes through a PR, is versioned in git, and is applied automatically on deploy — zero manual post-deploy steps.',
+    adr: { label: 'ADR-0019', href: '/en/project/adr/ADR-0019-data-migration-runner' },
+  },
+];
+
+const metrics = [
+  { label: 'Requests in production', value: '3.397', period: 'last 30 days' },
+  { label: 'Error rate (5xx)', value: '0%', period: 'Lambda + API Gateway' },
+  { label: 'p50 end-to-end latency', value: '151 ms', period: 'API Gateway + Cognito JWT' },
+  { label: 'DynamoDB latency', value: '14–17 ms', period: 'average across all operations' },
+  { label: 'Cold start rate', value: '0.7%', period: '24 of 3,397 invocations' },
+  { label: 'Lambda / DynamoDB throttles', value: '0', period: 'last 30 days' },
+];
+
+const adrs = [
+  { id: 'ADR-0003', title: 'HTTP API over REST API', href: '/en/project/adr/ADR-0003-http-api-over-rest-api', summary: 'Why HTTP API at $1/M instead of REST API at $3.5/M.' },
+  { id: 'ADR-0006', title: 'AWS architecture for production', href: '/en/project/adr/ADR-0006-aws-production-architecture', summary: 'Domain, Lambda, SSM, and logging decisions on the first deploy.' },
+  { id: 'ADR-0019', title: 'Data migration runner', href: '/en/project/adr/ADR-0019-data-migration-runner', summary: 'How a production incident led to automating DynamoDB data changes.' },
+  { id: 'ADR-0023', title: 'IAM roles as IaC', href: '/en/project/adr/ADR-0023-iam-roles-as-iac', summary: 'Why a production bug is cheaper than manually managed permissions.' },
 ];
 
 const stack = [
@@ -41,9 +66,16 @@ const stack = [
 
     <!-- Header -->
     <header class="mb-12">
-      <p class="text-xs font-mono text-gray-500 uppercase tracking-widest mb-6">
-        Case study · AWS Re/Start 2026 · Final project
-      </p>
+      <div class="flex justify-between items-center mb-6">
+        <p class="text-xs font-mono text-gray-500 uppercase tracking-widest">
+          Case study · AWS Re/Start 2026 · Final project
+        </p>
+        <div class="flex gap-3 text-xs font-mono">
+          <a href="/proyecto" class="text-gray-500 hover:text-gray-300 transition-colors">ES</a>
+          <span class="text-dark-border">|</span>
+          <span class="text-accent-yellow">EN</span>
+        </div>
+      </div>
       <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
         <div>
           <h1 class="text-4xl md:text-5xl font-display font-bold text-white mb-2 leading-[1.1]">DŌJŌ</h1>
@@ -57,7 +89,7 @@ const stack = [
       <div class="flex flex-wrap gap-2">
         <span class="px-3 py-1 text-xs font-mono font-medium text-accent-yellow bg-accent-yellow/10 border border-accent-yellow/20">[ LIVE ]</span>
         <span class="px-3 py-1 text-xs font-mono text-gray-400 border border-dark-border">Phases 0 → 8 complete</span>
-        <span class="px-3 py-1 text-xs font-mono text-gray-400 border border-dark-border">16 ADRs documented</span>
+        <span class="px-3 py-1 text-xs font-mono text-gray-400 border border-dark-border">23 ADRs documented</span>
       </div>
     </header>
 
@@ -72,7 +104,7 @@ const stack = [
           <div class="grid grid-cols-1 md:grid-cols-3">
             <div class="brutalist-card p-5 border-0">
               <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-2">The client</span>
-              <p class="text-gray-300 text-sm leading-relaxed">Imaquinaria — a physical store selling manga, anime, and Japanese culture in Temuco, Chile.</p>
+              <p class="text-gray-300 text-sm leading-relaxed">Imaquinaria — a physical store selling manga, anime, and Japanese culture in Temuco.</p>
             </div>
             <div class="brutalist-card p-5 border-0 md:border-l border-dark-border border-t md:border-t-0">
               <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-2">The need</span>
@@ -167,13 +199,67 @@ const stack = [
             <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t border-dark-border' : ''} group`}>
               <div class="flex gap-4 items-start">
                 <span class="text-3xl font-display font-bold text-dark-border shrink-0 leading-none mt-0.5">{d.number}</span>
-                <div>
-                  <h3 class="text-white font-semibold mb-2 text-base group-hover:text-accent-blue transition-colors">{d.title}</h3>
+                <div class="flex-1 min-w-0">
+                  <div class="flex flex-wrap items-center gap-3 mb-2">
+                    <h3 class="text-white font-semibold text-base group-hover:text-accent-blue transition-colors">{d.title}</h3>
+                    {d.adr && (
+                      <a href={d.adr.href} target="_blank" rel="noopener" class="px-2 py-0.5 text-xs font-mono text-gray-500 border border-dark-border hover:text-accent-blue hover:border-accent-blue/40 transition-colors shrink-0">
+                        {d.adr.label} ↗
+                      </a>
+                    )}
+                  </div>
                   <p class="text-gray-400 text-sm leading-relaxed">{d.body}</p>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      <!-- Production metrics -->
+      <section>
+        <h2 class="section-label">Production — real metrics</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+            {metrics.map((m, i) => (
+              <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t sm:border-t-0 border-dark-border' : ''} ${i >= 1 ? 'sm:border-l border-dark-border' : ''} ${i >= 3 ? 'border-t border-dark-border' : ''} ${i === 3 ? 'sm:border-l-0' : ''}`}>
+                <span class="text-gray-500 text-xs font-mono uppercase tracking-wider block mb-1">{m.label}</span>
+                <span class="text-accent-yellow text-2xl font-display font-bold block mb-1">{m.value}</span>
+                <span class="text-gray-600 text-xs font-mono">{m.period}</span>
+              </div>
+            ))}
+          </div>
+          <div class="brutalist-card p-4 border-0 border-t border-dark-border">
+            <p class="text-gray-600 text-xs font-mono">CloudWatch data · Lambda + API Gateway + DynamoDB · last 30 days</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADRs -->
+      <section>
+        <h2 class="section-label">Architecture Decision Records</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          <div class="brutalist-card p-5 border-0">
+            <p class="text-gray-400 text-sm leading-relaxed mb-5">
+              Every non-obvious technical decision was recorded with context, alternatives considered, and consequences. The project has accumulated 23 ADRs. The four most representative ones are available as public documents:
+            </p>
+            <div class="space-y-3">
+              {adrs.map(adr => (
+                <a href={adr.href} target="_blank" rel="noopener" class="flex items-start gap-3 group p-3 border border-dark-border hover:border-accent-blue/40 transition-colors">
+                  <span class="text-xs font-mono text-gray-600 shrink-0 mt-0.5 group-hover:text-accent-blue transition-colors">{adr.id}</span>
+                  <div class="min-w-0">
+                    <span class="text-gray-300 text-sm font-medium group-hover:text-white transition-colors block">{adr.title}</span>
+                    <span class="text-gray-500 text-xs">{adr.summary}</span>
+                  </div>
+                  <svg class="w-3.5 h-3.5 text-dark-border group-hover:text-accent-blue transition-colors shrink-0 mt-0.5 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -185,7 +271,7 @@ const stack = [
           <span class="c bl"></span><span class="c br"></span>
           <div class="brutalist-card p-6 border-0">
             <h3 class="text-white font-semibold mb-1 text-base">The Imaquinaria Bushidō</h3>
-            <p class="text-gray-500 text-xs font-mono mb-5">Level system with points multipliers</p>
+            <p class="text-gray-500 text-xs font-mono mb-5">Level system with points multipliers — the multipliers are not arbitrary: they are calibrated so that reward redemption is attractive at exactly the average purchase volume of an Imaquinaria customer.</p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
               {levels.map(level => (
                 <div class="border border-dark-border p-3 text-center">
@@ -195,7 +281,7 @@ const stack = [
               ))}
             </div>
             <div class="flex flex-wrap gap-2 pt-4 border-t border-dark-border">
-              {['Premium Kamon tier', 'Digital stamp cards', '16 ADRs documented'].map(tag => (
+              {['Premium Kamon tier', 'Digital stamp cards', 'Dōjō mental state sub-levels'].map(tag => (
                 <span class="px-2.5 py-1 text-xs font-mono text-gray-300 bg-dark-bg border border-dark-border">{tag}</span>
               ))}
             </div>

@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="ADR-0023: Roles IAM como IaC · DŌJŌ">
+  <div class="max-w-2xl mx-auto px-6 py-12 md:py-20">
+    <a href="/proyecto" class="text-xs font-mono text-gray-500 hover:text-accent-blue transition-colors mb-8 block">← Volver al caso de estudio</a>
+
+    <header class="mb-10">
+      <p class="text-xs font-mono text-gray-600 uppercase tracking-widest mb-2">ADR-0023 · 2026-06-24 · Aceptado</p>
+      <h1 class="text-3xl font-display font-bold text-white leading-tight">Roles IAM de GitHub Actions gestionados como IaC</h1>
+    </header>
+
+    <div class="prose-adr space-y-8">
+
+      <section>
+        <h2>Contexto</h2>
+        <p>Los roles IAM del pipeline CI/CD fueron creados manualmente en la consola AWS durante el setup inicial. Esto funcionó hasta que un cambio al template SAM añadió acceso a recursos CloudFront que el rol no tenía — y el error solo apareció en runtime durante el deploy.</p>
+        <p><strong>El síntoma concreto:</strong> añadir <code>AccessLogSettings</code> al API Gateway hizo que CloudFormation intentara actualizar la distribución CloudFront, operación que requería permisos que no estaban en el rol. El error se descubrió en producción con rollback automático, requiriendo dos deploys de corrección.</p>
+        <p><strong>El problema de fondo:</strong> sin IaC, los permisos IAM son invisibles — no hay diff, no hay review, no hay historia. El primer deploy exitoso da falsa confianza de que los permisos son correctos; los gaps aparecen solo cuando se toca una nueva categoría de recursos AWS.</p>
+      </section>
+
+      <section>
+        <h2>Decisión</h2>
+        <p>Los roles IAM se codifican en un stack CloudFormation independiente y se despliegan via un workflow dedicado.</p>
+
+        <h3>Por qué un stack separado y no dentro del template principal</h3>
+        <p>El template de la app se despliega <em>con</em> los roles IAM. Si esos roles estuvieran en el mismo stack, una política mal configurada podría romper el deploy que intenta corregirla — dead-lock de permisos. Un stack separado rompe esa dependencia circular.</p>
+
+        <h3>Por qué <code>cloudfront:*</code> y no permisos granulares</h3>
+        <p>Los permisos CloudFront se expandieron a <code>cloudfront:*</code> después de dos intentos fallidos con listas granulares. CloudFormation necesita distintas acciones según el tipo de operación y la lista completa no está documentada exhaustivamente.</p>
+        <p><strong>Análisis de riesgo:</strong> la política ya incluye <code>s3:*</code> y <code>dynamodb:*</code> sin restricción de recurso, que son considerablemente más peligrosos. Restringir solo CloudFront sería falsa seguridad: el piso de daño potencial lo fijan S3 y DynamoDB. La revisión de scope completo queda para cuando el proyecto incorpore colaboradores externos con permisos de merge.</p>
+
+        <h3><code>DeletionPolicy: Retain</code></h3>
+        <p>Todos los recursos del stack IAM tienen <code>DeletionPolicy: Retain</code>. Eliminar el stack accidentalmente no eliminaría los roles — lo cual es crítico porque su ausencia rompería todos los deploys futuros.</p>
+      </section>
+
+      <section>
+        <h2>Consecuencias</h2>
+        <p>Cualquier cambio de permisos IAM pasa por Pull Request, es revisable en el diff, y tiene historial en git. El workflow de IAM tiene <code>cancel-in-progress: false</code> para evitar que un deploy de app cancele accidentalmente una actualización de roles en curso.</p>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose-adr h2 {
+    @apply text-xs font-mono text-gray-500 uppercase tracking-widest mb-3;
+  }
+  .prose-adr h3 {
+    @apply text-sm font-semibold text-gray-400 mt-5 mb-2;
+  }
+  .prose-adr p {
+    @apply text-gray-300 text-sm leading-relaxed mb-3;
+  }
+  .prose-adr em {
+    @apply italic text-gray-300;
+  }
+  .prose-adr code {
+    @apply font-mono text-xs text-accent-yellow bg-accent-yellow/10 px-1 py-0.5;
+  }
+  .prose-adr strong {
+    @apply text-gray-200 font-semibold;
+  }
+  .prose-adr section {
+    @apply pb-8 border-b border-dark-border last:border-0 last:pb-0;
+  }
+</style>

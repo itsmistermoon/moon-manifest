@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="ADR-0003: HTTP API over REST API · DŌJŌ">
+  <div class="max-w-2xl mx-auto px-6 py-12 md:py-20">
+    <a href="/en/project" class="text-xs font-mono text-gray-500 hover:text-accent-blue transition-colors mb-8 block">← Back to case study</a>
+
+    <header class="mb-10">
+      <p class="text-xs font-mono text-gray-600 uppercase tracking-widest mb-2">ADR-0003 · 2026-04-20 · Accepted</p>
+      <h1 class="text-3xl font-display font-bold text-white leading-tight">HTTP API over REST API for API Gateway</h1>
+    </header>
+
+    <div class="prose-adr space-y-8">
+
+      <section>
+        <h2>Decision</h2>
+        <p>Use <strong>API Gateway HTTP API</strong> (payload format 2.0) instead of REST API (payload 1.0).</p>
+      </section>
+
+      <section>
+        <h2>Reasoning</h2>
+        <p>HTTP API is sufficient for all access patterns in the system: JWT authentication via Cognito authorizer, CORS, routing, and basic throttling.</p>
+        <p>The REST API-exclusive features (API keys, usage plans, response caching, WAF integration at the stage level) are not needed in the MVP and can be incorporated if traffic volume justifies it.</p>
+        <p><strong>Cost:</strong> HTTP API costs ~$1/million requests vs ~$3.5/million for REST API. For initial traffic, the difference is negligible, but the principle of least complexity applies regardless.</p>
+      </section>
+
+      <section>
+        <h2>Consequences</h2>
+        <p>If WAF at the API level or API Gateway response caching is required in the future, migrating from HTTP API to REST API requires a change in the SAM template and a redeploy — it is not transparent. This is documented as deliberate debt, not accidental.</p>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose-adr h2 {
+    @apply text-xs font-mono text-gray-500 uppercase tracking-widest mb-3;
+  }
+  .prose-adr p {
+    @apply text-gray-300 text-sm leading-relaxed mb-3;
+  }
+  .prose-adr strong {
+    @apply text-gray-200 font-semibold;
+  }
+  .prose-adr section {
+    @apply pb-8 border-b border-dark-border last:border-0 last:pb-0;
+  }
+</style>

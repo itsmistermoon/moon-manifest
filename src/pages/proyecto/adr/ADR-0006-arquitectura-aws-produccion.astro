@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="ADR-0006: Arquitectura AWS para producción · DŌJŌ">
+  <div class="max-w-2xl mx-auto px-6 py-12 md:py-20">
+    <a href="/proyecto" class="text-xs font-mono text-gray-500 hover:text-accent-blue transition-colors mb-8 block">← Volver al caso de estudio</a>
+
+    <header class="mb-10">
+      <p class="text-xs font-mono text-gray-600 uppercase tracking-widest mb-2">ADR-0006 · 2026-04-26 · Aceptado</p>
+      <h1 class="text-3xl font-display font-bold text-white leading-tight">Arquitectura AWS para producción</h1>
+    </header>
+
+    <div class="prose-adr space-y-8">
+
+      <section>
+        <h2>Dominio y URLs</h2>
+        <p>Dominio de producción: <code>clientes.imaquinaria.cl</code></p>
+        <p>Estructura de paths bajo el mismo dominio, para eliminar CORS completamente y usar un solo certificado SSL:</p>
+        <ul>
+          <li><code>clientes.imaquinaria.cl</code> → frontend (S3 + CloudFront)</li>
+          <li><code>clientes.imaquinaria.cl/api</code> → API Gateway (via CloudFront behavior)</li>
+        </ul>
+        <p>El certificado SSL debe crearse en ACM región <code>us-east-1</code>, requisito de CloudFront independiente de la región de despliegue.</p>
+      </section>
+
+      <section>
+        <h2>Lambda</h2>
+        <p>Runtime: <code>python3.13</code>. Memoria: <code>512 MB</code> — reduce latencia de cold start con dependencias FastAPI + boto3 + pydantic. Timeout: <code>30s</code>, suficiente para todos los endpoints incluyendo stats con múltiples queries DynamoDB.</p>
+        <p>La configuración de memoria quedó sujeta a revisión con métricas reales post-deploy. Las métricas de producción (p50 ~117 ms en Lambda, cold start rate 0,7%) confirmaron que 512 MB es correcto.</p>
+      </section>
+
+      <section>
+        <h2>Variables de entorno</h2>
+        <p>Almacenadas en SSM Parameter Store como <code>String</code> (no <code>SecureString</code>). Las variables del backend (TABLE_NAME, Cognito IDs, URLs) son identificadores, no secretos sensibles — no otorgan acceso por sí solos.</p>
+        <p><strong>Decisión futura:</strong> migrar a <code>SecureString</code> antes de incorporar el primer tenant externo. No requiere cambios en el código, solo en el template y en los valores de SSM.</p>
+      </section>
+
+      <section>
+        <h2>Logs</h2>
+        <p>Retención en CloudWatch: 30 días. Suficiente para debugging operacional sin acumular deuda de almacenamiento.</p>
+      </section>
+
+      <section>
+        <h2>Consecuencias</h2>
+        <p>CloudFront actúa como proxy tanto para el frontend como para la API, simplificando CORS y el manejo de certificados. La arquitectura soporta multi-tenant: agregar un segundo comercio es registrarlo en DynamoDB, sin cambios de infraestructura.</p>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose-adr h2 {
+    @apply text-xs font-mono text-gray-500 uppercase tracking-widest mb-3;
+  }
+  .prose-adr p {
+    @apply text-gray-300 text-sm leading-relaxed mb-3;
+  }
+  .prose-adr ul {
+    @apply space-y-1 mb-3 ml-4;
+  }
+  .prose-adr li {
+    @apply text-gray-300 text-sm leading-relaxed list-disc list-inside;
+  }
+  .prose-adr code {
+    @apply font-mono text-xs text-accent-yellow bg-accent-yellow/10 px-1 py-0.5;
+  }
+  .prose-adr strong {
+    @apply text-gray-200 font-semibold;
+  }
+  .prose-adr section {
+    @apply pb-8 border-b border-dark-border last:border-0 last:pb-0;
+  }
+</style>

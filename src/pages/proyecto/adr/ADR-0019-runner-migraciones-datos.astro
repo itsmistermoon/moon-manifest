@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="ADR-0019: Runner de migraciones de datos · DŌJŌ">
+  <div class="max-w-2xl mx-auto px-6 py-12 md:py-20">
+    <a href="/proyecto" class="text-xs font-mono text-gray-500 hover:text-accent-blue transition-colors mb-8 block">← Volver al caso de estudio</a>
+
+    <header class="mb-10">
+      <p class="text-xs font-mono text-gray-600 uppercase tracking-widest mb-2">ADR-0019 · 2026-06-01 · Aceptado</p>
+      <h1 class="text-3xl font-display font-bold text-white leading-tight">Runner idempotente de migraciones de datos en deploy</h1>
+    </header>
+
+    <div class="prose-adr space-y-8">
+
+      <section>
+        <h2>Contexto</h2>
+        <p>Las migraciones de datos sobre DynamoDB vivían como scripts ad-hoc ejecutados manualmente post-deploy. El problema: dependían de disciplina humana para recordar correrlos, correrlos en orden, y no re-correrlos accidentalmente.</p>
+        <p><strong>El incidente que motivó este ADR:</strong> un deploy introdujo código que esperaba un campo renombrado en DynamoDB. El operador olvidó correr el script de migración. El bug llegó silenciosamente a producción porque el sistema no tenía forma de detectar el estado "código nuevo + datos viejos".</p>
+      </section>
+
+      <section>
+        <h2>Decisión</h2>
+        <p>Implementar un runner Python integrado en el pipeline CI/CD con las siguientes propiedades:</p>
+
+        <h3>Tracking en la propia single-table</h3>
+        <p>En lugar de crear una tabla nueva, se reutiliza la tabla principal de DynamoDB con un namespace dedicado:</p>
+        <pre><code>PK = "MIGRATIONS#GLOBAL"
+SK = "MIG#&#123;YYYYMMDD_HHMMSS&#125;_&#123;slug&#125;"</code></pre>
+        <p>Esto mantiene la convención single-table del proyecto y evita un recurso AWS adicional. El namespace <code>MIGRATIONS#GLOBAL</code> es físicamente aislado del namespace de tenants — ninguna query de dominio puede tocarlo accidentalmente.</p>
+
+        <h3>Orden por timestamp en filename</h3>
+        <p>Convención de nombre: <code>YYYYMMDD_HHMMSS_&#123;slug&#125;.py</code>. El runner ordena lexicográficamente y aplica en orden. No requiere DAG explícito — las migraciones de datos raramente tienen dependencias no triviales.</p>
+
+        <h3>Forward-only (sin rollbacks)</h3>
+        <p>DynamoDB no garantiza transacciones cross-partition cross-item. Implementar "down migrations" es caro y rara vez correcto: no se puede deshacer un campo que ya fue modificado por tráfico de producción.</p>
+        <p>Si una migración aplicada deja datos incorrectos, la corrección es otra migración forward. Cada migración debe ser idempotente y resumible.</p>
+
+        <h3>Integración en el pipeline</h3>
+        <pre><code>1. sam build
+2. sam deploy          # código + infra
+3. runner migraciones  # datos
+4. smoke test          # valida coherencia</code></pre>
+        <p>Si el runner falla, el pipeline falla y el smoke no corre. La señal es clara: los datos no están en el estado que el código nuevo espera.</p>
+      </section>
+
+      <section>
+        <h2>Consecuencias</h2>
+        <p><strong>Positivas:</strong> cero pasos manuales post-deploy. Visibilidad histórica: consultar <code>MIGRATIONS#GLOBAL</code> lista todas las migraciones aplicadas con timestamp y autor. Un hash del contenido del script detecta retroactivamente si alguien lo editó después de aplicarlo.</p>
+        <p><strong>Negativas:</strong> pipeline más largo para migraciones pesadas. La convención "no UpdateItem ad-hoc en producción" depende de code review humano hasta que se agregue un lint en CI.</p>
+      </section>
+
+      <section>
+        <h2>Alternativas descartadas</h2>
+        <p><strong>Herramientas Alembic-style para DynamoDB:</strong> las existentes asumen modelo relacional. Python puro mantiene coherencia con el resto de la infraestructura.</p>
+        <p><strong>Down migrations explícitas:</strong> costo de mantenimiento alto, valor real bajo en NoSQL single-table. Forward-only es la práctica estándar en DynamoDB.</p>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose-adr h2 {
+    @apply text-xs font-mono text-gray-500 uppercase tracking-widest mb-3;
+  }
+  .prose-adr h3 {
+    @apply text-sm font-semibold text-gray-400 mt-5 mb-2;
+  }
+  .prose-adr p {
+    @apply text-gray-300 text-sm leading-relaxed mb-3;
+  }
+  .prose-adr pre {
+    @apply bg-dark-bg border border-dark-border p-4 mb-3 overflow-x-auto;
+  }
+  .prose-adr pre code {
+    @apply font-mono text-xs text-gray-300 bg-transparent px-0 py-0;
+  }
+  .prose-adr code {
+    @apply font-mono text-xs text-accent-yellow bg-accent-yellow/10 px-1 py-0.5;
+  }
+  .prose-adr strong {
+    @apply text-gray-200 font-semibold;
+  }
+  .prose-adr section {
+    @apply pb-8 border-b border-dark-border last:border-0 last:pb-0;
+  }
+</style>

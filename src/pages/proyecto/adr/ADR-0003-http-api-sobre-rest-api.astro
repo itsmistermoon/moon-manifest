@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="ADR-0003: HTTP API sobre REST API · DŌJŌ">
+  <div class="max-w-2xl mx-auto px-6 py-12 md:py-20">
+    <a href="/proyecto" class="text-xs font-mono text-gray-500 hover:text-accent-blue transition-colors mb-8 block">← Volver al caso de estudio</a>
+
+    <header class="mb-10">
+      <p class="text-xs font-mono text-gray-600 uppercase tracking-widest mb-2">ADR-0003 · 2026-04-20 · Aceptado</p>
+      <h1 class="text-3xl font-display font-bold text-white leading-tight">HTTP API sobre REST API para API Gateway</h1>
+    </header>
+
+    <div class="prose-adr space-y-8">
+
+      <section>
+        <h2>Decisión</h2>
+        <p>Usar <strong>API Gateway HTTP API</strong> (payload format 2.0) en lugar de REST API (payload 1.0).</p>
+      </section>
+
+      <section>
+        <h2>Razonamiento</h2>
+        <p>HTTP API es suficiente para todos los access patterns del sistema: autenticación JWT vía Cognito authorizer, CORS, rutas y throttling básico.</p>
+        <p>Las features exclusivas de REST API (API keys, usage plans, caching de respuestas, integración con WAF a nivel de stage) no son necesarias en el MVP y pueden incorporarse si el volumen lo justifica.</p>
+        <p><strong>Costo:</strong> HTTP API cuesta ~$1/millón de requests vs ~$3,5/millón de REST API. Para el tráfico inicial, la diferencia es de centavos, pero el principio de menor complejidad aplica igual.</p>
+      </section>
+
+      <section>
+        <h2>Consecuencias</h2>
+        <p>Si en el futuro se requiere WAF a nivel de API o caching de respuestas de API Gateway, migrar de HTTP API a REST API requiere un cambio en el template SAM y un redeploy — no es transparente. Se documenta como deuda deliberada, no accidental.</p>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose-adr h2 {
+    @apply text-xs font-mono text-gray-500 uppercase tracking-widest mb-3;
+  }
+  .prose-adr p {
+    @apply text-gray-300 text-sm leading-relaxed mb-3;
+  }
+  .prose-adr strong {
+    @apply text-gray-200 font-semibold;
+  }
+  .prose-adr section {
+    @apply pb-8 border-b border-dark-border last:border-0 last:pb-0;
+  }
+</style>

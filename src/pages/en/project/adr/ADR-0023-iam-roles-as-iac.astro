@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="ADR-0023: IAM Roles as IaC · DŌJŌ">
+  <div class="max-w-2xl mx-auto px-6 py-12 md:py-20">
+    <a href="/en/project" class="text-xs font-mono text-gray-500 hover:text-accent-blue transition-colors mb-8 block">← Back to case study</a>
+
+    <header class="mb-10">
+      <p class="text-xs font-mono text-gray-600 uppercase tracking-widest mb-2">ADR-0023 · 2026-06-24 · Accepted</p>
+      <h1 class="text-3xl font-display font-bold text-white leading-tight">GitHub Actions IAM roles managed as IaC</h1>
+    </header>
+
+    <div class="prose-adr space-y-8">
+
+      <section>
+        <h2>Context</h2>
+        <p>The CI/CD pipeline IAM roles were created manually in the AWS console during the initial setup. This worked until a change to the SAM template added CloudFront resource access that the role did not have — and the error only surfaced at runtime during the deploy.</p>
+        <p><strong>The concrete symptom:</strong> adding <code>AccessLogSettings</code> to API Gateway caused CloudFormation to attempt an update on the CloudFront distribution, an operation that required permissions not present in the role. The error was discovered in production with automatic rollback, requiring two corrective deploys.</p>
+        <p><strong>The underlying problem:</strong> without IaC, IAM permissions are invisible — no diff, no review, no history. The first successful deploy gives false confidence that permissions are correct; gaps only appear when a new category of AWS resources is touched.</p>
+      </section>
+
+      <section>
+        <h2>Decision</h2>
+        <p>IAM roles are codified in a separate CloudFormation stack and deployed via a dedicated workflow.</p>
+
+        <h3>Why a separate stack and not inside the main template</h3>
+        <p>The app template is deployed <em>with</em> the IAM roles. If those roles were in the same stack, a misconfigured policy could break the very deploy that tries to fix it — a permissions dead-lock. A separate stack breaks that circular dependency.</p>
+
+        <h3>Why <code>cloudfront:*</code> and not granular permissions</h3>
+        <p>CloudFront permissions were expanded to <code>cloudfront:*</code> after two failed attempts with granular lists. CloudFormation requires different actions depending on the operation type, and the complete list is not exhaustively documented.</p>
+        <p><strong>Risk analysis:</strong> the policy already includes <code>s3:*</code> and <code>dynamodb:*</code> without resource restriction, which are considerably more dangerous. Restricting only CloudFront would be false security: the floor of potential damage is set by S3 and DynamoDB. A full scope review is deferred until the project onboards external collaborators with merge permissions.</p>
+
+        <h3><code>DeletionPolicy: Retain</code></h3>
+        <p>All resources in the IAM stack carry <code>DeletionPolicy: Retain</code>. Accidentally deleting the stack would not delete the roles — which is critical because their absence would break all future deploys.</p>
+      </section>
+
+      <section>
+        <h2>Consequences</h2>
+        <p>Any IAM permissions change goes through a Pull Request, is reviewable in the diff, and has a history in git. The IAM workflow has <code>cancel-in-progress: false</code> to prevent an app deploy from accidentally cancelling an in-progress role update.</p>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose-adr h2 {
+    @apply text-xs font-mono text-gray-500 uppercase tracking-widest mb-3;
+  }
+  .prose-adr h3 {
+    @apply text-sm font-semibold text-gray-400 mt-5 mb-2;
+  }
+  .prose-adr p {
+    @apply text-gray-300 text-sm leading-relaxed mb-3;
+  }
+  .prose-adr em {
+    @apply italic text-gray-300;
+  }
+  .prose-adr code {
+    @apply font-mono text-xs text-accent-yellow bg-accent-yellow/10 px-1 py-0.5;
+  }
+  .prose-adr strong {
+    @apply text-gray-200 font-semibold;
+  }
+  .prose-adr section {
+    @apply pb-8 border-b border-dark-border last:border-0 last:pb-0;
+  }
+</style>
