@@ -1,3 +1,4 @@
+.cortex/
 # Build output
 dist/
 .astro/
@@ -16,4 +17,3 @@ dojos_final.pdf
 wiki/
 .claude/
 .commandcode/
-.hot/
