@@ -49,15 +49,15 @@ const hasSections = sections.length > 0;
     </span>
     <button id="mobile-nav-toggle" aria-label={menuLabel} aria-expanded="false" class="relative w-11 h-11 -mr-3 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
       <span class="sr-only">{menuLabel}</span>
-      <span id="mobile-nav-bar1" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] -translate-y-[4px]"></span>
-      <span id="mobile-nav-bar2" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-[4px]"></span>
+      <span id="mobile-nav-bar1" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] -translate-y-[4px]"></span>
+      <span id="mobile-nav-bar2" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-[4px]"></span>
     </button>
   </div>
 </div>
 
-<div id="mobile-nav-backdrop" class="md:hidden fixed inset-0 z-40 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
+<div id="mobile-nav-backdrop" class="md:hidden fixed inset-0 z-40 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
 
-<div id="mobile-nav-panel" class="md:hidden fixed top-14 inset-x-0 z-50 bg-dark-bg opacity-0 -translate-y-2 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]">
+<div id="mobile-nav-panel" class="md:hidden fixed top-14 inset-x-0 z-50 bg-dark-bg opacity-0 -translate-y-2 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
   <div class={`${maxWidth} mx-auto px-6`}>
     <div class="corner-box bg-dark-bg">
       <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
