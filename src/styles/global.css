@@ -29,6 +29,22 @@
   ::selection {
     @apply bg-accent-blue/30 text-white;
   }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-blue);
+    outline-offset: 2px;
+  }
+}
+
+/* Issue #4 — usuarios con esta preferencia del sistema no ven ninguna animación,
+   incluyendo scroll-behavior: smooth y las transiciones del nav mobile. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 @layer components {

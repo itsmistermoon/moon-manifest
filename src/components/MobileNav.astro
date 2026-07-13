@@ -47,17 +47,17 @@ const hasSections = sections.length > 0;
       <svg class="w-3 h-3 text-accent-blue mx-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
       <span id="mobile-nav-crumb" data-sections={JSON.stringify(sections)} class="text-white">{crumbDefault}</span>
     </span>
-    <button id="mobile-nav-toggle" aria-label={menuLabel} aria-expanded="false" class="relative w-11 h-11 -mr-3 flex items-center justify-center text-gray-400 hover:text-white transition-colors outline-none focus-visible:ring-2 focus-visible:ring-accent-blue">
+    <button id="mobile-nav-toggle" aria-label={menuLabel} aria-expanded="false" class="relative w-11 h-11 -mr-3 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
       <span class="sr-only">{menuLabel}</span>
-      <span id="mobile-nav-bar1" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-200 ease-out -translate-y-[4px]"></span>
-      <span id="mobile-nav-bar2" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-200 ease-out translate-y-[4px]"></span>
+      <span id="mobile-nav-bar1" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] -translate-y-[4px]"></span>
+      <span id="mobile-nav-bar2" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-[4px]"></span>
     </button>
   </div>
 </div>
 
-<div id="mobile-nav-backdrop" class="md:hidden fixed inset-0 z-40 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-150 ease-out"></div>
+<div id="mobile-nav-backdrop" class="md:hidden fixed inset-0 z-40 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
 
-<div id="mobile-nav-panel" class="md:hidden fixed top-14 inset-x-0 z-50 bg-dark-bg opacity-0 -translate-y-1 pointer-events-none transition-all duration-150 ease-out">
+<div id="mobile-nav-panel" class="md:hidden fixed top-14 inset-x-0 z-50 bg-dark-bg opacity-0 -translate-y-2 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]">
   <div class={`${maxWidth} mx-auto px-6`}>
     <div class="corner-box bg-dark-bg">
       <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
@@ -88,7 +88,7 @@ const hasSections = sections.length > 0;
     const willOpen = open ?? panel?.classList.contains('pointer-events-none');
     toggle?.setAttribute('aria-expanded', String(willOpen));
     panel?.classList.toggle('opacity-0', !willOpen);
-    panel?.classList.toggle('-translate-y-1', !willOpen);
+    panel?.classList.toggle('-translate-y-2', !willOpen);
     panel?.classList.toggle('pointer-events-none', !willOpen);
     backdrop?.classList.toggle('opacity-0', !willOpen);
     backdrop?.classList.toggle('pointer-events-none', !willOpen);
