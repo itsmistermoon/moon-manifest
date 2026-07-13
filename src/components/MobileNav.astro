@@ -1,11 +1,12 @@
 ---
 // Mobile-only header nav: fixed top bar acting as a breadcrumb, hamburger→X trigger,
 // dimmed backdrop, dropdown clamped to the page's own content width (corner-box, crosshairs).
-// Validated as "variant E" in a throwaway prototype on branch prototype/mobile-nav-fab.
 //
-// `sections` (optional) enables scroll-spy: the breadcrumb + matching link track the
-// in-page anchor currently in view. Pages with no in-page anchors (CV, case study) omit
-// it and get a static crumb instead.
+// `sections` (optional) enables scroll-spy: the breadcrumb, the matching mobile-panel link,
+// and the desktop #sidebar-nav link (if present on the page) all track the in-page anchor
+// currently in view. Pages with no in-page anchors (CV, case study) omit it and get a
+// static crumb instead — this is also why sidebar-nav tracking lives here instead of in
+// each page's own script: it only ever runs alongside this component's own spy.
 interface NavSection {
   id: string;
   label: string;
@@ -114,6 +115,10 @@ const hasSections = sections.length > 0;
     // Only the section links track scroll position — global nav links (Inicio/CV/...)
     // and the language switcher keep whatever active/inactive state they were rendered with.
     const sectionLinks = document.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link[data-section]');
+    // Desktop sidebar nav (#sidebar-nav, rendered by the page itself) tracks the same
+    // sections — driven from here instead of a second observer in the page's own script,
+    // since the two only ever coexist on pages that also pass `sections`.
+    const sidebarLinks = document.querySelectorAll<HTMLAnchorElement>('#sidebar-nav a');
     const spy = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && crumbLabels[entry.target.id]) {
@@ -122,6 +127,9 @@ const hasSections = sections.length > 0;
             const isActive = l.dataset.section === entry.target.id;
             l.classList.toggle('text-white', isActive);
             l.classList.toggle('text-gray-500', !isActive);
+          });
+          sidebarLinks.forEach(l => {
+            l.classList.toggle('active', l.getAttribute('href') === `#${entry.target.id}`);
           });
         }
       });

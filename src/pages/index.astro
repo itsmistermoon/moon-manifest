@@ -336,22 +336,8 @@ const skills = [
     if (lang.startsWith('en')) window.location.replace('/en');
   }
 
-  const sections = document.querySelectorAll<HTMLElement>('section[id]');
-  const navLinks = document.querySelectorAll<HTMLAnchorElement>('#sidebar-nav a');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(link => link.classList.remove('active'));
-        const active = document.querySelector<HTMLAnchorElement>(
-          `#sidebar-nav a[href="#${entry.target.id}"]`
-        );
-        active?.classList.add('active');
-      }
-    });
-  }, { rootMargin: '-30% 0px -60% 0px' });
-
-  sections.forEach(s => observer.observe(s));
+  // El scroll-spy de #sidebar-nav vive en MobileNav.astro (evita un segundo
+  // IntersectionObserver haciendo lo mismo — ver comentario en ese componente).
 
   // Snap de cada sección al múltiplo de 24px — solo Y, X no se toca.
   function snapGrid() {

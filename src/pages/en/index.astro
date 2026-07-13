@@ -331,22 +331,8 @@ const skills = [
   // Mark that the user chose English manually — skip auto-redirect on ES root
   sessionStorage.setItem('lang-override', 'en');
 
-  const sections = document.querySelectorAll<HTMLElement>('section[id]');
-  const navLinks = document.querySelectorAll<HTMLAnchorElement>('#sidebar-nav a');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(link => link.classList.remove('active'));
-        const active = document.querySelector<HTMLAnchorElement>(
-          `#sidebar-nav a[href="#${entry.target.id}"]`
-        );
-        active?.classList.add('active');
-      }
-    });
-  }, { rootMargin: '-30% 0px -60% 0px' });
-
-  sections.forEach(s => observer.observe(s));
+  // #sidebar-nav's scroll-spy lives in MobileNav.astro (avoids a second
+  // IntersectionObserver doing the same thing — see the comment in that component).
 
   function snapGrid() {
     const g = 24;
