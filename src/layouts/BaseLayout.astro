@@ -16,16 +16,20 @@ const {
 } = Astro.props;
 
 const pathname = Astro.url.pathname;
-const isEnglish = pathname.startsWith('/en');
+const isEnglish = pathname === '/en' || pathname.startsWith('/en/');
 const currentLang = isEnglish ? 'en' : 'es';
 const alternateLang = isEnglish ? 'es' : 'en';
 
 const site = Astro.site ? new URL(Astro.site).origin : 'https://jparmstrong.vercel.app';
 const buildUrl = (path: string) => new URL(path, site).toString();
 
-const canonicalURL = buildUrl(pathname);
+// Canonical URLs should be normalized to avoid duplicate content
+const normalizedPath = pathname.endsWith('/') && pathname.length > 1 ? pathname.slice(0, -1) : pathname;
+const canonicalURL = buildUrl(normalizedPath);
+
+// Generate alternate language paths safely
 const alternatePath = isEnglish 
-  ? pathname.replace(/^\/en/, '') || '/'
+  ? pathname.replace(/^\/en(\/|$)/, '/') 
   : `/en${pathname === '/' ? '' : pathname}`;
 const alternateURL = buildUrl(alternatePath);
 const imageUrl = buildUrl(image);
