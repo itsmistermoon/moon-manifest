@@ -137,6 +137,20 @@ const skills = [
         </div>
       </aside>
 
+      <!-- Mobile Nav (Top Right FAB) -->
+      <div class="md:hidden fixed top-6 right-6 z-50 flex flex-col items-end gap-3">
+        <button id="mobile-nav-toggle" aria-label="Toggle menu" class="w-12 h-12 bg-accent-blue text-dark-bg font-bold flex items-center justify-center text-xl shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all z-50 outline-none focus-visible:ring-2 focus-visible:ring-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <div id="mobile-nav-menu" class="flex flex-col gap-2 items-end origin-top-right opacity-0 scale-95 pointer-events-none transition-all duration-200 ease-out">
+          <a href="#about" class="mobile-nav-link bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:bg-accent-blue hover:text-black focus-visible:bg-accent-blue focus-visible:text-black outline-none transition-colors">01. About</a>
+          <a href="#project" class="mobile-nav-link bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:bg-accent-purple hover:text-black focus-visible:bg-accent-purple focus-visible:text-black outline-none transition-colors">02. Project</a>
+          <a href="#experience" class="mobile-nav-link bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:bg-accent-yellow hover:text-black focus-visible:bg-accent-yellow focus-visible:text-black outline-none transition-colors">03. Experience</a>
+          <a href="#design" class="mobile-nav-link bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:bg-accent-blue hover:text-black focus-visible:bg-accent-blue focus-visible:text-black outline-none transition-colors">04. Design</a>
+          <a href="#stack" class="mobile-nav-link bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:bg-accent-purple hover:text-black focus-visible:bg-accent-purple focus-visible:text-black outline-none transition-colors">05. Stack</a>
+        </div>
+      </div>
+
       <!-- Right Column: Content -->
       <main class="md:col-span-8">
 
@@ -313,6 +327,27 @@ const skills = [
 <script>
   // Mark that the user chose English manually — skip auto-redirect on ES root
   sessionStorage.setItem('lang-override', 'en');
+
+  // Mobile Nav Toggle Logic
+  const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+  const mobileNavMenu = document.getElementById('mobile-nav-menu');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  function toggleMobileNav() {
+    const isOpen = mobileNavMenu?.classList.contains('opacity-100');
+    if (isOpen) {
+      mobileNavMenu?.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+      mobileNavMenu?.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+    } else {
+      mobileNavMenu?.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+      mobileNavMenu?.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+    }
+  }
+
+  mobileNavToggle?.addEventListener('click', toggleMobileNav);
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', toggleMobileNav);
+  });
 
   const sections = document.querySelectorAll<HTMLElement>('section[id]');
   const navLinks = document.querySelectorAll<HTMLAnchorElement>('#sidebar-nav a');
