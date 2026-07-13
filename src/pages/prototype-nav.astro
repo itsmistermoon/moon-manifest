@@ -1,0 +1,157 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="PROTOTYPE: Mobile Nav">
+  <!-- Note: This is throwaway prototype code -->
+  
+  <!-- VARIANT 1: Hamburger Menu (Overlay) -->
+  <div id="nav-v1" class="mobile-nav-variant hidden md:hidden">
+    <div class="fixed top-0 left-0 right-0 p-4 flex justify-end z-50 mix-blend-difference">
+      <button id="v1-toggle" class="p-2 border border-dark-border bg-dark-bg text-white font-mono text-sm hover:bg-white hover:text-black transition-colors">
+        [ MENU ]
+      </button>
+    </div>
+    <div id="v1-overlay" class="fixed inset-0 bg-dark-bg z-40 hidden flex-col justify-center items-center gap-8">
+      <a href="#sobre-mi" class="text-3xl font-display text-white hover:text-accent-blue transition-colors">01. Sobre mí</a>
+      <a href="#proyecto" class="text-3xl font-display text-white hover:text-accent-purple transition-colors">02. Proyecto</a>
+      <a href="#experiencia" class="text-3xl font-display text-white hover:text-accent-yellow transition-colors">03. Experiencia</a>
+      <a href="#diseno" class="text-3xl font-display text-white hover:text-accent-blue transition-colors">04. Diseño</a>
+      <a href="#stack" class="text-3xl font-display text-white hover:text-accent-purple transition-colors">05. Stack</a>
+    </div>
+  </div>
+
+  <!-- VARIANT 2: Sticky Top Horizontal Scroll -->
+  <div id="nav-v2" class="mobile-nav-variant hidden md:hidden">
+    <div class="fixed top-0 left-0 right-0 bg-dark-bg/95 backdrop-blur border-b border-dark-border z-40 px-4 py-3 overflow-x-auto whitespace-nowrap hide-scrollbar">
+      <div class="flex gap-6">
+        <a href="#sobre-mi" class="text-sm font-mono text-gray-400 hover:text-white transition-colors">Sobre mí</a>
+        <a href="#proyecto" class="text-sm font-mono text-gray-400 hover:text-white transition-colors">Proyecto</a>
+        <a href="#experiencia" class="text-sm font-mono text-gray-400 hover:text-white transition-colors">Experiencia</a>
+        <a href="#diseno" class="text-sm font-mono text-gray-400 hover:text-white transition-colors">Diseño</a>
+        <a href="#stack" class="text-sm font-mono text-gray-400 hover:text-white transition-colors">Stack</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- VARIANT 3: Sticky Bottom Bar -->
+  <div id="nav-v3" class="mobile-nav-variant hidden md:hidden">
+    <div class="fixed bottom-12 left-0 right-0 bg-dark-bg/95 backdrop-blur border-t border-dark-border z-40 p-2">
+      <div class="flex justify-between items-center px-1">
+        <a href="#sobre-mi" class="text-[10px] font-mono text-gray-400 hover:text-white text-center flex-1 py-3 border-r border-dark-border">01.</a>
+        <a href="#proyecto" class="text-[10px] font-mono text-gray-400 hover:text-white text-center flex-1 py-3 border-r border-dark-border">02.</a>
+        <a href="#experiencia" class="text-[10px] font-mono text-gray-400 hover:text-white text-center flex-1 py-3 border-r border-dark-border">03.</a>
+        <a href="#diseno" class="text-[10px] font-mono text-gray-400 hover:text-white text-center flex-1 py-3 border-r border-dark-border">04.</a>
+        <a href="#stack" class="text-[10px] font-mono text-gray-400 hover:text-white text-center flex-1 py-3">05.</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- VARIANT 4: FAB Menu Bottom Right -->
+  <div id="nav-v4" class="mobile-nav-variant hidden md:hidden">
+    <div class="fixed bottom-16 right-4 z-50 flex flex-col items-end gap-3">
+      <div id="v4-menu" class="hidden flex-col gap-2 items-end">
+        <a href="#sobre-mi" class="bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-lg">Sobre mí</a>
+        <a href="#proyecto" class="bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-lg">Proyecto</a>
+        <a href="#experiencia" class="bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-lg">Experiencia</a>
+        <a href="#diseno" class="bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-lg">Diseño</a>
+        <a href="#stack" class="bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-lg">Stack</a>
+      </div>
+      <button id="v4-toggle" class="w-14 h-14 bg-accent-blue text-dark-bg font-bold flex items-center justify-center text-xl shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
+        M
+      </button>
+    </div>
+  </div>
+
+  <style>
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .mobile-nav-variant.active { display: block; }
+  </style>
+
+  <!-- Prototype Switcher Bar -->
+  <div class="fixed bottom-0 left-0 right-0 bg-accent-yellow text-black p-2 z-[999] flex justify-between items-center text-[10px] sm:text-xs font-mono border-t-2 border-black">
+    <span class="font-bold uppercase tracking-widest hidden sm:inline">Prototype Nav</span>
+    <span class="font-bold uppercase tracking-widest sm:hidden">Proto</span>
+    <div class="flex gap-1 sm:gap-2">
+      <button class="switcher-btn px-2 py-1 bg-black text-accent-yellow hover:bg-gray-900 transition-colors" data-v="1">1.Overlay</button>
+      <button class="switcher-btn px-2 py-1 bg-black text-accent-yellow hover:bg-gray-900 transition-colors" data-v="2">2.TopBar</button>
+      <button class="switcher-btn px-2 py-1 bg-black text-accent-yellow hover:bg-gray-900 transition-colors" data-v="3">3.Bottom</button>
+      <button class="switcher-btn px-2 py-1 bg-black text-accent-yellow hover:bg-gray-900 transition-colors" data-v="4">4.FAB</button>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 py-12 md:py-24">
+    <h1 class="text-4xl md:text-5xl font-display font-bold text-white mb-3">Mobile Nav Variations</h1>
+    <p class="text-accent-yellow font-mono text-sm mb-12 border border-accent-yellow p-4 inline-block">⚠️ Resize window to mobile width to test the UI variations.</p>
+    
+    <main class="space-y-48 pb-32">
+      <section id="sobre-mi" class="min-h-[70vh] border border-dashed border-gray-700 p-8 flex items-center justify-center relative">
+        <span class="absolute top-4 left-4 text-gray-700 font-mono text-sm">scroll down ↓</span>
+        <h2 class="text-3xl text-accent-blue font-bold text-center">01. Sobre mí</h2>
+      </section>
+
+      <section id="proyecto" class="min-h-[70vh] border border-dashed border-gray-700 p-8 flex items-center justify-center">
+        <h2 class="text-3xl text-accent-purple font-bold text-center">02. Proyecto Destacado</h2>
+      </section>
+
+      <section id="experiencia" class="min-h-[70vh] border border-dashed border-gray-700 p-8 flex items-center justify-center">
+        <h2 class="text-3xl text-accent-yellow font-bold text-center">03. Experiencia</h2>
+      </section>
+
+      <section id="diseno" class="min-h-[70vh] border border-dashed border-gray-700 p-8 flex items-center justify-center">
+        <h2 class="text-3xl text-white font-bold text-center">04. Diseño Gráfico</h2>
+      </section>
+
+      <section id="stack" class="min-h-[70vh] border border-dashed border-gray-700 p-8 flex items-center justify-center relative">
+        <span class="absolute bottom-4 left-4 text-gray-700 font-mono text-sm">end of content.</span>
+        <h2 class="text-3xl text-accent-blue font-bold text-center">05. Stack Tecnológico</h2>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Variant switching logic
+    function setVariant(v) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('variant', v);
+      window.history.replaceState({}, '', url);
+
+      document.querySelectorAll('.mobile-nav-variant').forEach(el => el.classList.remove('active'));
+      const activeVariant = document.getElementById('nav-v' + v);
+      if (activeVariant) {
+        activeVariant.classList.add('active');
+      }
+    }
+
+    const currentVariant = new URLSearchParams(window.location.search).get('variant') || '1';
+    setVariant(currentVariant);
+
+    document.querySelectorAll('.switcher-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        setVariant(e.target.dataset.v);
+      });
+    });
+
+    // V1 Logic
+    const v1Toggle = document.getElementById('v1-toggle');
+    const v1Overlay = document.getElementById('v1-overlay');
+    v1Toggle?.addEventListener('click', () => {
+      v1Overlay?.classList.toggle('hidden');
+      v1Overlay?.classList.toggle('flex');
+    });
+    v1Overlay?.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        v1Overlay.classList.add('hidden');
+        v1Overlay.classList.remove('flex');
+      });
+    });
+
+    // V4 Logic
+    const v4Toggle = document.getElementById('v4-toggle');
+    const v4Menu = document.getElementById('v4-menu');
+    v4Toggle?.addEventListener('click', () => {
+      v4Menu?.classList.toggle('hidden');
+      v4Menu?.classList.toggle('flex');
+    });
+  </script>
+</BaseLayout>
