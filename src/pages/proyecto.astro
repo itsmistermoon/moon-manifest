@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import MobileNav from '../components/MobileNav.astro';
 
 const platformUrl = 'https://df25g3qcnocfo.cloudfront.net/';
 
@@ -62,7 +63,17 @@ const stack = [
 ---
 
 <BaseLayout title="DŌJŌ · Caso de Estudio · Juan Pablo Armstrong">
-  <div class="max-w-4xl mx-auto px-6 py-12 md:py-20">
+  <MobileNav
+    maxWidth="max-w-4xl"
+    crumbDefault="DŌJŌ"
+    links={[
+      { href: '/', label: 'Inicio' },
+      { href: '/proyecto', label: 'Caso de estudio', current: true },
+      { href: '/cv', label: 'CV' },
+    ]}
+  />
+  <!-- max-md:pt-[104px] = barra fija de MobileNav (h-14, 56px) + el padding-top original en mobile (py-12, 48px) -->
+  <div class="max-w-4xl mx-auto px-6 py-12 md:py-20 max-md:pt-[104px]">
 
     <!-- Header -->
     <header class="mb-12">

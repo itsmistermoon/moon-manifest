@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import MobileNav from '../components/MobileNav.astro';
 
 const projects = [
   {
@@ -78,7 +79,8 @@ const skills = [
 ---
 
 <BaseLayout title="Juan Pablo Armstrong · Analista Programador">
-  <div class="max-w-6xl mx-auto px-6 py-12 md:py-24">
+  <!-- max-md:pt-[104px] = barra fija de MobileNav (h-14, 56px) + el padding-top original en mobile (py-12, 48px) -->
+  <div class="max-w-6xl mx-auto px-6 py-12 md:py-24 max-md:pt-[104px]">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
       
       <!-- Columna Izquierda: Sticky Sidebar -->
@@ -137,19 +139,22 @@ const skills = [
         </div>
       </aside>
 
-      <!-- Mobile Nav (Top Right FAB) -->
-      <div class="md:hidden fixed top-6 right-6 z-50 flex flex-col items-end gap-3">
-        <button id="mobile-nav-toggle" aria-label="Toggle menu" class="w-12 h-12 bg-accent-blue text-dark-bg font-bold flex items-center justify-center text-xl shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all z-50 outline-none focus-visible:ring-2 focus-visible:ring-white">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </button>
-        <div id="mobile-nav-menu" class="flex flex-col gap-2 items-end origin-top-right opacity-0 scale-95 pointer-events-none transition-all duration-200 ease-out">
-          <a href="#sobre-mi" class="mobile-nav-link bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:bg-accent-blue hover:text-black focus-visible:bg-accent-blue focus-visible:text-black outline-none transition-colors">01. Sobre mí</a>
-          <a href="#proyecto" class="mobile-nav-link bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:bg-accent-purple hover:text-black focus-visible:bg-accent-purple focus-visible:text-black outline-none transition-colors">02. Proyecto</a>
-          <a href="#experiencia" class="mobile-nav-link bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:bg-accent-yellow hover:text-black focus-visible:bg-accent-yellow focus-visible:text-black outline-none transition-colors">03. Experiencia</a>
-          <a href="#diseno" class="mobile-nav-link bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:bg-accent-blue hover:text-black focus-visible:bg-accent-blue focus-visible:text-black outline-none transition-colors">05. Diseño Gráfico</a>
-          <a href="#stack" class="mobile-nav-link bg-dark-bg border border-dark-border px-4 py-2 text-sm font-mono text-white shadow-[4px_4px_0_0_rgba(255,255,255,1)] hover:bg-accent-purple hover:text-black focus-visible:bg-accent-purple focus-visible:text-black outline-none transition-colors">06. Stack</a>
-        </div>
-      </div>
+      <MobileNav
+        maxWidth="max-w-6xl"
+        crumbDefault="01. Sobre mí"
+        sections={[
+          { id: 'sobre-mi', label: '01. Sobre mí' },
+          { id: 'proyecto', label: '02. Proyecto' },
+          { id: 'experiencia', label: '03. Experiencia' },
+          { id: 'diseno', label: '04. Diseño Gráfico' },
+          { id: 'stack', label: '05. Stack' },
+        ]}
+        links={[
+          { href: '/', label: 'Inicio', current: true },
+          { href: '/proyecto', label: 'Caso de estudio' },
+          { href: '/cv', label: 'CV' },
+        ]}
+      />
 
       <!-- Columna Derecha: Contenido -->
       <main class="md:col-span-8">
@@ -245,7 +250,7 @@ const skills = [
 
         <!-- Diseño Gráfico -->
         <section id="diseno" data-grid-section class="pt-24">
-          <h2 class="section-label">05. Diseño Gráfico</h2>
+          <h2 class="section-label">04. Diseño Gráfico</h2>
           <div class="corner-box mb-8">
             <span class="c tl"></span><span class="c tr"></span>
             <span class="c bl"></span><span class="c br"></span>
@@ -296,7 +301,7 @@ const skills = [
 
         <!-- Stack Tecnológico -->
         <section id="stack" data-grid-section class="pt-24">
-          <h2 class="section-label">06. Stack Tecnológico</h2>
+          <h2 class="section-label">05. Stack Tecnológico</h2>
           <div class="corner-box">
             <span class="c tl"></span><span class="c tr"></span>
             <span class="c bl"></span><span class="c br"></span>
@@ -333,27 +338,6 @@ const skills = [
     const lang = navigator.language || '';
     if (lang.startsWith('en')) window.location.replace('/en');
   }
-
-  // Mobile Nav Toggle Logic
-  const mobileNavToggle = document.getElementById('mobile-nav-toggle');
-  const mobileNavMenu = document.getElementById('mobile-nav-menu');
-  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-
-  function toggleMobileNav() {
-    const isOpen = mobileNavMenu?.classList.contains('opacity-100');
-    if (isOpen) {
-      mobileNavMenu?.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
-      mobileNavMenu?.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-    } else {
-      mobileNavMenu?.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
-      mobileNavMenu?.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
-    }
-  }
-
-  mobileNavToggle?.addEventListener('click', toggleMobileNav);
-  mobileNavLinks.forEach(link => {
-    link.addEventListener('click', toggleMobileNav);
-  });
 
   const sections = document.querySelectorAll<HTMLElement>('section[id]');
   const navLinks = document.querySelectorAll<HTMLAnchorElement>('#sidebar-nav a');

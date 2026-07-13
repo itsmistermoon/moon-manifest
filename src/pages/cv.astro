@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import MobileNav from '../components/MobileNav.astro';
 
 const experience = [
   {
@@ -98,8 +99,18 @@ const skills = [
 ---
 
 <BaseLayout title="CV · Juan Pablo Armstrong">
-  <div class="max-w-[912px] mx-auto px-6 py-12 md:py-20">
-    
+  <MobileNav
+    maxWidth="max-w-[912px]"
+    crumbDefault="CV"
+    links={[
+      { href: '/', label: 'Inicio' },
+      { href: '/proyecto', label: 'Caso de estudio' },
+      { href: '/cv', label: 'CV', current: true },
+    ]}
+  />
+  <!-- max-md:pt-[104px] = barra fija de MobileNav (h-14, 56px) + el padding-top original en mobile (py-12, 48px) -->
+  <div class="max-w-[912px] mx-auto px-6 py-12 md:py-20 max-md:pt-[104px]">
+
     <!-- Header -->
     <header class="mb-12">
       <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
