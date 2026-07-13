@@ -18,21 +18,17 @@ const {
 const pathname = Astro.url.pathname;
 const isEnglish = pathname.startsWith('/en');
 const currentLang = isEnglish ? 'en' : 'es';
-
-// Resolve canonical and alternate URLs
-const site = Astro.site ? new URL(Astro.site).origin : 'https://jparmstrong.vercel.app';
-const canonicalPath = pathname.endsWith('/') && pathname.length > 1 ? pathname.slice(0, -1) : pathname;
-const canonicalURL = new URL(canonicalPath, site).toString();
-
-let alternatePath = '';
-if (isEnglish) {
-  alternatePath = pathname.replace(/^\/en/, '') || '/';
-} else {
-  alternatePath = `/en${pathname === '/' ? '' : pathname}`;
-}
-const alternateURL = new URL(alternatePath, site).toString();
 const alternateLang = isEnglish ? 'es' : 'en';
-const imageUrl = new URL(image, site).toString();
+
+const site = Astro.site ? new URL(Astro.site).origin : 'https://jparmstrong.vercel.app';
+const buildUrl = (path: string) => new URL(path, site).toString();
+
+const canonicalURL = buildUrl(pathname);
+const alternatePath = isEnglish 
+  ? pathname.replace(/^\/en/, '') || '/'
+  : `/en${pathname === '/' ? '' : pathname}`;
+const alternateURL = buildUrl(alternatePath);
+const imageUrl = buildUrl(image);
 ---
 
 <!doctype html>
