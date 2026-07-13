@@ -22,11 +22,20 @@ interface Props {
   menuLabel?: string;
   /** Must match the host page's own content-container width class, so the dropdown lines up with the containers below it. */
   maxWidth: string;
+  /** Renders the ES/EN switcher in one fixed spot site-wide: top-right on desktop, last row of the mobile panel. */
+  lang: { es: string; en: string; current: 'es' | 'en' };
 }
 
-const { crumbDefault, sections = [], links, menuLabel = 'Abrir menú', maxWidth } = Astro.props;
+const { crumbDefault, sections = [], links, menuLabel = 'Abrir menú', maxWidth, lang } = Astro.props;
 const hasSections = sections.length > 0;
 ---
+
+<!-- Desktop: fixed top-right, identical position on every page regardless of that page's own layout -->
+<div class="hidden md:flex fixed top-6 right-6 z-40 items-center gap-3 text-xs font-mono">
+  {lang.current === 'es' ? <span class="text-accent-yellow">ES</span> : <a href={lang.es} class="text-gray-500 hover:text-gray-300 transition-colors">ES</a>}
+  <span class="text-dark-border">|</span>
+  {lang.current === 'en' ? <span class="text-accent-yellow">EN</span> : <a href={lang.en} class="text-gray-500 hover:text-gray-300 transition-colors">EN</a>}
+</div>
 
 <div class="md:hidden fixed top-0 inset-x-0 z-50 bg-dark-bg border-b border-dark-line">
   <div class="flex items-center justify-between px-6 h-14">
@@ -55,6 +64,11 @@ const hasSections = sections.length > 0;
       {links.map((l, i) => (
         <a href={l.href} class={`mobile-nav-link block px-4 py-3 text-xs font-mono uppercase tracking-widest transition-colors ${l.current ? 'text-white' : 'text-gray-500 hover:text-white'} ${i > 0 || hasSections ? 'border-t border-dark-line' : ''}`}>{l.label}</a>
       ))}
+      <div class="flex items-center gap-3 px-4 py-3 text-xs font-mono border-t border-dark-line">
+        {lang.current === 'es' ? <span class="text-accent-yellow">ES</span> : <a href={lang.es} class="mobile-nav-link text-gray-500 hover:text-white transition-colors">ES</a>}
+        <span class="text-dark-border">|</span>
+        {lang.current === 'en' ? <span class="text-accent-yellow">EN</span> : <a href={lang.en} class="mobile-nav-link text-gray-500 hover:text-white transition-colors">EN</a>}
+      </div>
     </div>
   </div>
 </div>
@@ -95,11 +109,14 @@ const hasSections = sections.length > 0;
     const sectionEls = sections
       .map(s => document.getElementById(s.id))
       .filter((el): el is HTMLElement => el !== null);
+    // Only the section links track scroll position — global nav links (Inicio/CV/...)
+    // and the language switcher keep whatever active/inactive state they were rendered with.
+    const sectionLinks = document.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link[data-section]');
     const spy = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && crumbLabels[entry.target.id]) {
           crumbEl.textContent = crumbLabels[entry.target.id];
-          links.forEach(l => {
+          sectionLinks.forEach(l => {
             const isActive = l.dataset.section === entry.target.id;
             l.classList.toggle('text-white', isActive);
             l.classList.toggle('text-gray-500', !isActive);

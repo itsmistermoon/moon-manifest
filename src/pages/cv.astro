@@ -101,6 +101,7 @@ const skills = [
 <BaseLayout title="CV · Juan Pablo Armstrong">
   <MobileNav
     maxWidth="max-w-4xl"
+    lang={{ es: '/cv', en: '/en/cv', current: 'es' }}
     crumbDefault="CV"
     links={[
       { href: '/', label: 'Inicio' },
@@ -139,13 +140,6 @@ const skills = [
           <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
           j.p.armstrong@me.com
         </a>
-      </div>
-
-      <!-- Language switcher -->
-      <div class="mt-4 flex gap-3 text-xs font-mono">
-        <span class="text-accent-yellow">ES</span>
-        <span class="text-dark-border">|</span>
-        <a href="/en/cv" class="text-gray-500 hover:text-gray-300 transition-colors">EN</a>
       </div>
     </header>
 
