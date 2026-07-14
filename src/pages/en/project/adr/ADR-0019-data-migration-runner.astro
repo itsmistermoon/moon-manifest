@@ -4,7 +4,7 @@ import MobileNav from '../../../../components/MobileNav.astro';
 ---
 <BaseLayout title="ADR-0019: Data Migration Runner · DŌJŌ">
   <MobileNav
-    maxWidth="max-w-2xl"
+    maxWidth="max-w-4xl"
     menuLabel="Open menu"
     lang={{ es: '/proyecto/adr/ADR-0019-runner-migraciones-datos', en: '/en/project/adr/ADR-0019-data-migration-runner', current: 'en' }}
     homeHref="/en"
@@ -17,9 +17,7 @@ import MobileNav from '../../../../components/MobileNav.astro';
     ]}
   />
   <!-- max-md:pt-[120px] = MobileNav's fixed bar (72px, its own component height) + the original mobile padding-top (py-12, 48px) -->
-  <div class="max-w-2xl mx-auto px-6 py-12 md:py-20 max-md:pt-[120px]">
-    <a href="/en/project" class="text-xs font-mono text-ink-dim hover:text-accent-blue transition-colors mb-8 block">← Back to case study</a>
-
+  <div class="max-w-4xl mx-auto px-6 py-12 md:py-24 max-md:pt-[120px]">
     <header class="mb-10">
       <p class="text-xs font-mono text-ink-dim uppercase tracking-widest mb-2">ADR-0019 · 2026-06-01 · Accepted</p>
       <h1 class="text-3xl font-display font-bold text-ink leading-tight">Idempotent data migration runner on deploy</h1>

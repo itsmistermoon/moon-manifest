@@ -19,6 +19,10 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* El primer paint (pestaña nueva, carga directa) usa el fondo oscuro en vez del
+       canvas blanco/negro por defecto del navegador — evita el flash antes del CSS. */
+    color-scheme: dark;
+    background-color: theme('colors.dark.bg');
   }
 
   body {
