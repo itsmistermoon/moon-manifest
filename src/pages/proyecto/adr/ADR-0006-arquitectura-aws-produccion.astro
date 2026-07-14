@@ -3,11 +3,11 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="ADR-0006: Arquitectura AWS para producción · DŌJŌ">
   <div class="max-w-2xl mx-auto px-6 py-12 md:py-20">
-    <a href="/proyecto" class="text-xs font-mono text-gray-500 hover:text-accent-blue transition-colors mb-8 block">← Volver al caso de estudio</a>
+    <a href="/proyecto" class="text-xs font-mono text-ink-dim hover:text-accent-blue transition-colors mb-8 block">← Volver al caso de estudio</a>
 
     <header class="mb-10">
       <p class="text-xs font-mono text-gray-600 uppercase tracking-widest mb-2">ADR-0006 · 2026-04-26 · Aceptado</p>
-      <h1 class="text-3xl font-display font-bold text-white leading-tight">Arquitectura AWS para producción</h1>
+      <h1 class="text-3xl font-display font-bold text-ink leading-tight">Arquitectura AWS para producción</h1>
     </header>
 
     <div class="prose-adr space-y-8">
@@ -51,16 +51,16 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 <style>
   .prose-adr h2 {
-    @apply text-xs font-mono text-gray-500 uppercase tracking-widest mb-3;
+    @apply text-xs font-mono text-ink-dim uppercase tracking-widest mb-3;
   }
   .prose-adr p {
-    @apply text-gray-300 text-sm leading-relaxed mb-3;
+    @apply text-ink-muted text-sm leading-relaxed mb-3;
   }
   .prose-adr ul {
     @apply space-y-1 mb-3 ml-4;
   }
   .prose-adr li {
-    @apply text-gray-300 text-sm leading-relaxed list-disc list-inside;
+    @apply text-ink-muted text-sm leading-relaxed list-disc list-inside;
   }
   .prose-adr code {
     @apply font-mono text-xs text-accent-yellow bg-accent-yellow/10 px-1 py-0.5;
