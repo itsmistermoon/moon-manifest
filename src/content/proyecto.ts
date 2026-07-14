@@ -1,0 +1,141 @@
+/** Datos invariantes al idioma. */
+export const platformUrl = 'https://df25g3qcnocfo.cloudfront.net/';
+
+export const levels = [
+  { name: 'Rōnin', multiplier: '×1.0' },
+  { name: 'Samurai', multiplier: '×1.3' },
+  { name: 'Hatamoto', multiplier: '×1.7' },
+  { name: 'Daimyō', multiplier: '×2.0' },
+];
+
+export const stack = [
+  'FastAPI', 'Python 3.13', 'React 19', 'TypeScript', 'Mangum',
+  'AWS Lambda', 'API Gateway', 'DynamoDB', 'Cognito',
+  'CloudFront', 'S3', 'SES', 'CloudWatch', 'SSM',
+  'AWS SAM', 'GitHub Actions',
+];
+
+export const proyecto = {
+  es: {
+    title: 'DŌJŌ · Caso de Estudio · Juan Pablo Armstrong',
+    kicker: 'Caso de estudio · AWS Re/Start 2026 · Proyecto final',
+    heroTitle: 'DŌJŌ',
+    heroSubtitle: 'Plataforma serverless de fidelización gamificada',
+    viewPlatform: 'Ver plataforma',
+    badges: ['[ EN PRODUCCIÓN ]', 'Fases 0 → 8 completadas', '23 ADRs documentados'],
+    problem: {
+      label: 'El problema',
+      client: { label: 'El cliente', text: 'Imaquinaria — tienda física de manga, anime y cultura japonesa en Temuco.' },
+      need: { label: 'La necesidad', text: 'Sin sistema de fidelización: sin incentivo para volver, sin historial, sin datos.' },
+      purpose: { label: 'Doble propósito', text: 'Sistema real para Imaquinaria + portafolio técnico cloud para empleabilidad.' },
+    },
+    solution: {
+      label: 'La solución',
+      customerPortal: { title: 'Portal del cliente', items: ['Registro e inicio de sesión', 'Consulta de puntos, nivel y XP', 'Historial de compras', 'Canje de recompensas', 'Misiones activas (stamp cards)'] },
+      adminPanel: { title: 'Panel de administración', items: ['Registro de compras en caja', 'Gestión de recompensas', 'Gestión de misiones', 'Estadísticas de clientes', 'Configuración de niveles y multiplicadores'] },
+    },
+    architecture: {
+      label: 'Arquitectura',
+      zone1: { label: 'Zona 1 — Borde / Público', items: ['CloudFront (CDN, SPA routing)', 'S3 Bucket (React static build)', 'HTTPS vía Route 53'] },
+      zone2: { label: 'Zona 2 — Autenticación', items: ['API Gateway (HTTP API)', 'Cognito User Pool', 'Validación JWT en cada request'] },
+      zone3: { label: 'Zona 3 — Cómputo / Privado', items: ['AWS Lambda (FastAPI + Mangum)', 'DynamoDB single-table (por tenant_id)', 'SSM · SES · CloudWatch'] },
+      cicd: { label: 'CI/CD', text: 'GitHub Actions — despliegue de frontend (S3 / CloudFront) y backend (sam deploy). Gate manual requerido antes de producción.' },
+    },
+    decisionsLabel: 'Decisiones técnicas clave',
+    decisions: [
+      { number: '01', title: 'DynamoDB single-table', body: '10+ entidades en una tabla. Claves PK/SK modeladas por acceso, no por entidad. Toda query incluye el tenant_id: aislamiento físico entre comercios sin infraestructura adicional.', adr: { label: 'ADR-0006', href: '/proyecto/adr/ADR-0006-arquitectura-aws-produccion' } },
+      { number: '02', title: 'Multi-tenant desde el inicio', body: 'Patrón single-tenant deployed, multi-tenant ready. Agregar un segundo comercio es registrarlo en la tabla — sin tocar lógica de negocio. La arquitectura no limita el crecimiento.', adr: null },
+      { number: '03', title: 'Pipeline con gate manual', body: 'GitHub Actions despliega a staging automáticamente. Producción requiere aprobación manual vía issue. Cinco bugs capturados en staging antes de llegar al sistema real.', adr: { label: 'ADR-0023', href: '/proyecto/adr/ADR-0023-roles-iam-en-iac' } },
+      { number: '04', title: 'Migraciones de datos como código', body: 'Runner Python idempotente integrado en el pipeline CI/CD. Cada cambio de datos en DynamoDB pasa por PR, se versiona en git, y se aplica automáticamente en el deploy — cero pasos manuales post-deploy.', adr: { label: 'ADR-0019', href: '/proyecto/adr/ADR-0019-runner-migraciones-datos' } },
+    ],
+    metricsLabel: 'Producción — métricas reales',
+    metrics: [
+      { label: 'Requests en producción', value: '3.397', period: 'últimos 30 días' },
+      { label: 'Error rate (5xx)', value: '0%', period: 'Lambda + API Gateway' },
+      { label: 'Latencia p50 end-to-end', value: '151 ms', period: 'API Gateway + Cognito JWT' },
+      { label: 'Latencia DynamoDB', value: '14–17 ms', period: 'promedio todas las operaciones' },
+      { label: 'Cold start rate', value: '0,7%', period: '24 de 3.397 invocaciones' },
+      { label: 'Throttles Lambda / DynamoDB', value: '0', period: 'últimos 30 días' },
+    ],
+    metricsFootnote: 'Datos de CloudWatch · Lambda + API Gateway + DynamoDB · últimos 30 días',
+    adrsLabel: 'Architecture Decision Records',
+    adrsIntro: 'Cada decisión técnica no obvia quedó registrada con contexto, alternativas consideradas y consecuencias. El proyecto acumula 23 ADRs. Los cuatro más representativos están disponibles como documentos públicos:',
+    adrs: [
+      { id: 'ADR-0003', title: 'HTTP API sobre REST API', href: '/proyecto/adr/ADR-0003-http-api-sobre-rest-api', summary: 'Por qué HTTP API a $1/M en vez de REST API a $3,5/M.' },
+      { id: 'ADR-0006', title: 'Arquitectura AWS para producción', href: '/proyecto/adr/ADR-0006-arquitectura-aws-produccion', summary: 'Decisiones de dominio, Lambda, SSM y logs en el primer deploy.' },
+      { id: 'ADR-0019', title: 'Runner de migraciones de datos', href: '/proyecto/adr/ADR-0019-runner-migraciones-datos', summary: 'Cómo un incidente de producción llevó a automatizar los cambios de datos en DynamoDB.' },
+      { id: 'ADR-0023', title: 'Roles IAM como IaC', href: '/proyecto/adr/ADR-0023-roles-iam-en-iac', summary: 'Por qué un bug en producción es más barato que permisos gestionados a mano.' },
+    ],
+    loyalty: {
+      label: 'Programa de fidelización',
+      title: 'El Bushidō de Imaquinaria',
+      subtitle: 'Sistema de niveles con multiplicadores de puntos — los multiplicadores no son arbitrarios: están calibrados para que el canje de recompensas sea atractivo exactamente en el volumen de compra promedio del cliente de Imaquinaria.',
+      tags: ['Tier premium Kamon', 'Stamp cards digitales', 'Sub-niveles con estados mentales Dōjō'],
+    },
+    stackLabel: 'Stack completo',
+    navLinks: { home: 'Inicio', proyecto: 'Caso de estudio', cv: 'CV' },
+    crumb: 'Caso de estudio',
+    footerCta: 'Ver plataforma en vivo',
+  },
+  en: {
+    title: 'DŌJŌ · Case Study · Juan Pablo Armstrong',
+    kicker: 'Case study · AWS Re/Start 2026 · Final project',
+    heroTitle: 'DŌJŌ',
+    heroSubtitle: 'Gamified serverless loyalty platform',
+    viewPlatform: 'View platform',
+    badges: ['[ LIVE ]', 'Phases 0 → 8 complete', '23 ADRs documented'],
+    problem: {
+      label: 'The problem',
+      client: { label: 'The client', text: 'Imaquinaria — a physical store selling manga, anime, and Japanese culture in Temuco.' },
+      need: { label: 'The need', text: 'No loyalty system: no incentive to return, no purchase history, no customer data.' },
+      purpose: { label: 'Dual purpose', text: 'A real system for Imaquinaria + a cloud technical portfolio for employability.' },
+    },
+    solution: {
+      label: 'The solution',
+      customerPortal: { title: 'Customer portal', items: ['Sign up and sign in', 'Check points, level, and XP', 'Purchase history', 'Redeem rewards', 'Active missions (stamp cards)'] },
+      adminPanel: { title: 'Admin panel', items: ['Register purchases at POS', 'Manage rewards', 'Manage missions', 'Customer statistics', 'Level and multiplier configuration'] },
+    },
+    architecture: {
+      label: 'Architecture',
+      zone1: { label: 'Zone 1 — Edge / Public', items: ['CloudFront (CDN, SPA routing)', 'S3 Bucket (React static build)', 'HTTPS via Route 53'] },
+      zone2: { label: 'Zone 2 — Authentication', items: ['API Gateway (HTTP API)', 'Cognito User Pool', 'JWT validation on every request'] },
+      zone3: { label: 'Zone 3 — Compute / Private', items: ['AWS Lambda (FastAPI + Mangum)', 'DynamoDB single-table (by tenant_id)', 'SSM · SES · CloudWatch'] },
+      cicd: { label: 'CI/CD', text: 'GitHub Actions — deploys frontend (S3 / CloudFront) and backend (sam deploy). Manual gate required before production.' },
+    },
+    decisionsLabel: 'Key technical decisions',
+    decisions: [
+      { number: '01', title: 'DynamoDB single-table', body: '10+ entities in one table. PK/SK keys modeled by access pattern, not by entity. Every query includes tenant_id: physical isolation between merchants with no additional infrastructure.', adr: { label: 'ADR-0006', href: '/en/project/adr/ADR-0006-aws-production-architecture' } },
+      { number: '02', title: 'Multi-tenant from day one', body: 'Single-tenant deployed, multi-tenant ready pattern. Adding a second merchant means registering it in the table — no business logic changes. The architecture doesn\'t limit growth.', adr: null },
+      { number: '03', title: 'Pipeline with manual gate', body: 'GitHub Actions deploys to staging automatically. Production requires manual approval via issue. Five bugs caught in staging before reaching the live system.', adr: { label: 'ADR-0023', href: '/en/project/adr/ADR-0023-iam-roles-as-iac' } },
+      { number: '04', title: 'Data migrations as code', body: 'Idempotent Python runner integrated in the CI/CD pipeline. Every DynamoDB data change goes through a PR, is versioned in git, and is applied automatically on deploy — zero manual post-deploy steps.', adr: { label: 'ADR-0019', href: '/en/project/adr/ADR-0019-data-migration-runner' } },
+    ],
+    metricsLabel: 'Production — real metrics',
+    metrics: [
+      { label: 'Requests in production', value: '3.397', period: 'last 30 days' },
+      { label: 'Error rate (5xx)', value: '0%', period: 'Lambda + API Gateway' },
+      { label: 'p50 end-to-end latency', value: '151 ms', period: 'API Gateway + Cognito JWT' },
+      { label: 'DynamoDB latency', value: '14–17 ms', period: 'average across all operations' },
+      { label: 'Cold start rate', value: '0.7%', period: '24 of 3,397 invocations' },
+      { label: 'Lambda / DynamoDB throttles', value: '0', period: 'last 30 days' },
+    ],
+    metricsFootnote: 'CloudWatch data · Lambda + API Gateway + DynamoDB · last 30 days',
+    adrsLabel: 'Architecture Decision Records',
+    adrsIntro: 'Every non-obvious technical decision was recorded with context, alternatives considered, and consequences. The project has accumulated 23 ADRs. The four most representative ones are available as public documents:',
+    adrs: [
+      { id: 'ADR-0003', title: 'HTTP API over REST API', href: '/en/project/adr/ADR-0003-http-api-over-rest-api', summary: 'Why HTTP API at $1/M instead of REST API at $3.5/M.' },
+      { id: 'ADR-0006', title: 'AWS architecture for production', href: '/en/project/adr/ADR-0006-aws-production-architecture', summary: 'Domain, Lambda, SSM, and logging decisions on the first deploy.' },
+      { id: 'ADR-0019', title: 'Data migration runner', href: '/en/project/adr/ADR-0019-data-migration-runner', summary: 'How a production incident led to automating DynamoDB data changes.' },
+      { id: 'ADR-0023', title: 'IAM roles as IaC', href: '/en/project/adr/ADR-0023-iam-roles-as-iac', summary: 'Why a production bug is cheaper than manually managed permissions.' },
+    ],
+    loyalty: {
+      label: 'Loyalty program',
+      title: 'The Imaquinaria Bushidō',
+      subtitle: 'Level system with points multipliers — the multipliers are not arbitrary: they are calibrated so that reward redemption is attractive at exactly the average purchase volume of an Imaquinaria customer.',
+      tags: ['Premium Kamon tier', 'Digital stamp cards', 'Dōjō mental state sub-levels'],
+    },
+    stackLabel: 'Full stack',
+    navLinks: { home: 'Home', proyecto: 'Case study', cv: 'CV' },
+    crumb: 'Case study',
+    footerCta: 'View live platform',
+  },
+};

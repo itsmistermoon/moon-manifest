@@ -1,0 +1,275 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MobileNav from './MobileNav.astro';
+import Icon from './Icon.astro';
+import { home, socialLinks, skillsMeta, designProjectsMeta } from '../content/home';
+import { routes, type Locale } from '../lib/routes';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = home[locale];
+const homeHref = routes.home[locale];
+const cvHref = routes.cv[locale];
+const proyectoHref = routes.proyecto[locale];
+---
+
+<BaseLayout title={t.title}>
+  <!-- max-md:pt-[120px] = barra fija de MobileNav (72px, altura propia del componente) + el padding-top original en mobile (py-12, 48px) -->
+  <div class="max-w-6xl mx-auto px-6 py-12 lg:py-24 max-lg:pt-[120px]">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+      <!-- Columna Izquierda: Sticky Sidebar -->
+      <aside class="lg:col-span-4 lg:min-w-[300px] lg:sticky lg:top-24 lg:h-fit flex flex-col gap-10">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-display font-bold text-ink mb-3 leading-[1.1]">
+            Juan Pablo<br />Armstrong
+          </h1>
+          <p class="text-xl text-accent-blue font-medium mb-4">{t.tagline}</p>
+          <p class="text-ink-muted leading-relaxed text-base">{t.bio}</p>
+        </div>
+
+        <nav id="sidebar-nav" class="hidden lg:flex flex-col gap-1">
+          {t.sidebarNav.map((item) => (
+            <a href={`#${item.id}`} class="nav-link"><span class="nav-line"></span><span class="nav-text">{item.label}</span></a>
+          ))}
+        </nav>
+
+        <div class="flex flex-col gap-6">
+          <div class="flex items-center gap-5">
+            <a href={socialLinks.email} aria-label="Email" class="relative text-ink-dim hover:text-ink transition-colors before:content-[''] before:absolute before:-inset-2.5">
+              <Icon name="mail" class="w-6 h-6" />
+            </a>
+            <a href={socialLinks.github} target="_blank" rel="noopener" aria-label="GitHub" class="relative text-ink-dim hover:text-ink transition-colors before:content-[''] before:absolute before:-inset-2.5">
+              <Icon name="logo-github" class="w-6 h-6" />
+            </a>
+            <a href={socialLinks.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn" class="relative text-ink-dim hover:text-ink transition-colors before:content-[''] before:absolute before:-inset-2.5">
+              <Icon name="logo-linkedin" class="w-6 h-6" />
+            </a>
+            <a href={socialLinks.behance} target="_blank" rel="noopener" aria-label="Behance" class="relative text-ink-dim hover:text-ink transition-colors before:content-[''] before:absolute before:-inset-2.5">
+              <Icon name="logo-behance" class="w-6 h-6" />
+            </a>
+            <a href={socialLinks.mastodon} target="_blank" rel="me" aria-label="Mastodon" class="relative text-ink-dim hover:text-ink transition-colors before:content-[''] before:absolute before:-inset-2.5">
+              <Icon name="logo-mastodon" class="w-6 h-6" />
+            </a>
+          </div>
+          <div class="flex flex-col gap-2 text-sm pt-4 border-t border-dark-border">
+            <a href={cvHref} class="inline-flex items-center text-ink-muted hover:text-accent-blue transition-colors font-medium">
+              {t.viewCv}
+              <Icon name="arrow-right" class="w-4 h-4 ml-2" />
+            </a>
+            <a href={`${cvHref}.pdf`} download class="inline-flex items-center text-accent-yellow hover:text-yellow-300 transition-colors font-medium">
+              {t.downloadCv}
+              <Icon name="file-text" class="w-4 h-4 ml-2" />
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <MobileNav
+        maxWidth="max-w-6xl"
+        breakpoint="lg"
+        lang={{ es: routes.home.es, en: routes.home.en, current: locale }}
+        homeHref={homeHref}
+        parentCrumb={{ label: t.navLinks.home, href: homeHref }}
+        crumbDefault={t.sections[0].label}
+        menuLabel={locale === 'en' ? 'Open menu' : undefined}
+        sections={t.sections}
+        links={[
+          { href: homeHref, label: t.navLinks.home, current: true },
+          { href: proyectoHref, label: t.navLinks.proyecto },
+          { href: cvHref, label: t.navLinks.cv },
+        ]}
+      />
+
+      <!-- Columna Derecha: Contenido -->
+      <main class="lg:col-span-8">
+
+        <section id={t.sections[0].id} data-grid-section>
+          <h2 class="section-label">{t.about.label}</h2>
+          <div class="space-y-4 text-ink leading-relaxed text-base">
+            {t.about.paragraphs.map((p) => <p>{p}</p>)}
+          </div>
+        </section>
+
+        <section id={t.sections[1].id} data-grid-section class="pt-24">
+          <h2 class="section-label">{t.projectSection.label}</h2>
+
+          {t.projects.map((project) => (
+            <div class="corner-box corner-yellow">
+              <span class="c tl"></span><span class="c tr"></span>
+              <span class="c bl"></span><span class="c br"></span>
+            <article class="brutalist-card border-0 p-6 md:p-8 group">
+              <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
+                <div>
+                  <h3 class="text-2xl font-display font-bold text-ink mb-2 group-hover:text-accent-blue transition-colors">
+                    {project.title}
+                  </h3>
+                  <p class="text-accent-blue font-medium text-sm mb-4">
+                    {project.subtitle}
+                  </p>
+                  <p class="text-ink-muted leading-relaxed">
+                    {project.description}
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class={`px-3 py-1.5 text-xs font-mono font-medium text-accent-${project.statusColor} bg-accent-${project.statusColor}/10 border border-accent-${project.statusColor}/20`}>
+                  [ {project.status.toUpperCase()} ]
+                </span>
+                {project.tags.map((tag) => (
+                  <span class="px-3 py-1.5 text-xs font-mono font-medium text-ink-muted bg-dark-bg border border-dark-border">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div class="flex flex-wrap gap-5 items-center">
+                <a href={proyectoHref} class="inline-flex items-center text-sm font-semibold text-accent-blue hover:text-ink transition-colors duration-200">
+                  {t.projectSection.viewCaseStudy}
+                  <Icon name="arrow-right" class="w-4 h-4 ml-2" />
+                </a>
+                <a href={socialLinks.platform} target="_blank" rel="noopener" class="inline-flex items-center text-sm font-medium text-accent-yellow hover:text-yellow-300 transition-colors">
+                  {t.projectSection.viewPlatform}
+                  <Icon name="external-link" class="w-4 h-4 ml-2" />
+                </a>
+              </div>
+            </article>
+            </div>
+          ))}
+        </section>
+
+        <section id={t.sections[2].id} data-grid-section class="pt-24">
+          <h2 class="section-label">{t.experienceSection.label}</h2>
+
+          <div class="corner-box">
+            <span class="c tl"></span><span class="c tr"></span>
+            <span class="c bl"></span><span class="c br"></span>
+            {t.experience.map((exp, i) => (
+              <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t border-dark-border' : ''} group`}>
+                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
+                  <h3 class="text-lg font-semibold text-ink group-hover:text-accent-blue transition-colors">
+                    {exp.role}
+                  </h3>
+                  <span class="text-xs font-mono text-ink-dim mt-1 sm:mt-0">{exp.period}</span>
+                </div>
+                <p class="text-ink-muted text-sm mb-3">{exp.company}</p>
+                <p class="text-ink-muted text-sm leading-relaxed">{exp.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id={t.sections[3].id} data-grid-section class="pt-24">
+          <h2 class="section-label">{t.designSection.label}</h2>
+          <div class="corner-box mb-8">
+            <span class="c tl"></span><span class="c tr"></span>
+            <span class="c bl"></span><span class="c br"></span>
+            <p class="text-ink-muted leading-relaxed text-sm p-5 border-b border-dark-border">
+              {t.designSection.intro}
+            </p>
+            {t.designProjects.map((project, i) => (
+              <a
+                href={designProjectsMeta[i].link}
+                target="_blank"
+                rel="noopener"
+                class={`brutalist-card group flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} ${i > 0 ? 'border-t border-dark-border' : ''}`}
+              >
+                <div class="md:w-2/5 flex-shrink-0 bg-dark-surface overflow-hidden border-b md:border-b-0 border-dark-border" style={i % 2 === 0 ? 'border-right: 1px solid var(--color-dark-border)' : 'border-left: 1px solid var(--color-dark-border)'}>
+                  {designProjectsMeta[i].image.startsWith('http') ? (
+                    <img src={designProjectsMeta[i].image} alt={project.title} class="w-full h-full object-cover aspect-video" />
+                  ) : (
+                    <div class="w-full aspect-video flex items-center justify-center">
+                      <span class="text-xs font-mono text-gray-600">{t.designSection.imagePlaceholder}</span>
+                    </div>
+                  )}
+                </div>
+
+                <div class="p-6 flex flex-col justify-center">
+                  <span class="text-xs font-mono text-ink-dim mb-2 block">{project.category}</span>
+                  <h3 class="text-lg font-semibold text-ink mb-3 group-hover:text-accent-blue transition-colors">
+                    {project.title}
+                  </h3>
+                  <p class="text-ink-muted text-sm leading-relaxed">{project.description}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <a
+            href={socialLinks.behance}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center text-sm font-semibold text-accent-blue hover:text-ink transition-colors duration-200"
+          >
+            {t.designSection.viewFullPortfolio}
+            <Icon name="external-link" class="w-4 h-4 ml-2" />
+          </a>
+        </section>
+
+        <section id={t.sections[4].id} data-grid-section class="pt-24">
+          <h2 class="section-label">{t.stackSection.label}</h2>
+          <div class="corner-box">
+            <span class="c tl"></span><span class="c tr"></span>
+            <span class="c bl"></span><span class="c br"></span>
+            {t.skills.map((skill, i) => (
+              <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t border-dark-border' : ''} group`}>
+                <h4 class="text-ink font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">
+                  {skill.title}
+                </h4>
+                <p class="text-ink-muted text-sm leading-relaxed">{skill.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer class="max-w-6xl mx-auto px-6 py-12 mt-12 border-t border-dark-border text-center md:text-left">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <p class="text-ink-dim text-sm">
+        {t.footer} <a href={socialLinks.tokyoNight} target="_blank" rel="noopener" class="hover:text-ink-muted transition-colors">Tokyo Night</a>
+      </p>
+      <div class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2 text-sm font-medium [&>a]:whitespace-nowrap">
+        <a href={socialLinks.github} class="text-ink-muted hover:text-ink transition-colors">{t.footerLinks.github}</a>
+        <a href={socialLinks.linkedin} class="text-ink-muted hover:text-ink transition-colors">{t.footerLinks.linkedin}</a>
+        <a href={socialLinks.behance} class="text-ink-muted hover:text-ink transition-colors">{t.footerLinks.behance}</a>
+        <a href={socialLinks.mastodon} rel="me" class="text-ink-muted hover:text-ink transition-colors">{t.footerLinks.mastodon}</a>
+      </div>
+    </div>
+  </footer>
+
+<script define:vars={{ locale }}>
+  if (locale === 'en') {
+    // Mark that the user chose English manually — skip auto-redirect on ES root
+    sessionStorage.setItem('lang-override', 'en');
+  } else if (!sessionStorage.getItem('lang-override')) {
+    // Redirigir a /en si el idioma preferido del navegador es inglés
+    const lang = navigator.language || '';
+    if (lang.startsWith('en')) window.location.replace('/en');
+  }
+
+  // El pixel-canvas de las cards de Experiencia corre sitewide desde BaseLayout.astro.
+  // El scroll-spy de #sidebar-nav vive en MobileNav.astro.
+
+  // Snap de cada sección al múltiplo de 24px — solo Y, X no se toca.
+  function snapGrid() {
+    const g = 24;
+    document.querySelectorAll('[data-grid-section]').forEach(sec => {
+      sec.style.paddingBottom = '';
+      const h = sec.getBoundingClientRect().height;
+      const pb = Math.ceil(h / g) * g - h;
+      if (pb > 0) sec.style.paddingBottom = pb + 'px';
+    });
+  }
+  // fonts.ready + 300ms cubre el reflow post-Google-Fonts que deshacía el snap.
+  const fontsReady = document.fonts?.ready
+    ?? new Promise(r => window.addEventListener('load', () => r(), { once: true }));
+  fontsReady.then(() => { snapGrid(); setTimeout(snapGrid, 300); });
+  window.addEventListener('resize', snapGrid);
+</script>
+</BaseLayout>

@@ -1,0 +1,272 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MobileNav from './MobileNav.astro';
+import Icon from './Icon.astro';
+import { proyecto, platformUrl, levels, stack } from '../content/proyecto';
+import { routes, type Locale } from '../lib/routes';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = proyecto[locale];
+const homeHref = routes.home[locale];
+const cvHref = routes.cv[locale];
+const proyectoHref = routes.proyecto[locale];
+---
+
+<BaseLayout title={t.title}>
+  <MobileNav
+    maxWidth="max-w-4xl"
+    lang={{ es: routes.proyecto.es, en: routes.proyecto.en, current: locale }}
+    homeHref={homeHref}
+    crumbDefault={t.crumb}
+    menuLabel={locale === 'en' ? 'Open menu' : undefined}
+    links={[
+      { href: homeHref, label: t.navLinks.home },
+      { href: proyectoHref, label: t.navLinks.proyecto, current: true },
+      { href: cvHref, label: t.navLinks.cv },
+    ]}
+  />
+  <!-- max-md:pt-[120px] = barra fija de MobileNav (72px, altura propia del componente) + el padding-top original en mobile (py-12, 48px) -->
+  <div class="max-w-4xl mx-auto px-6 py-12 md:py-24 max-md:pt-[120px]">
+
+    <header class="mb-12">
+      <p class="text-xs font-mono text-ink-dim uppercase tracking-widest mb-6">
+        {t.kicker}
+      </p>
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-display font-bold text-ink mb-2 leading-[1.1]">{t.heroTitle}</h1>
+          <p class="text-xl text-accent-blue font-medium">{t.heroSubtitle}</p>
+        </div>
+        <a href={platformUrl} target="_blank" rel="noopener" class="inline-flex items-center px-5 py-2.5 bg-accent-yellow hover:bg-accent-yellow-light text-black font-semibold text-sm transition-colors shrink-0">
+          {t.viewPlatform}
+          <Icon name="external-link" class="w-4 h-4 ml-2" />
+        </a>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        {t.badges.map((badge, i) => (
+          <span class={i === 0 ? 'px-3 py-1 text-xs font-mono font-medium text-accent-yellow bg-accent-yellow/10 border border-accent-yellow/20' : 'px-3 py-1 text-xs font-mono text-ink-muted border border-dark-border'}>{badge}</span>
+        ))}
+      </div>
+    </header>
+
+    <div class="space-y-12">
+
+      <section>
+        <h2 class="section-label">{t.problem.label}</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          <div class="grid grid-cols-1 md:grid-cols-3">
+            <div class="brutalist-card p-5 border-0">
+              <span class="text-ink-dim text-xs font-mono uppercase tracking-wider block mb-2">{t.problem.client.label}</span>
+              <p class="text-ink-muted text-sm leading-relaxed">{t.problem.client.text}</p>
+            </div>
+            <div class="brutalist-card p-5 border-0 md:border-l border-dark-border border-t md:border-t-0">
+              <span class="text-ink-dim text-xs font-mono uppercase tracking-wider block mb-2">{t.problem.need.label}</span>
+              <p class="text-ink-muted text-sm leading-relaxed">{t.problem.need.text}</p>
+            </div>
+            <div class="brutalist-card p-5 border-0 md:border-l border-dark-border border-t md:border-t-0">
+              <span class="text-ink-dim text-xs font-mono uppercase tracking-wider block mb-2">{t.problem.purpose.label}</span>
+              <p class="text-ink-muted text-sm leading-relaxed">{t.problem.purpose.text}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.solution.label}</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          <span class="c tm"></span><span class="c bm"></span>
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="brutalist-card p-6 border-0 group">
+              <h3 class="text-ink font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">{t.solution.customerPortal.title}</h3>
+              <ul class="space-y-1.5">
+                {t.solution.customerPortal.items.map(item => (
+                  <li class="text-ink-muted text-sm flex gap-2">
+                    <span class="text-dark-border mt-1.5 shrink-0">—</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="brutalist-card p-6 border-0 md:border-l border-dark-border border-t md:border-t-0 group">
+              <h3 class="text-ink font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">{t.solution.adminPanel.title}</h3>
+              <ul class="space-y-1.5">
+                {t.solution.adminPanel.items.map(item => (
+                  <li class="text-ink-muted text-sm flex gap-2">
+                    <span class="text-dark-border mt-1.5 shrink-0">—</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.architecture.label}</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          <div class="brutalist-card p-5 border-0">
+            <span class="text-ink-dim text-xs font-mono uppercase tracking-wider block mb-3">{t.architecture.zone1.label}</span>
+            <div class="flex flex-wrap gap-2">
+              {t.architecture.zone1.items.map(item => (
+                <span class="px-2.5 py-1 text-xs font-mono text-ink-muted bg-dark-bg border border-dark-border">{item}</span>
+              ))}
+            </div>
+          </div>
+          <div class="brutalist-card p-5 border-0 border-t border-dark-border">
+            <span class="text-ink-dim text-xs font-mono uppercase tracking-wider block mb-3">{t.architecture.zone2.label}</span>
+            <div class="flex flex-wrap gap-2">
+              {t.architecture.zone2.items.map(item => (
+                <span class="px-2.5 py-1 text-xs font-mono text-ink-muted bg-dark-bg border border-dark-border">{item}</span>
+              ))}
+            </div>
+          </div>
+          <div class="brutalist-card p-5 border-0 border-t border-dark-border">
+            <span class="text-ink-dim text-xs font-mono uppercase tracking-wider block mb-3">{t.architecture.zone3.label}</span>
+            <div class="flex flex-wrap gap-2">
+              {t.architecture.zone3.items.map(item => (
+                <span class="px-2.5 py-1 text-xs font-mono text-ink-muted bg-dark-bg border border-dark-border">{item}</span>
+              ))}
+            </div>
+          </div>
+          <div class="brutalist-card p-5 border-0 border-t border-dark-border">
+            <span class="text-ink-dim text-xs font-mono uppercase tracking-wider block mb-3">{t.architecture.cicd.label}</span>
+            <p class="text-ink-muted text-sm">{t.architecture.cicd.text}</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.decisionsLabel}</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          {t.decisions.map((d, i) => (
+            <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t border-dark-border' : ''} group`}>
+              <div class="flex gap-4 items-start">
+                <span class="text-3xl font-display font-bold text-dark-border shrink-0 leading-none mt-0.5">{d.number}</span>
+                <div class="flex-1 min-w-0">
+                  <div class="flex flex-wrap items-center gap-3 mb-2">
+                    <h3 class="text-ink font-semibold text-base group-hover:text-accent-blue transition-colors">{d.title}</h3>
+                    {d.adr && (
+                      <a href={d.adr.href} class="inline-flex items-center px-2 py-0.5 text-xs font-mono text-ink-dim border border-dark-border hover:text-accent-blue hover:border-accent-blue/40 transition-colors shrink-0">
+                        {d.adr.label}
+                        <Icon name="arrow-right" class="w-3 h-3 ml-1" />
+                      </a>
+                    )}
+                  </div>
+                  <p class="text-ink-muted text-sm leading-relaxed">{d.body}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.metricsLabel}</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+            {t.metrics.map((m, i) => (
+              <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t sm:border-t-0 border-dark-border' : ''} ${i >= 1 ? 'sm:border-l border-dark-border' : ''} ${i >= 3 ? 'border-t border-dark-border' : ''} ${i === 3 ? 'sm:border-l-0' : ''}`}>
+                <span class="text-ink-dim text-xs font-mono uppercase tracking-wider block mb-1">{m.label}</span>
+                <span class="text-accent-yellow text-2xl font-display font-bold block mb-1">{m.value}</span>
+                <span class="text-gray-600 text-xs font-mono">{m.period}</span>
+              </div>
+            ))}
+          </div>
+          <div class="brutalist-card p-4 border-0 border-t border-dark-border">
+            <p class="text-gray-600 text-xs font-mono">{t.metricsFootnote}</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.adrsLabel}</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          <div class="brutalist-card p-5 border-0">
+            <p class="text-ink-muted text-sm leading-relaxed mb-5">
+              {t.adrsIntro}
+            </p>
+            <div class="space-y-3">
+              {t.adrs.map(adr => (
+                <a href={adr.href} class="flex items-start gap-3 group p-3 border border-dark-border hover:border-accent-blue/40 transition-colors">
+                  <span class="text-xs font-mono text-gray-600 shrink-0 mt-0.5 group-hover:text-accent-blue transition-colors">{adr.id}</span>
+                  <div class="min-w-0">
+                    <span class="text-ink-muted text-sm font-medium group-hover:text-ink transition-colors block">{adr.title}</span>
+                    <span class="text-ink-dim text-xs">{adr.summary}</span>
+                  </div>
+                  <Icon name="arrow-right" class="w-3.5 h-3.5 text-dark-border group-hover:text-accent-blue transition-colors shrink-0 mt-0.5 ml-auto" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.loyalty.label}</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          <div class="brutalist-card p-6 border-0">
+            <h3 class="text-ink font-semibold mb-1 text-base">{t.loyalty.title}</h3>
+            <p class="text-ink-dim text-xs font-mono mb-5">{t.loyalty.subtitle}</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+              {levels.map(level => (
+                <div class="border border-dark-border p-3 text-center">
+                  <span class="text-accent-yellow text-xs font-mono block mb-1">{level.multiplier}</span>
+                  <span class="text-ink-muted text-sm font-medium">{level.name}</span>
+                </div>
+              ))}
+            </div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-dark-border">
+              {t.loyalty.tags.map(tag => (
+                <span class="px-2.5 py-1 text-xs font-mono text-ink-muted bg-dark-bg border border-dark-border">{tag}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.stackLabel}</h2>
+        <div class="corner-box">
+          <span class="c tl"></span><span class="c tr"></span>
+          <span class="c bl"></span><span class="c br"></span>
+          <div class="brutalist-card p-5 border-0">
+            <div class="flex flex-wrap gap-1.5">
+              {stack.map(item => (
+                <span class="px-2.5 py-1 text-xs font-mono text-ink-muted bg-dark-bg border border-dark-border">{item}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="mt-16 pt-8 border-t border-dark-border">
+      <div class="flex justify-center">
+        <a href={platformUrl} target="_blank" rel="noopener" class="inline-flex items-center text-sm font-semibold text-accent-yellow hover:text-yellow-300 transition-colors">
+          {t.footerCta}
+          <Icon name="external-link" class="w-4 h-4 ml-2" />
+        </a>
+      </div>
+    </footer>
+
+  </div>
+</BaseLayout>
