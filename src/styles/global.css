@@ -7,6 +7,7 @@
   --color-dark-line:     theme('colors.dark.line');
   --color-dark-surface:  theme('colors.dark.surface');
   --color-dark-border:   theme('colors.dark.border');
+  --color-dark-hover:    theme('colors.dark.hover');
   --color-accent-blue:   theme('colors.accent.blue');
   --color-accent-purple: theme('colors.accent.purple');
   --color-accent-yellow: theme('colors.accent.yellow');
@@ -22,7 +23,7 @@
 
   body {
     @apply bg-dark-bg text-ink-muted font-body antialiased;
-    background-image: radial-gradient(#1a1b26 1.2px, transparent 1.2px);
+    background-image: radial-gradient(var(--color-dark-hover) 2px, transparent 2px);
     background-size: var(--grid-size) var(--grid-size);
     /* center top ancla los puntos desde el centro horizontal:
        max-w-6xl es 1152px = 48×24px → los bordes caen en puntos exactos */
@@ -56,87 +57,22 @@
     letter-spacing: -0.01em;
   }
 
-  /* Sin borde propio: el borde exterior viene del corner-box,
-     los divisores internos se declaran explícitamente en el template.
-     El overlay de hover vive en ::after con opacity para que
-     el fade-in/out sea real (background-image no es transicionable). */
+  /* isolation crea un stacking context acá mismo: el canvas del pixel-grid (inyectado
+     por BaseLayout.astro) es absolute + -z-10, y corner-box tiene su propio fondo
+     opaco — sin esto, el canvas quedaría tapado por ese fondo en vez de quedar detrás
+     del contenido de la card pero encima del fondo del corner-box. */
   .brutalist-card {
     @apply relative;
     background-color: transparent;
     border-radius: 0;
-    /* .corner-box (position:relative sin z-index) no forma su propio stacking context,
-       así que el ::after con z-index:-1 se escapaba hacia un ancestro más arriba —
-       invisible mientras corner-box no tenía fondo propio, pero quedaba tapado en cuanto
-       corner-box pasó a tener background-color opaco. isolation crea el stacking context
-       acá mismo para que el efecto quede contenido dentro de la card. */
     isolation: isolate;
-  }
-
-  /* PROTOTYPE — desactivado: ganó el pixel-grid sin capa base (ver #proto-pixel-canvas
-     en BaseLayout.astro). Se deja el resto del bloque de referencia por si se revierte. */
-  .brutalist-card::after {
-    content: none;
-    position: absolute;
-    inset: 0;
-    background-image:
-      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)' opacity='0.09'/></svg>"),
-      linear-gradient(
-        to right,
-        rgba(22, 27, 34, 0.1),
-        rgba(22, 27, 34, 0.82) 50%,
-        rgba(22, 27, 34, 0.1)
-      );
-    opacity: 0;
-    transition: opacity 0.25s ease;
-    pointer-events: none;
-    /* z-index: -1 lo ubica sobre el background del padre pero bajo el contenido */
-    z-index: -1;
-  }
-
-  .brutalist-card:hover::after {
-    opacity: 1;
-  }
-
-  /* PROTOTYPE — spotlight-dither hover, single card only (see #proto-dither-card in index.astro).
-     --mx/--my set on mousemove; mask-image follows the cursor over a tiled 4x4 dither pattern. */
-  .proto-dither {
-    --mx: 50%;
-    --my: 50%;
-  }
-  .proto-dither::after {
-    /* .brutalist-card::after ahora tiene content:none por defecto (ganó el pixel-grid
-       sitewide) — este prototipo sigue vivo aparte, así que necesita su propio content. */
-    content: '';
-    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4'><rect width='4' height='4' fill='none'/><rect width='1' height='1' fill='rgb(192,202,245)' opacity='0.2'/><rect x='2' y='1' width='1' height='1' fill='rgb(192,202,245)' opacity='0.12'/><rect x='1' y='2' width='1' height='1' fill='rgb(192,202,245)' opacity='0.06'/><rect x='3' y='3' width='1' height='1' fill='rgb(192,202,245)' opacity='0.03'/></svg>");
-    background-size: 4px 4px;
-    image-rendering: pixelated;
-    mask-image: radial-gradient(circle 600px at var(--mx) var(--my), black 0%, transparent 90%);
-    -webkit-mask-image: radial-gradient(circle 600px at var(--mx) var(--my), black 0%, transparent 90%);
-  }
-
-  /* PROTOTYPE 2 — pixel-canvas (ver #proto-pixel-canvas-card en index.astro).
-     Tres variantes sobre las 3 cards de Experiencia, misma grilla animada, distinto
-     tratamiento de la capa base heredada de .brutalist-card::after:
-     card 1 (sin modificador) = capa base sin tocar (ruido + gradiente) — referencia.
-     card 2 (.proto-pixel-solid) = capa base a un solo color plano neutro, sin textura.
-     card 3 (.proto-pixel-solid-yellow) = sin capa base — solo el pixel grid. */
-  .proto-pixel-solid::after {
-    background-image: none;
-    background-color: rgba(22, 22, 30, 0.6);
-    /* sin transition: la capa base heredada tarda 250ms en aparecer (fade de opacity),
-       pero las celdas del canvas aparecen de inmediato al hacer mouseenter — el desfase
-       hacía que la card se viera igual a la de al lado un instante y luego se oscureciera. */
-    transition: none;
-  }
-  .proto-pixel-solid-yellow::after {
-    content: none;
   }
 
   /* Wrapper con borde exterior + crosshairs en las 4 esquinas */
   .corner-box {
     position: relative;
     border: 1px solid var(--color-dark-line);
-    background-color: #1a1b26;
+    background-color: var(--color-dark-hover);
   }
 
   /* SVG path de Firecrawl: estrella de 4 puntas con brazos cóncavos (22×21px).

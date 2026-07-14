@@ -31,6 +31,23 @@ interface Props {
 
 const { crumbDefault, sections = [], links, menuLabel = 'Abrir menú', maxWidth, lang, homeHref } = Astro.props;
 const hasSections = sections.length > 0;
+// Índice corrido para el stagger del fade-in (fila "Inicio" → secciones anidadas → resto de links).
+const rowDelay = (i: number) => `${i * 20}ms`;
+
+// Las secciones son sub-páginas del inicio, no hermanas de "Inicio"/"Caso de estudio"/"CV" —
+// se anidan bajo el primer link (siempre "Inicio", por convención de cada página que llama
+// a este componente). Sin sections (CV, caso de estudio), la lista queda plana como antes.
+type Row =
+  | { kind: 'link'; href: string; label: string; current?: boolean }
+  | { kind: 'section'; href: string; id: string; label: string };
+
+const rows: Row[] = hasSections
+  ? [
+      { kind: 'link', href: links[0].href, label: links[0].label, current: links[0].current },
+      ...sections.map((s): Row => ({ kind: 'section', href: `#${s.id}`, id: s.id, label: s.label })),
+      ...links.slice(1).map((l): Row => ({ kind: 'link', href: l.href, label: l.label, current: l.current })),
+    ]
+  : links.map((l): Row => ({ kind: 'link', href: l.href, label: l.label, current: l.current }));
 ---
 
 <!-- Desktop: fixed top-right, identical position on every page regardless of that page's own layout -->
@@ -41,40 +58,78 @@ const hasSections = sections.length > 0;
 </div>
 
 <div class="md:hidden fixed top-0 inset-x-0 z-50 bg-dark-bg border-b border-dark-line">
-  <div class="flex items-center justify-between px-6 h-14">
+  <div class="flex items-center justify-between px-6 h-[72px]">
     <span class="flex items-center text-xs font-mono uppercase tracking-widest">
       <a href={homeHref} class="text-ink-dim hover:text-ink transition-colors">JPA_</a>
       <svg class="w-3 h-3 text-accent-blue mx-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+      {hasSections && (
+        <>
+          <a href={homeHref} class="text-ink-dim hover:text-ink transition-colors">{links[0].label}</a>
+          <svg class="w-3 h-3 text-accent-blue mx-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+        </>
+      )}
       <span id="mobile-nav-crumb" data-sections={JSON.stringify(sections)} class="text-ink">{crumbDefault}</span>
     </span>
     <button id="mobile-nav-toggle" aria-label={menuLabel} aria-expanded="false" class="relative w-11 h-11 -mr-3 flex items-center justify-center text-ink-muted hover:text-ink transition-colors">
       <span class="sr-only">{menuLabel}</span>
-      <span id="mobile-nav-bar1" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] -translate-y-[4px]"></span>
-      <span id="mobile-nav-bar2" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-[4px]"></span>
+      <span id="mobile-nav-bar1" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-200 ease -translate-y-[4px]"></span>
+      <span id="mobile-nav-bar2" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-200 ease translate-y-[4px]"></span>
     </button>
   </div>
 </div>
 
-<div id="mobile-nav-backdrop" class="md:hidden fixed inset-0 z-40 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
+<div id="mobile-nav-backdrop" class="md:hidden fixed inset-0 z-40 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-200 ease"></div>
 
-<div id="mobile-nav-panel" class="md:hidden fixed top-14 inset-x-0 z-50 bg-dark-bg opacity-0 -translate-y-2 pointer-events-none transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
-  <div class={`${maxWidth} mx-auto px-6`}>
-    <div class="corner-box bg-dark-bg">
-      <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
-      {sections.map((s, i) => (
-        <a href={`#${s.id}`} data-section={s.id} class={`mobile-nav-link block px-4 py-3 text-xs font-mono uppercase tracking-widest text-ink-dim hover:text-ink transition-colors ${i > 0 ? 'border-t border-dark-line' : ''}`}>{s.label}</a>
-      ))}
-      {links.map((l, i) => (
-        <a href={l.href} class={`mobile-nav-link block px-4 py-3 text-xs font-mono uppercase tracking-widest transition-colors ${l.current ? 'text-ink' : 'text-ink-dim hover:text-ink'} ${i > 0 || hasSections ? 'border-t border-dark-line' : ''}`}>{l.label}</a>
-      ))}
-      <div class="flex items-center gap-3 px-4 py-3 text-xs font-mono border-t border-dark-line">
-        {lang.current === 'es' ? <span class="text-accent-yellow">ES</span> : <a href={lang.es} class="mobile-nav-link text-ink-dim hover:text-ink transition-colors">ES</a>}
-        <span class="text-dark-border">|</span>
-        {lang.current === 'en' ? <span class="text-accent-yellow">EN</span> : <a href={lang.en} class="mobile-nav-link text-ink-dim hover:text-ink transition-colors">EN</a>}
+<div id="mobile-nav-panel" class="md:hidden fixed top-[72px] inset-x-0 z-[45] bg-dark-bg grid grid-rows-[0fr] pointer-events-none transition-[grid-template-rows] duration-200 ease">
+  <div class="overflow-hidden">
+    <!-- Sin línea propia arriba: la barra superior ya tiene su border-b justo en este
+         borde. z-45 (entre el backdrop en 40 y la barra en 50) garantiza que ese borde siempre
+         se pinte encima del panel — con z-index igual, un solape de subpixel entre
+         dos elementos fixed independientes hacía que el fondo del panel (mismo color
+         que la barra) tapara la línea por completo en algunos navegadores. -->
+    <div class={`${maxWidth} mx-auto px-6`}>
+      <div class="corner-box mobile-nav-corner-box bg-dark-bg">
+        <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+        {rows.map((r, i) => (
+          r.kind === 'section' ? (
+            <a href={r.href} data-section={r.id} style={`transition-delay:${rowDelay(i)}`} class={`mobile-nav-link nav-reveal flex items-center gap-2 pl-8 pr-4 h-[72px] text-xs font-mono uppercase tracking-widest text-ink-dim hover:text-ink hover:bg-dark-hover transition-colors ${i > 0 ? 'border-t border-dark-line' : ''}`}>
+              <svg class="w-3 h-3 text-accent-blue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+              {r.label}
+            </a>
+          ) : (
+            <a href={r.href} style={`transition-delay:${rowDelay(i)}`} class={`mobile-nav-link nav-reveal flex items-center px-4 h-[72px] text-xs font-mono uppercase tracking-widest transition-colors hover:bg-dark-hover ${r.current ? 'text-ink' : 'text-ink-dim hover:text-ink'} ${i > 0 ? 'border-t border-dark-line' : ''}`}>{r.label}</a>
+          )
+        ))}
+        <div class="grid grid-cols-2 h-[72px] text-xs font-mono border-t border-dark-line">
+          {lang.current === 'es'
+            ? <span class="nav-reveal flex items-center justify-center text-accent-yellow border-r border-dark-line" style={`transition-delay:${rowDelay(rows.length)}`}>ESPAÑOL</span>
+            : <a href={lang.es} class="mobile-nav-link nav-reveal flex items-center justify-center text-ink-dim hover:text-ink hover:bg-dark-hover transition-colors border-r border-dark-line" style={`transition-delay:${rowDelay(rows.length)}`}>ESPAÑOL</a>}
+          {lang.current === 'en'
+            ? <span class="nav-reveal flex items-center justify-center text-accent-yellow" style={`transition-delay:${rowDelay(rows.length + 1)}`}>ENGLISH</span>
+            : <a href={lang.en} class="mobile-nav-link nav-reveal flex items-center justify-center text-ink-dim hover:text-ink hover:bg-dark-hover transition-colors" style={`transition-delay:${rowDelay(rows.length + 1)}`}>ENGLISH</a>}
+        </div>
       </div>
     </div>
+    <div class="border-b border-dark-line"></div>
   </div>
 </div>
+
+<style>
+  .mobile-nav-corner-box {
+    border-top: none;
+    border-bottom: none;
+  }
+
+  .nav-reveal {
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 150ms ease-out, transform 150ms ease-out, color 150ms ease-out;
+  }
+  #mobile-nav-panel.nav-open .nav-reveal {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
 
 <script>
   const toggle = document.getElementById('mobile-nav-toggle');
@@ -87,8 +142,9 @@ const hasSections = sections.length > 0;
   function toggleNav(open?: boolean) {
     const willOpen = open ?? panel?.classList.contains('pointer-events-none');
     toggle?.setAttribute('aria-expanded', String(willOpen));
-    panel?.classList.toggle('opacity-0', !willOpen);
-    panel?.classList.toggle('-translate-y-2', !willOpen);
+    panel?.classList.toggle('grid-rows-[0fr]', !willOpen);
+    panel?.classList.toggle('grid-rows-[1fr]', willOpen);
+    panel?.classList.toggle('nav-open', willOpen);
     panel?.classList.toggle('pointer-events-none', !willOpen);
     backdrop?.classList.toggle('opacity-0', !willOpen);
     backdrop?.classList.toggle('pointer-events-none', !willOpen);

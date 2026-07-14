@@ -81,12 +81,10 @@ const imageUrl = buildUrl(image);
 </style>
 
 <script>
-  // PROTOTYPE — pixel-canvas sitewide, ganó sobre dither/gradiente/tinte plano (ver
-  // decisiones en global.css .brutalist-card::after). Corre acá (BaseLayout) para
-  // aplicarse a toda .brutalist-card en todas las páginas, no solo index.astro.
-  // Inyecta el <canvas> si la card no trae uno ya en el markup (las 3 cards de
-  // Experiencia en index.astro sí lo traen, del período de comparación A/B/C).
-  document.querySelectorAll<HTMLElement>('.brutalist-card:not(.proto-dither)').forEach((card) => {
+  // Pixel-grid hover: grilla animada sobre toda .brutalist-card, sitewide. Vive acá
+  // (BaseLayout) para aplicarse a todas las páginas, no solo index.astro. Inyecta el
+  // <canvas> automáticamente — ninguna card lo trae ya en el markup.
+  document.querySelectorAll<HTMLElement>('.brutalist-card').forEach((card) => {
     let canvas = card.querySelector<HTMLCanvasElement>('.proto-pixel-canvas');
     if (!canvas) {
       canvas = document.createElement('canvas');

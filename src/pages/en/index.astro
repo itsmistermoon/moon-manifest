@@ -79,8 +79,8 @@ const skills = [
 ---
 
 <BaseLayout title="Juan Pablo Armstrong · Systems Analyst">
-  <!-- max-md:pt-[104px] = MobileNav's fixed bar (h-14, 56px) + the original mobile padding-top (py-12, 48px) -->
-  <div class="max-w-6xl mx-auto px-6 py-12 md:py-24 max-md:pt-[104px]">
+  <!-- max-md:pt-[120px] = MobileNav's fixed bar (72px, Firecrawl's header width) + the original mobile padding-top (py-12, 48px) -->
+  <div class="max-w-6xl mx-auto px-6 py-12 md:py-24 max-md:pt-[120px]">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
 
       <!-- Left Column: Sticky Sidebar -->
@@ -138,14 +138,14 @@ const skills = [
         maxWidth="max-w-6xl"
         lang={{ es: '/', en: '/en', current: 'en' }}
         homeHref="/en"
-        crumbDefault="01. About"
+        crumbDefault="About"
         menuLabel="Open menu"
         sections={[
-          { id: 'about', label: '01. About' },
-          { id: 'project', label: '02. Project' },
-          { id: 'experience', label: '03. Experience' },
-          { id: 'design', label: '04. Design' },
-          { id: 'stack', label: '05. Stack' },
+          { id: 'about', label: 'About' },
+          { id: 'project', label: 'Project' },
+          { id: 'experience', label: 'Experience' },
+          { id: 'design', label: 'Design' },
+          { id: 'stack', label: 'Stack' },
         ]}
         links={[
           { href: '/en', label: 'Home', current: true },
@@ -159,7 +159,7 @@ const skills = [
 
         <!-- About -->
         <section id="about" data-grid-section>
-          <h2 class="section-label">01. About</h2>
+          <h2 class="section-label">About</h2>
           <div class="space-y-4 text-ink leading-relaxed text-base">
             <p>
               Systems Analyst with experience in web development, server administration, and UI design.
@@ -178,7 +178,7 @@ const skills = [
 
         <!-- Featured Project -->
         <section id="project" data-grid-section class="pt-24">
-          <h2 class="section-label">02. Featured Project</h2>
+          <h2 class="section-label">Featured Project</h2>
 
           {projects.map((project) => (
             <div class="corner-box corner-yellow">
@@ -226,7 +226,7 @@ const skills = [
 
         <!-- Experience -->
         <section id="experience" data-grid-section class="pt-24">
-          <h2 class="section-label">03. Experience</h2>
+          <h2 class="section-label">Experience</h2>
 
           <div class="corner-box">
             <span class="c tl"></span><span class="c tr"></span>
@@ -248,7 +248,7 @@ const skills = [
 
         <!-- Graphic Design -->
         <section id="design" data-grid-section class="pt-24">
-          <h2 class="section-label">04. Graphic Design</h2>
+          <h2 class="section-label">Graphic Design</h2>
           <div class="corner-box mb-8">
             <span class="c tl"></span><span class="c tr"></span>
             <span class="c bl"></span><span class="c br"></span>
@@ -296,7 +296,7 @@ const skills = [
 
         <!-- Tech Stack -->
         <section id="stack" data-grid-section class="pt-24">
-          <h2 class="section-label">05. Tech Stack</h2>
+          <h2 class="section-label">Tech Stack</h2>
           <div class="corner-box">
             <span class="c tl"></span><span class="c tr"></span>
             <span class="c bl"></span><span class="c br"></span>
