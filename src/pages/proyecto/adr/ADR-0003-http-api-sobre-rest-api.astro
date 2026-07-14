@@ -1,12 +1,26 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MobileNav from '../../../components/MobileNav.astro';
 ---
 <BaseLayout title="ADR-0003: HTTP API sobre REST API · DŌJŌ">
-  <div class="max-w-2xl mx-auto px-6 py-12 md:py-20">
+  <MobileNav
+    maxWidth="max-w-2xl"
+    lang={{ es: '/proyecto/adr/ADR-0003-http-api-sobre-rest-api', en: '/en/project/adr/ADR-0003-http-api-over-rest-api', current: 'es' }}
+    homeHref="/"
+    parentCrumb={{ label: 'Caso de estudio', href: '/proyecto' }}
+    crumbDefault="ADR-0003"
+    links={[
+      { href: '/', label: 'Inicio' },
+      { href: '/proyecto', label: 'Caso de estudio', current: true },
+      { href: '/cv', label: 'CV' },
+    ]}
+  />
+  <!-- max-md:pt-[120px] = barra fija de MobileNav (72px, altura propia del componente) + el padding-top original en mobile (py-12, 48px) -->
+  <div class="max-w-2xl mx-auto px-6 py-12 md:py-20 max-md:pt-[120px]">
     <a href="/proyecto" class="text-xs font-mono text-ink-dim hover:text-accent-blue transition-colors mb-8 block">← Volver al caso de estudio</a>
 
     <header class="mb-10">
-      <p class="text-xs font-mono text-gray-600 uppercase tracking-widest mb-2">ADR-0003 · 2026-04-20 · Aceptado</p>
+      <p class="text-xs font-mono text-ink-dim uppercase tracking-widest mb-2">ADR-0003 · 2026-04-20 · Aceptado</p>
       <h1 class="text-3xl font-display font-bold text-ink leading-tight">HTTP API sobre REST API para API Gateway</h1>
     </header>
 
@@ -41,7 +55,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     @apply text-ink-muted text-sm leading-relaxed mb-3;
   }
   .prose-adr strong {
-    @apply text-gray-200 font-semibold;
+    @apply text-ink font-semibold;
   }
   .prose-adr section {
     @apply pb-8 border-b border-dark-border last:border-0 last:pb-0;

@@ -27,9 +27,12 @@ interface Props {
   lang: { es: string; en: string; current: 'es' | 'en' };
   /** Where the "JPA_" breadcrumb root links to — the current locale's homepage. */
   homeHref: string;
+  /** Optional middle breadcrumb segment — the page this one nests under (e.g. sections nest
+      under "Inicio", ADRs nest under "Caso de estudio"). Renders as "JPA_ › {parentCrumb.label} › {crumbDefault}". */
+  parentCrumb?: { label: string; href: string };
 }
 
-const { crumbDefault, sections = [], links, menuLabel = 'Abrir menú', maxWidth, lang, homeHref } = Astro.props;
+const { crumbDefault, sections = [], links, menuLabel = 'Abrir menú', maxWidth, lang, homeHref, parentCrumb } = Astro.props;
 const hasSections = sections.length > 0;
 // Índice corrido para el stagger del fade-in (fila "Inicio" → secciones anidadas → resto de links).
 const rowDelay = (i: number) => `${i * 20}ms`;
@@ -62,9 +65,9 @@ const rows: Row[] = hasSections
     <span class="flex items-center text-xs font-mono uppercase tracking-widest">
       <a href={homeHref} class="text-ink-dim hover:text-ink transition-colors">JPA_</a>
       <svg class="w-3 h-3 text-accent-blue mx-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
-      {hasSections && (
+      {parentCrumb && (
         <>
-          <a href={homeHref} class="text-ink-dim hover:text-ink transition-colors">{links[0].label}</a>
+          <a href={parentCrumb.href} class="text-ink-dim hover:text-ink transition-colors">{parentCrumb.label}</a>
           <svg class="w-3 h-3 text-accent-blue mx-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
         </>
       )}
@@ -72,15 +75,15 @@ const rows: Row[] = hasSections
     </span>
     <button id="mobile-nav-toggle" aria-label={menuLabel} aria-expanded="false" class="relative w-11 h-11 -mr-3 flex items-center justify-center text-ink-muted hover:text-ink transition-colors">
       <span class="sr-only">{menuLabel}</span>
-      <span id="mobile-nav-bar1" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-200 ease -translate-y-[4px]"></span>
-      <span id="mobile-nav-bar2" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-200 ease translate-y-[4px]"></span>
+      <span id="mobile-nav-bar1" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-200 ease-[ease] -translate-y-[4px]"></span>
+      <span id="mobile-nav-bar2" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-200 ease-[ease] translate-y-[4px]"></span>
     </button>
   </div>
 </div>
 
-<div id="mobile-nav-backdrop" class="md:hidden fixed inset-0 z-40 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-200 ease"></div>
+<div id="mobile-nav-backdrop" class="md:hidden fixed inset-0 z-40 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-200 ease-[ease]"></div>
 
-<div id="mobile-nav-panel" class="md:hidden fixed top-[72px] inset-x-0 z-[45] bg-dark-bg grid grid-rows-[0fr] pointer-events-none transition-[grid-template-rows] duration-200 ease">
+<div id="mobile-nav-panel" class="md:hidden fixed top-[72px] inset-x-0 z-[45] bg-dark-bg grid grid-rows-[0fr] pointer-events-none transition-[grid-template-rows] duration-200 ease-[ease]">
   <div class="overflow-hidden">
     <!-- Sin línea propia arriba: la barra superior ya tiene su border-b justo en este
          borde. z-45 (entre el backdrop en 40 y la barra en 50) garantiza que ese borde siempre

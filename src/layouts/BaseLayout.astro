@@ -84,11 +84,14 @@ const imageUrl = buildUrl(image);
   // Pixel-grid hover: grilla animada sobre toda .brutalist-card, sitewide. Vive acá
   // (BaseLayout) para aplicarse a todas las páginas, no solo index.astro. Inyecta el
   // <canvas> automáticamente — ninguna card lo trae ya en el markup.
-  document.querySelectorAll<HTMLElement>('.brutalist-card').forEach((card) => {
-    let canvas = card.querySelector<HTMLCanvasElement>('.proto-pixel-canvas');
+  // El kill-switch de global.css (transition/animation-duration) no alcanza a esto:
+  // es requestAnimationFrame en JS, no una transición CSS. Se corta acá directamente.
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReducedMotion) document.querySelectorAll<HTMLElement>('.brutalist-card').forEach((card) => {
+    let canvas = card.querySelector<HTMLCanvasElement>('.pixel-canvas');
     if (!canvas) {
       canvas = document.createElement('canvas');
-      canvas.className = 'proto-pixel-canvas absolute inset-0 -z-10 pointer-events-none';
+      canvas.className = 'pixel-canvas absolute inset-0 -z-10 pointer-events-none';
       canvas.setAttribute('aria-hidden', 'true');
       card.appendChild(canvas);
     }

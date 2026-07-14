@@ -79,7 +79,7 @@ const skills = [
 ---
 
 <BaseLayout title="Juan Pablo Armstrong · Analista Programador">
-  <!-- max-md:pt-[120px] = barra fija de MobileNav (72px, ancho de Firecrawl) + el padding-top original en mobile (py-12, 48px) -->
+  <!-- max-md:pt-[120px] = barra fija de MobileNav (72px, altura propia del componente) + el padding-top original en mobile (py-12, 48px) -->
   <div class="max-w-6xl mx-auto px-6 py-12 md:py-24 max-md:pt-[120px]">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
       
@@ -138,6 +138,7 @@ const skills = [
         maxWidth="max-w-6xl"
         lang={{ es: '/', en: '/en', current: 'es' }}
         homeHref="/"
+        parentCrumb={{ label: 'Inicio', href: '/' }}
         crumbDefault="Sobre mí"
         sections={[
           { id: 'sobre-mi', label: 'Sobre mí' },
