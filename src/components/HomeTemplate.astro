@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MobileNav from './MobileNav.astro';
 import Icon from './Icon.astro';
+import CornerBox from './CornerBox.astro';
 import { home, socialLinks, skillsMeta, designProjectsMeta } from '../content/home';
 import { routes, type Locale } from '../lib/routes';
 
@@ -97,9 +98,7 @@ const proyectoHref = routes.proyecto[locale];
           <h2 class="section-label">{t.projectSection.label}</h2>
 
           {t.projects.map((project) => (
-            <div class="corner-box corner-yellow">
-              <span class="c tl"></span><span class="c tr"></span>
-              <span class="c bl"></span><span class="c br"></span>
+            <CornerBox class="corner-yellow">
             <article class="brutalist-card border-0 p-6 md:p-8 group">
               <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
                 <div>
@@ -137,16 +136,14 @@ const proyectoHref = routes.proyecto[locale];
                 </a>
               </div>
             </article>
-            </div>
+            </CornerBox>
           ))}
         </section>
 
         <section id={t.sections[2].id} data-grid-section class="pt-24">
           <h2 class="section-label">{t.experienceSection.label}</h2>
 
-          <div class="corner-box">
-            <span class="c tl"></span><span class="c tr"></span>
-            <span class="c bl"></span><span class="c br"></span>
+          <CornerBox>
             {t.experience.map((exp, i) => (
               <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t border-dark-border' : ''} group`}>
                 <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
@@ -159,14 +156,12 @@ const proyectoHref = routes.proyecto[locale];
                 <p class="text-ink-muted text-sm leading-relaxed">{exp.description}</p>
               </div>
             ))}
-          </div>
+          </CornerBox>
         </section>
 
         <section id={t.sections[3].id} data-grid-section class="pt-24">
           <h2 class="section-label">{t.designSection.label}</h2>
-          <div class="corner-box mb-8">
-            <span class="c tl"></span><span class="c tr"></span>
-            <span class="c bl"></span><span class="c br"></span>
+          <CornerBox class="mb-8">
             <p class="text-ink-muted leading-relaxed text-sm p-5 border-b border-dark-border">
               {t.designSection.intro}
             </p>
@@ -196,7 +191,7 @@ const proyectoHref = routes.proyecto[locale];
                 </div>
               </a>
             ))}
-          </div>
+          </CornerBox>
 
           <a
             href={socialLinks.behance}
@@ -211,9 +206,7 @@ const proyectoHref = routes.proyecto[locale];
 
         <section id={t.sections[4].id} data-grid-section class="pt-24">
           <h2 class="section-label">{t.stackSection.label}</h2>
-          <div class="corner-box">
-            <span class="c tl"></span><span class="c tr"></span>
-            <span class="c bl"></span><span class="c br"></span>
+          <CornerBox>
             {t.skills.map((skill, i) => (
               <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t border-dark-border' : ''} group`}>
                 <h4 class="text-ink font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">
@@ -222,7 +215,7 @@ const proyectoHref = routes.proyecto[locale];
                 <p class="text-ink-muted text-sm leading-relaxed">{skill.description}</p>
               </div>
             ))}
-          </div>
+          </CornerBox>
         </section>
 
       </main>

@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import CornerBox from './CornerBox.astro';
 // Mobile-only header nav: fixed top bar acting as a breadcrumb, hamburger→X trigger,
 // dimmed backdrop, dropdown clamped to the page's own content width (corner-box, crosshairs).
 //
@@ -116,8 +117,7 @@ const rows: Row[] = hasSections
          dos elementos fixed independientes hacía que el fondo del panel (mismo color
          que la barra) tapara la línea por completo en algunos navegadores. -->
     <div class={`${maxWidth} mx-auto px-6`}>
-      <div class="corner-box mobile-nav-corner-box bg-dark-bg">
-        <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+      <CornerBox class="mobile-nav-corner-box bg-dark-bg">
         {rows.map((r, i) => (
           r.kind === 'section' ? (
             <a href={r.href} data-section={r.id} style={`transition-delay:${rowDelay(i)}`} class={`mobile-nav-link nav-reveal flex items-center gap-2 pl-8 pr-4 h-[72px] text-xs font-mono uppercase tracking-widest text-ink-dim hover:text-ink hover:bg-dark-hover transition-colors ${i > 0 ? 'border-t border-dark-line' : ''}`}>
@@ -136,14 +136,16 @@ const rows: Row[] = hasSections
             ? <span class="nav-reveal flex items-center justify-center text-accent-yellow" style={`transition-delay:${rowDelay(rows.length + 1)}`}>ENGLISH</span>
             : <a href={lang.en} class="mobile-nav-link nav-reveal flex items-center justify-center text-ink-dim hover:text-ink hover:bg-dark-hover transition-colors" style={`transition-delay:${rowDelay(rows.length + 1)}`}>ENGLISH</a>}
         </div>
-      </div>
+      </CornerBox>
     </div>
     <div class="border-b border-dark-line"></div>
   </div>
 </div>
 
 <style>
-  .mobile-nav-corner-box {
+  /* :global — CornerBox.astro renders this element from a different component,
+     so it never carries MobileNav's own scope attribute. */
+  :global(.mobile-nav-corner-box) {
     border-top: none;
     border-bottom: none;
   }

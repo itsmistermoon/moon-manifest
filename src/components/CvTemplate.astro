@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MobileNav from './MobileNav.astro';
 import Icon from './Icon.astro';
+import CornerBox from './CornerBox.astro';
 import { cv, contact } from '../content/cv';
 import { socialLinks } from '../content/home';
 import { routes, type Locale } from '../lib/routes';
@@ -73,9 +74,7 @@ const proyectoHref = routes.proyecto[locale];
 
       <section>
         <h2 class="section-label">{t.sections.project}</h2>
-        <div class="corner-box">
-          <span class="c tl"></span><span class="c tr"></span>
-          <span class="c bl"></span><span class="c br"></span>
+        <CornerBox>
         <div class="brutalist-card border-0 p-6 md:p-8">
           <h3 class="text-2xl font-display font-bold text-ink mb-2">{t.project.title}</h3>
           <p class="text-accent-blue font-medium text-sm mb-4">{t.project.subtitle}</p>
@@ -112,14 +111,12 @@ const proyectoHref = routes.proyecto[locale];
             </a>
           </div>
         </div>
-        </div>
+        </CornerBox>
       </section>
 
       <section>
         <h2 class="section-label">{t.sections.experience}</h2>
-        <div class="corner-box">
-          <span class="c tl"></span><span class="c tr"></span>
-          <span class="c bl"></span><span class="c br"></span>
+        <CornerBox>
           {t.experience.map((exp, i) => (
             <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t border-dark-border' : ''} group`}>
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-1">
@@ -137,14 +134,12 @@ const proyectoHref = routes.proyecto[locale];
               </ul>
             </div>
           ))}
-        </div>
+        </CornerBox>
       </section>
 
       <section>
         <h2 class="section-label">{t.sections.education}</h2>
-        <div class="corner-box">
-          <span class="c tl"></span><span class="c tr"></span>
-          <span class="c bl"></span><span class="c br"></span>
+        <CornerBox>
           {t.education.map((edu, i) => (
             <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t border-dark-border' : ''} group`}>
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-1">
@@ -155,15 +150,12 @@ const proyectoHref = routes.proyecto[locale];
               <p class="text-ink-muted text-sm leading-relaxed">{edu.description}</p>
             </div>
           ))}
-        </div>
+        </CornerBox>
       </section>
 
       <section>
         <h2 class="section-label">{t.sections.skills}</h2>
-        <div class="corner-box">
-          <span class="c tl"></span><span class="c tr"></span>
-          <span class="c bl"></span><span class="c br"></span>
-          <span class="c tm"></span><span class="c bm"></span>
+        <CornerBox middle>
           <div class="grid grid-cols-1 md:grid-cols-2">
           {t.skills.map((skill, i) => {
             const isSecondCol = i % 2 === 1;
@@ -180,14 +172,12 @@ const proyectoHref = routes.proyecto[locale];
             );
           })}
           </div>
-        </div>
+        </CornerBox>
       </section>
 
       <section>
         <h2 class="section-label">{t.sections.language}</h2>
-        <div class="corner-box">
-          <span class="c tl"></span><span class="c tr"></span>
-          <span class="c bl"></span><span class="c br"></span>
+        <CornerBox>
           <div class="brutalist-card border-0 p-5 group">
             <div class="flex items-center justify-between">
               <div>
@@ -197,7 +187,7 @@ const proyectoHref = routes.proyecto[locale];
               <span class="text-xs font-mono text-accent-yellow border border-accent-yellow/20 px-2 py-1">{t.language.badge}</span>
             </div>
           </div>
-        </div>
+        </CornerBox>
       </section>
 
     </div>

@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import MobileNav from './MobileNav.astro';
 import Icon from './Icon.astro';
+import CornerBox from './CornerBox.astro';
 import { proyecto, platformUrl, levels, stack } from '../content/proyecto';
 import { routes, type Locale } from '../lib/routes';
 
@@ -56,9 +57,7 @@ const proyectoHref = routes.proyecto[locale];
 
       <section>
         <h2 class="section-label">{t.problem.label}</h2>
-        <div class="corner-box">
-          <span class="c tl"></span><span class="c tr"></span>
-          <span class="c bl"></span><span class="c br"></span>
+        <CornerBox>
           <div class="grid grid-cols-1 md:grid-cols-3">
             <div class="brutalist-card p-5 border-0">
               <span class="text-ink-dim text-xs font-mono uppercase tracking-wider block mb-2">{t.problem.client.label}</span>
@@ -73,15 +72,12 @@ const proyectoHref = routes.proyecto[locale];
               <p class="text-ink-muted text-sm leading-relaxed">{t.problem.purpose.text}</p>
             </div>
           </div>
-        </div>
+        </CornerBox>
       </section>
 
       <section>
         <h2 class="section-label">{t.solution.label}</h2>
-        <div class="corner-box">
-          <span class="c tl"></span><span class="c tr"></span>
-          <span class="c bl"></span><span class="c br"></span>
-          <span class="c tm"></span><span class="c bm"></span>
+        <CornerBox middle>
           <div class="grid grid-cols-1 md:grid-cols-2">
             <div class="brutalist-card p-6 border-0 group">
               <h3 class="text-ink font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">{t.solution.customerPortal.title}</h3>
@@ -106,14 +102,12 @@ const proyectoHref = routes.proyecto[locale];
               </ul>
             </div>
           </div>
-        </div>
+        </CornerBox>
       </section>
 
       <section>
         <h2 class="section-label">{t.architecture.label}</h2>
-        <div class="corner-box">
-          <span class="c tl"></span><span class="c tr"></span>
-          <span class="c bl"></span><span class="c br"></span>
+        <CornerBox>
           <div class="brutalist-card p-5 border-0">
             <span class="text-ink-dim text-xs font-mono uppercase tracking-wider block mb-3">{t.architecture.zone1.label}</span>
             <div class="flex flex-wrap gap-2">
@@ -142,14 +136,12 @@ const proyectoHref = routes.proyecto[locale];
             <span class="text-ink-dim text-xs font-mono uppercase tracking-wider block mb-3">{t.architecture.cicd.label}</span>
             <p class="text-ink-muted text-sm">{t.architecture.cicd.text}</p>
           </div>
-        </div>
+        </CornerBox>
       </section>
 
       <section>
         <h2 class="section-label">{t.decisionsLabel}</h2>
-        <div class="corner-box">
-          <span class="c tl"></span><span class="c tr"></span>
-          <span class="c bl"></span><span class="c br"></span>
+        <CornerBox>
           {t.decisions.map((d, i) => (
             <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t border-dark-border' : ''} group`}>
               <div class="flex gap-4 items-start">
@@ -169,14 +161,12 @@ const proyectoHref = routes.proyecto[locale];
               </div>
             </div>
           ))}
-        </div>
+        </CornerBox>
       </section>
 
       <section>
         <h2 class="section-label">{t.metricsLabel}</h2>
-        <div class="corner-box">
-          <span class="c tl"></span><span class="c tr"></span>
-          <span class="c bl"></span><span class="c br"></span>
+        <CornerBox>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
             {t.metrics.map((m, i) => (
               <div class={`brutalist-card p-5 border-0 ${i > 0 ? 'border-t sm:border-t-0 border-dark-border' : ''} ${i >= 1 ? 'sm:border-l border-dark-border' : ''} ${i >= 3 ? 'border-t border-dark-border' : ''} ${i === 3 ? 'sm:border-l-0' : ''}`}>
@@ -189,14 +179,12 @@ const proyectoHref = routes.proyecto[locale];
           <div class="brutalist-card p-4 border-0 border-t border-dark-border">
             <p class="text-gray-600 text-xs font-mono">{t.metricsFootnote}</p>
           </div>
-        </div>
+        </CornerBox>
       </section>
 
       <section>
         <h2 class="section-label">{t.adrsLabel}</h2>
-        <div class="corner-box">
-          <span class="c tl"></span><span class="c tr"></span>
-          <span class="c bl"></span><span class="c br"></span>
+        <CornerBox>
           <div class="brutalist-card p-5 border-0">
             <p class="text-ink-muted text-sm leading-relaxed mb-5">
               {t.adrsIntro}
@@ -214,14 +202,12 @@ const proyectoHref = routes.proyecto[locale];
               ))}
             </div>
           </div>
-        </div>
+        </CornerBox>
       </section>
 
       <section>
         <h2 class="section-label">{t.loyalty.label}</h2>
-        <div class="corner-box">
-          <span class="c tl"></span><span class="c tr"></span>
-          <span class="c bl"></span><span class="c br"></span>
+        <CornerBox>
           <div class="brutalist-card p-6 border-0">
             <h3 class="text-ink font-semibold mb-1 text-base">{t.loyalty.title}</h3>
             <p class="text-ink-dim text-xs font-mono mb-5">{t.loyalty.subtitle}</p>
@@ -239,14 +225,12 @@ const proyectoHref = routes.proyecto[locale];
               ))}
             </div>
           </div>
-        </div>
+        </CornerBox>
       </section>
 
       <section>
         <h2 class="section-label">{t.stackLabel}</h2>
-        <div class="corner-box">
-          <span class="c tl"></span><span class="c tr"></span>
-          <span class="c bl"></span><span class="c br"></span>
+        <CornerBox>
           <div class="brutalist-card p-5 border-0">
             <div class="flex flex-wrap gap-1.5">
               {stack.map(item => (
@@ -254,7 +238,7 @@ const proyectoHref = routes.proyecto[locale];
               ))}
             </div>
           </div>
-        </div>
+        </CornerBox>
       </section>
 
     </div>

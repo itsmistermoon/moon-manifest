@@ -1,0 +1,14 @@
+---
+interface Props {
+  class?: string;
+  /** Agrega los crosshairs centrales (tm/bm), usado en grids de 2 columnas con divisor. */
+  middle?: boolean;
+}
+const { class: className, middle = false } = Astro.props;
+---
+<div class={`corner-box ${className ?? ''}`.trim()}>
+  <span class="c tl"></span><span class="c tr"></span>
+  <span class="c bl"></span><span class="c br"></span>
+  {middle && <><span class="c tm"></span><span class="c bm"></span></>}
+  <slot />
+</div>
