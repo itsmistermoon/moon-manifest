@@ -1,14 +1,15 @@
 ---
 import Icon from './Icon.astro';
 import CornerBox from './CornerBox.astro';
+import Breadcrumb from './Breadcrumb.astro';
 // Mobile-only header nav: fixed top bar acting as a breadcrumb, hamburger→X trigger,
 // dimmed backdrop, dropdown clamped to the page's own content width (corner-box, crosshairs).
 //
-// `sections` (optional) enables scroll-spy: the breadcrumb, the matching mobile-panel link,
-// and the desktop #sidebar-nav link (if present on the page) all track the in-page anchor
-// currently in view. Pages with no in-page anchors (CV, case study) omit it and get a
-// static crumb instead — this is also why sidebar-nav tracking lives here instead of in
-// each page's own script: it only ever runs alongside this component's own spy.
+// `sections` (optional) enables scroll-spy: the breadcrumb and the matching mobile-panel
+// link track the in-page anchor currently in view. Pages with no in-page anchors (CV, case
+// study) omit it and get a static crumb instead. `syncSidebarNav` additionally opts a page's
+// own #sidebar-nav into that same spy — sidebar tracking lives here instead of in each page's
+// own script since it only ever runs alongside this component's spy.
 interface NavSection {
   id: string;
   label: string;
@@ -35,9 +36,13 @@ interface Props {
   /** Breakpoint donde la barra pasa de hamburger a breadcrumb+switcher (default 'md').
       El home usa 'lg': bajo 1024px su sidebar de dos columnas cae de los 300px mínimos y se rompe. */
   breakpoint?: 'md' | 'lg';
+  /** Si la página renderiza su propio #sidebar-nav (hoy solo HomeTemplate), el scroll-spy
+   *  también le sincroniza el estado activo. Opt-in explícito en vez de un querySelector
+   *  incondicional buscando un id que la mayoría de las páginas no tiene. */
+  syncSidebarNav?: boolean;
 }
 
-const { crumbDefault, sections = [], links, menuLabel = 'Abrir menú', maxWidth, lang, homeHref, parentCrumb, breakpoint = 'md' } = Astro.props;
+const { crumbDefault, sections = [], links, menuLabel = 'Abrir menú', maxWidth, lang, homeHref, parentCrumb, breakpoint = 'md', syncSidebarNav = false } = Astro.props;
 // Tailwind necesita los nombres de clase completos y estáticos — no se pueden interpolar prefijos.
 const bpDesktop = breakpoint === 'lg' ? 'hidden lg:block' : 'hidden md:block';
 const bpMobile = breakpoint === 'lg' ? 'lg:hidden' : 'md:hidden';
@@ -67,17 +72,7 @@ const rows: Row[] = hasSections
      se convierte en la versión mobile (hamburger) sin cambiar de altura ni de fondo. -->
 <div class={`${bpDesktop} fixed top-0 inset-x-0 z-40 bg-dark-bg border-b border-dark-line`}>
   <div class={`${maxWidth} mx-auto px-6 h-[72px] flex items-center justify-between text-xs font-mono`}>
-    <span class="flex items-center uppercase tracking-widest">
-      <a href={homeHref} class="text-ink-dim hover:text-ink transition-colors">JPA_</a>
-      <Icon name="chevron-right" class="w-3 h-3 text-accent-blue mx-1.5" />
-      {parentCrumb && (
-        <>
-          <a href={parentCrumb.href} class="text-ink-dim hover:text-ink transition-colors">{parentCrumb.label}</a>
-          <Icon name="chevron-right" class="w-3 h-3 text-accent-blue mx-1.5" />
-        </>
-      )}
-      <span class="nav-crumb text-ink">{crumbDefault}</span>
-    </span>
+    <Breadcrumb homeHref={homeHref} crumbDefault={crumbDefault} parentCrumb={parentCrumb} />
     <span class="flex items-center gap-3">
       {lang.current === 'es' ? <span class="text-accent-yellow">ES</span> : <a href={lang.es} class="text-ink-dim hover:text-ink-muted transition-colors">ES</a>}
       <span class="text-dark-border">|</span>
@@ -88,17 +83,7 @@ const rows: Row[] = hasSections
 
 <div class={`${bpMobile} fixed top-0 inset-x-0 z-50 bg-dark-bg border-b border-dark-line`}>
   <div class="flex items-center justify-between px-6 h-[72px]">
-    <span class="flex items-center text-xs font-mono uppercase tracking-widest">
-      <a href={homeHref} class="text-ink-dim hover:text-ink transition-colors">JPA_</a>
-      <Icon name="chevron-right" class="w-3 h-3 text-accent-blue mx-1.5" />
-      {parentCrumb && (
-        <>
-          <a href={parentCrumb.href} class="text-ink-dim hover:text-ink transition-colors">{parentCrumb.label}</a>
-          <Icon name="chevron-right" class="w-3 h-3 text-accent-blue mx-1.5" />
-        </>
-      )}
-      <span id="mobile-nav-crumb" data-sections={JSON.stringify(sections)} class="nav-crumb text-ink">{crumbDefault}</span>
-    </span>
+    <Breadcrumb homeHref={homeHref} crumbDefault={crumbDefault} parentCrumb={parentCrumb} id="mobile-nav-crumb" sections={sections} />
     <button id="mobile-nav-toggle" aria-label={menuLabel} aria-expanded="false" class="relative w-11 h-11 -mr-3 flex items-center justify-center text-ink-muted hover:text-ink transition-colors">
       <span class="sr-only">{menuLabel}</span>
       <span id="mobile-nav-bar1" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-200 ease-[ease] -translate-y-[4px]"></span>
@@ -161,7 +146,7 @@ const rows: Row[] = hasSections
   }
 </style>
 
-<script>
+<script define:vars={{ syncSidebarNav }}>
   const toggle = document.getElementById('mobile-nav-toggle');
   const panel = document.getElementById('mobile-nav-panel');
   const backdrop = document.getElementById('mobile-nav-backdrop');
@@ -205,9 +190,11 @@ const rows: Row[] = hasSections
     // and the language switcher keep whatever active/inactive state they were rendered with.
     const sectionLinks = document.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link[data-section]');
     // Desktop sidebar nav (#sidebar-nav, rendered by the page itself) tracks the same
-    // sections — driven from here instead of a second observer in the page's own script,
-    // since the two only ever coexist on pages that also pass `sections`.
-    const sidebarLinks = document.querySelectorAll<HTMLAnchorElement>('#sidebar-nav a');
+    // sections — driven from here instead of a second observer in the page's own script.
+    // Opt-in via `syncSidebarNav`, set by whichever page actually renders that DOM.
+    const sidebarLinks = syncSidebarNav
+      ? document.querySelectorAll<HTMLAnchorElement>('#sidebar-nav a')
+      : [];
     const spy = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && crumbLabels[entry.target.id]) {
