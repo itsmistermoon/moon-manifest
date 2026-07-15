@@ -5,7 +5,7 @@ import Icon from './Icon.astro';
 import CornerBox from './CornerBox.astro';
 import { cv, contact } from '../content/cv';
 import { socialLinks } from '../content/home';
-import { routes, type Locale } from '../lib/routes';
+import { routes, navLinks, type Locale } from '../lib/routes';
 
 interface Props {
   locale: Locale;
@@ -24,14 +24,10 @@ const proyectoHref = routes.proyecto[locale];
     homeHref={homeHref}
     crumbDefault="CV"
     menuLabel={locale === 'en' ? 'Open menu' : undefined}
-    links={[
-      { href: homeHref, label: t.navLinks.home },
-      { href: proyectoHref, label: t.navLinks.proyecto },
-      { href: cvHref, label: t.navLinks.cv, current: true },
-    ]}
+    links={navLinks(locale, 'cv')}
   />
-  <!-- max-md:pt-[120px] = barra fija de MobileNav (72px, altura propia del componente) + el padding-top original en mobile (py-12, 48px) -->
-  <div class="max-w-4xl mx-auto px-6 py-12 md:py-24 max-md:pt-[120px]">
+  <!-- --nav-offset (global.css) = barra fija de MobileNav + padding-top original en mobile -->
+  <div class="max-w-4xl mx-auto px-6 py-12 md:py-24 max-md:pt-[var(--nav-offset)]">
 
     <header class="mb-12">
       <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">

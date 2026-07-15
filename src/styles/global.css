@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 :root {
+  /* barra fija de MobileNav (72px, su altura propia) + el padding-top original en mobile (py-12, 48px) */
+  --nav-offset: 120px;
   --grid-size: 24px;
   --color-dark-line:     theme('colors.dark.line');
   --color-dark-surface:  theme('colors.dark.surface');

@@ -42,7 +42,6 @@ export const home = {
     ],
     viewCv: 'Ver CV online',
     downloadCv: 'Descargar CV (PDF)',
-    navLinks: { home: 'Inicio', proyecto: 'Caso de estudio', cv: 'CV' },
     about: {
       label: 'Sobre mí',
       paragraphs: [
@@ -108,7 +107,6 @@ export const home = {
     ],
     viewCv: 'View CV online',
     downloadCv: 'Download CV (PDF)',
-    navLinks: { home: 'Home', proyecto: 'Case study', cv: 'CV' },
     about: {
       label: 'About',
       paragraphs: [

@@ -44,7 +44,6 @@ export const cv = {
       { category: 'IA & Agentes de Código', items: ['Claude Code', 'OpenAI Codex', 'Hermes Agent', 'Ollama'] },
     ],
     language: { title: 'Inglés', level: 'Avanzado — TOEFL 101/120 (2013)', badge: 'C1' },
-    navLinks: { home: 'Inicio', proyecto: 'Caso de estudio', cv: 'CV' },
   },
   en: {
     title: 'CV · Juan Pablo Armstrong',
@@ -84,6 +83,5 @@ export const cv = {
       { category: 'AI & Code Agents', items: ['Claude Code', 'OpenAI Codex', 'Hermes Agent', 'Ollama'] },
     ],
     language: { title: 'English', level: 'Advanced — TOEFL 101/120 (2013)', badge: 'C1' },
-    navLinks: { home: 'Home', proyecto: 'Case study', cv: 'CV' },
   },
 };

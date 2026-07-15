@@ -4,7 +4,7 @@ import MobileNav from './MobileNav.astro';
 import Icon from './Icon.astro';
 import CornerBox from './CornerBox.astro';
 import { home, socialLinks, skillsMeta, designProjectsMeta } from '../content/home';
-import { routes, type Locale } from '../lib/routes';
+import { routes, navLinks, navLabels, type Locale } from '../lib/routes';
 
 interface Props {
   locale: Locale;
@@ -17,8 +17,8 @@ const proyectoHref = routes.proyecto[locale];
 ---
 
 <BaseLayout title={t.title}>
-  <!-- max-md:pt-[120px] = barra fija de MobileNav (72px, altura propia del componente) + el padding-top original en mobile (py-12, 48px) -->
-  <div class="max-w-6xl mx-auto px-6 py-12 lg:py-24 max-lg:pt-[120px]">
+  <!-- --nav-offset (global.css) = barra fija de MobileNav + padding-top original en mobile -->
+  <div class="max-w-6xl mx-auto px-6 py-12 lg:py-24 max-lg:pt-[var(--nav-offset)]">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
       <!-- Columna Izquierda: Sticky Sidebar -->
@@ -73,15 +73,11 @@ const proyectoHref = routes.proyecto[locale];
         breakpoint="lg"
         lang={{ es: routes.home.es, en: routes.home.en, current: locale }}
         homeHref={homeHref}
-        parentCrumb={{ label: t.navLinks.home, href: homeHref }}
+        parentCrumb={{ label: navLabels.home[locale], href: homeHref }}
         crumbDefault={t.sections[0].label}
         menuLabel={locale === 'en' ? 'Open menu' : undefined}
         sections={t.sections}
-        links={[
-          { href: homeHref, label: t.navLinks.home, current: true },
-          { href: proyectoHref, label: t.navLinks.proyecto },
-          { href: cvHref, label: t.navLinks.cv },
-        ]}
+        links={navLinks(locale, 'home')}
       />
 
       <!-- Columna Derecha: Contenido -->

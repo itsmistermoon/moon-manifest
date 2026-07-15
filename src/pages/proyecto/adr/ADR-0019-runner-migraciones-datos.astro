@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import MobileNav from '../../../components/MobileNav.astro';
+import { navLinks } from '../../../lib/routes';
 ---
 <BaseLayout title="ADR-0019: Runner de migraciones de datos · DŌJŌ">
   <MobileNav
@@ -9,14 +10,10 @@ import MobileNav from '../../../components/MobileNav.astro';
     homeHref="/"
     parentCrumb={{ label: 'Caso de estudio', href: '/proyecto' }}
     crumbDefault="ADR-0019"
-    links={[
-      { href: '/', label: 'Inicio' },
-      { href: '/proyecto', label: 'Caso de estudio', current: true },
-      { href: '/cv', label: 'CV' },
-    ]}
+    links={navLinks('es', 'proyecto')}
   />
-  <!-- max-md:pt-[120px] = barra fija de MobileNav (72px, altura propia del componente) + el padding-top original en mobile (py-12, 48px) -->
-  <div class="max-w-4xl mx-auto px-6 py-12 md:py-24 max-md:pt-[120px]">
+  <!-- --nav-offset (global.css) = barra fija de MobileNav + padding-top original en mobile -->
+  <div class="max-w-4xl mx-auto px-6 py-12 md:py-24 max-md:pt-[var(--nav-offset)]">
     <header class="mb-10">
       <p class="text-xs font-mono text-ink-dim uppercase tracking-widest mb-2">ADR-0019 · 2026-06-01 · Aceptado</p>
       <h1 class="text-3xl font-display font-bold text-ink leading-tight">Runner idempotente de migraciones de datos en deploy</h1>
