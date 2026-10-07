@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import MobileNav from './MobileNav.astro';
 import Icon from './Icon.astro';
 import CornerBox from './CornerBox.astro';
+import CaseGallery from './CaseGallery.astro';
 import { proyecto, platformUrl, levels, stack } from '../content/proyecto';
 import { routes, navLinks, type Locale } from '../lib/routes';
 
@@ -69,6 +70,7 @@ const proyectoHref = routes.proyecto[locale];
             </div>
           </div>
         </CornerBox>
+        <CaseGallery locale={locale} />
       </section>
 
       <section>

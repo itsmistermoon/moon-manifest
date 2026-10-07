@@ -1,0 +1,444 @@
+---
+import { galleryScreens, proyecto } from '../content/proyecto';
+import type { Locale } from '../lib/routes';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const gallery = proyecto[locale].gallery;
+const allScreens = galleryScreens.all;
+const screensById = Object.fromEntries(allScreens.map(screen => [screen.id, screen])) as Record<string, { id: string; width: number; height: number; theme: 'light' | 'dark' }>;
+const carouselScreens = galleryScreens.all;
+const imageUrl = (id: string) => `/vecinoclub/${id}.webp`;
+const fullImageUrl = (id: string) => `/vecinoclub/full/${id}.png`;
+const copyFor = (id: string) => gallery.images[id as keyof typeof gallery.images];
+const lightboxItems = allScreens.map(screen => ({
+  id: screen.id,
+  src: fullImageUrl(screen.id),
+  width: screen.width,
+  height: screen.height,
+  alt: copyFor(screen.id).alt,
+  caption: copyFor(screen.id).caption,
+  themeLabel: gallery.groups[screen.theme],
+}));
+---
+
+<div class="case-gallery" data-case-gallery data-lightbox-items={JSON.stringify(lightboxItems)} role="region" aria-label={gallery.title}>
+  <div class="case-gallery-intro">
+    <h3>{gallery.title}</h3>
+    <p>{gallery.note}</p>
+  </div>
+
+  <div class="gallery-fan" data-gallery-fan>
+    <div class="gallery-fan-copy">
+      <p class="gallery-eyebrow">VecinoClub × Imaquinaria</p>
+      <h4>{gallery.heroTitle}</h4>
+      <p>{gallery.heroLead}</p>
+    </div>
+    <div class="gallery-fan-stage" aria-hidden="true">
+      {galleryScreens.fan.map((screen, index) => (
+        <div class={`fan-phone fan-phone-${index + 1}`}>
+          <div class="phone-frame">
+            <img src={imageUrl(screen.id)} alt="" width={screen.width} height={screen.height} loading="lazy" decoding="async" />
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="gallery-journey">
+    <div class="gallery-heading">
+      <h4>{gallery.journey.title}</h4>
+      <p>{gallery.journey.instruction}</p>
+    </div>
+    <div class="journey-layout">
+      <div class="journey-steps" role="tablist" aria-orientation="vertical" aria-label={gallery.journey.title}>
+        {gallery.journey.steps.map((step, index) => (
+          <button
+            id={`journey-tab-${locale}-${index}`}
+            type="button"
+            role="tab"
+            aria-selected={index === 0 ? 'true' : 'false'}
+            aria-controls={`journey-panel-${locale}-${index}`}
+            tabindex={index === 0 ? 0 : -1}
+            data-journey-tab
+            data-active={index === 0 ? 'true' : 'false'}
+          >
+            <span class="journey-index">{String(index + 1).padStart(2, '0')}</span>
+            <span><strong>{step.title}</strong><small>{step.summary}</small></span>
+          </button>
+        ))}
+        <div class="journey-progress-track" aria-hidden="true"><span data-journey-progress style={`height:${100 / gallery.journey.steps.length}%`}></span></div>
+      </div>
+      <div class="journey-panels">
+        {gallery.journey.steps.map((step, index) => (
+          <div
+            id={`journey-panel-${locale}-${index}`}
+            role="tabpanel"
+            aria-labelledby={`journey-tab-${locale}-${index}`}
+            aria-hidden={index === 0 ? 'false' : 'true'}
+            inert={index !== 0}
+            data-journey-panel
+            data-active={index === 0 ? 'true' : 'false'}
+          >
+            <p class="gallery-eyebrow">{gallery.journey.stepLabel} {String(index + 1).padStart(2, '0')} {gallery.journey.stepCountConnector} {String(gallery.journey.steps.length).padStart(2, '0')}</p>
+            <h5>{step.title}</h5>
+            <ul>{step.bullets.map(bullet => <li>{bullet}</li>)}</ul>
+            <div class="journey-device-group">
+              <h6>{gallery.groups.screens}</h6>
+              <div class="journey-screens">
+                {step.screens.map(id => {
+                  const screen = screensById[id];
+                  const copy = copyFor(id);
+                  return (
+                    <figure>
+                      <a href={fullImageUrl(id)} data-lightbox-screen={id} aria-label={`${gallery.open}: ${copy.caption}, ${gallery.groups[screen.theme]}`}>
+                        <div class="phone-frame">
+                          <img src={imageUrl(id)} alt={copy.alt} width={screen.width} height={screen.height} loading="lazy" decoding="async" />
+                        </div>
+                      </a>
+                      <figcaption><strong>{copy.caption}</strong><span>{gallery.groups[screen.theme]}</span></figcaption>
+                    </figure>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-carousel" data-gallery-carousel role="region" aria-roledescription="carousel" aria-label={gallery.carousel.title}>
+    <div class="gallery-heading carousel-heading">
+      <div><h4>{gallery.carousel.title}</h4><p>{gallery.carousel.instruction}</p></div>
+      <div class="carousel-controls">
+        <button type="button" data-carousel-prev aria-label={gallery.carousel.previous} disabled>←</button>
+        <span data-carousel-count aria-live="polite">01 / {String(carouselScreens.length).padStart(2, '0')}</span>
+        <button type="button" data-carousel-next aria-label={gallery.carousel.next}>→</button>
+      </div>
+    </div>
+    <div class="carousel-viewport" data-carousel-viewport tabindex="0" aria-label={gallery.carousel.instruction}>
+      <div class="carousel-track">
+        {carouselScreens.map((screen, index) => {
+          const copy = copyFor(screen.id);
+          return (
+            <figure class="carousel-slide" data-gallery-slide data-theme={screen.theme} role="group" aria-roledescription="slide" aria-label={`${index + 1} / ${carouselScreens.length}: ${copy.caption}, ${gallery.groups[screen.theme]}`} aria-hidden={index === 0 ? 'false' : 'true'}>
+              <a href={fullImageUrl(screen.id)} data-lightbox-screen={screen.id} aria-label={`${gallery.open}: ${copy.caption}, ${gallery.groups[screen.theme]}`} tabindex={index === 0 ? 0 : -1}>
+                <div class="phone-frame">
+                  <img src={imageUrl(screen.id)} alt={copy.alt} width={screen.width} height={screen.height} loading="lazy" decoding="async" />
+                </div>
+              </a>
+              <figcaption><strong>{copy.caption}</strong><span>{gallery.groups[screen.theme]}</span></figcaption>
+            </figure>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+  import 'photoswipe/style.css';
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-case-gallery]')) {
+    const lightboxItems = JSON.parse(root.dataset.lightboxItems ?? '[]') as Array<{
+      id: string;
+      src: string;
+      width: number;
+      height: number;
+      alt: string;
+      caption: string;
+      themeLabel: string;
+    }>;
+    const english = document.documentElement.lang.toLowerCase().startsWith('en');
+    const lightbox = new PhotoSwipeLightbox({
+      dataSource: lightboxItems.map(({ src, width, height, alt }) => ({ src, width, height, alt })),
+      pswpModule: () => import('photoswipe'),
+      initialZoomLevel: 'fit',
+      secondaryZoomLevel: 1,
+      maxZoomLevel: 1,
+      bgOpacity: .86,
+      loop: true,
+      escKey: true,
+      arrowKeys: true,
+      imageClickAction: 'zoom',
+      tapAction: 'zoom',
+      doubleTapAction: 'zoom',
+      bgClickAction: 'close',
+      trapFocus: true,
+      returnFocus: true,
+      closeTitle: english ? 'Close image viewer' : 'Cerrar visor de capturas',
+      zoomTitle: english ? 'View at 100% or fit to screen' : 'Ver al 100% o ajustar a pantalla',
+      arrowPrevTitle: english ? 'Previous screenshot' : 'Captura anterior',
+      arrowNextTitle: english ? 'Next screenshot' : 'Captura siguiente',
+      errorMsg: english ? 'The screenshot could not be loaded' : 'No se pudo cargar la captura',
+      indexIndicatorSep: english ? ' of ' : ' de ',
+    });
+    let previousOverflow: string | null = null;
+    lightbox.on('beforeOpen', () => {
+      previousOverflow = document.documentElement.style.overflow;
+      document.documentElement.style.overflow = 'hidden';
+    });
+    lightbox.on('close', () => {
+      if (previousOverflow === null) return;
+      document.documentElement.style.overflow = previousOverflow;
+      previousOverflow = null;
+    });
+    const updateLightboxLabel = () => {
+      const pswp = lightbox.pswp;
+      if (!pswp) return;
+      const item = lightboxItems[pswp.currIndex];
+      pswp.element.setAttribute('aria-modal', 'true');
+      pswp.element.setAttribute('aria-label', `${english ? 'Screenshot viewer' : 'Visor de capturas'}: ${item.caption}, ${item.themeLabel}`);
+    };
+    lightbox.on('afterInit', updateLightboxLabel);
+    lightbox.on('change', updateLightboxLabel);
+    lightbox.init();
+
+    root.addEventListener('click', event => {
+      const trigger = (event.target as HTMLElement).closest<HTMLAnchorElement>('[data-lightbox-screen]');
+      if (!trigger) return;
+      const index = lightboxItems.findIndex(item => item.id === trigger.dataset.lightboxScreen);
+      if (index < 0) return;
+      event.preventDefault();
+      lightbox.loadAndOpen(index);
+    });
+
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[data-journey-tab]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[data-journey-panel]')];
+    const progress = root.querySelector<HTMLElement>('[data-journey-progress]')!;
+    const selectStep = (index: number, focus = false) => {
+      tabs.forEach((tab, i) => {
+        const active = i === index;
+        tab.dataset.active = String(active);
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        panels[i].dataset.active = String(active);
+        panels[i].setAttribute('aria-hidden', String(!active));
+        panels[i].inert = !active;
+      });
+      progress.style.height = `${((index + 1) / tabs.length) * 100}%`;
+      if (focus) tabs[index].focus();
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectStep(index));
+      tab.addEventListener('keydown', event => {
+        const next = event.key === 'ArrowDown' ? (index + 1) % tabs.length
+          : event.key === 'ArrowUp' ? (index - 1 + tabs.length) % tabs.length
+          : event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : -1;
+        if (next < 0) return;
+        event.preventDefault();
+        selectStep(next, true);
+      });
+    });
+
+    const carousel = root.querySelector<HTMLElement>('[data-gallery-carousel]')!;
+    const viewport = carousel.querySelector<HTMLElement>('[data-carousel-viewport]')!;
+    const slides = [...carousel.querySelectorAll<HTMLElement>('[data-gallery-slide]')];
+    const prev = carousel.querySelector<HTMLButtonElement>('[data-carousel-prev]')!;
+    const next = carousel.querySelector<HTMLButtonElement>('[data-carousel-next]')!;
+    const count = carousel.querySelector<HTMLElement>('[data-carousel-count]')!;
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    carousel.classList.add('is-ready');
+    let selected = 0;
+    const selectSlide = (index: number) => {
+      selected = (index + slides.length) % slides.length;
+      const offset = (index: number) => {
+        let distance = (index - selected + slides.length) % slides.length;
+        if (distance > slides.length / 2) distance -= slides.length;
+        return distance;
+      };
+      const spacing = viewport.clientWidth <= 767
+        ? Math.max(150, viewport.clientWidth * .48)
+        : Math.max(240, Math.min(300, viewport.clientWidth * .24));
+      slides.forEach((slide, index) => {
+        const distance = offset(index);
+        const magnitude = Math.abs(distance);
+        const scale = magnitude === 0 ? 1 : magnitude === 1 ? .82 : .68;
+        slide.style.setProperty('--slide-x', `${distance * spacing}px`);
+        slide.style.setProperty('--slide-scale', String(scale));
+        slide.style.setProperty('--slide-opacity', magnitude === 0 ? '1' : magnitude === 1 ? '.68' : magnitude === 2 ? '.28' : '0');
+        slide.style.zIndex = String(slides.length - magnitude);
+        slide.setAttribute('aria-hidden', String(magnitude > 1));
+        const link = slide.querySelector('a');
+        if (link) link.tabIndex = index === selected ? 0 : -1;
+      });
+      prev.disabled = false;
+      next.disabled = false;
+      count.textContent = `${String(selected + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+    };
+    const updateCarousel = () => {
+      selectSlide(selected);
+    };
+    prev.addEventListener('click', () => selectSlide(selected - 1));
+    next.addEventListener('click', () => selectSlide(selected + 1));
+    carousel.addEventListener('keydown', event => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      if (event.key === 'ArrowLeft') selectSlide(selected - 1);
+      else selectSlide(selected + 1);
+    });
+    let activePointer: number | null = null;
+    let pointerStart = 0;
+    let dragging = false;
+    let suppressClick = false;
+    viewport.addEventListener('pointerdown', event => {
+      if (activePointer !== null) return;
+      activePointer = event.pointerId;
+      pointerStart = event.clientX;
+      dragging = false;
+    });
+    viewport.addEventListener('pointermove', event => {
+      if (event.pointerId !== activePointer || dragging || Math.abs(event.clientX - pointerStart) < 12) return;
+      dragging = true;
+      viewport.setPointerCapture(event.pointerId);
+    });
+    viewport.addEventListener('pointerup', event => {
+      if (event.pointerId !== activePointer) return;
+      const delta = event.clientX - pointerStart;
+      activePointer = null;
+      pointerStart = 0;
+      if (!dragging || Math.abs(delta) < 36) { dragging = false; return; }
+      suppressClick = true;
+      selectSlide(selected + (delta < 0 ? 1 : -1));
+      setTimeout(() => { suppressClick = false; }, 0);
+      dragging = false;
+    });
+    viewport.addEventListener('pointercancel', event => {
+      if (event.pointerId !== activePointer) return;
+      activePointer = null;
+      pointerStart = 0;
+      dragging = false;
+    });
+    viewport.addEventListener('click', event => {
+      if (!suppressClick) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }, true);
+    window.addEventListener('resize', updateCarousel);
+    selectSlide(0);
+    updateCarousel();
+
+    const fan = root.querySelector<HTMLElement>('[data-gallery-fan]')!;
+    if (!reducedMotion.matches && 'IntersectionObserver' in window) {
+      fan.classList.add('can-animate');
+      const observer = new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting) return;
+        fan.classList.add('is-visible');
+        observer.disconnect();
+      }, { threshold: .15 });
+      observer.observe(fan);
+    }
+  }
+</script>
+
+<style>
+  .case-gallery { margin-top: 48px; padding-top: 40px; border-top: 1px solid #414868; }
+  .case-gallery-intro { margin-bottom: 40px; }
+  .case-gallery-intro h3 { margin: 0 0 10px; color: #c0caf5; font: 600 24px/1.25 Archivo,sans-serif; }
+  .case-gallery-intro p { max-width: 70ch; margin: 0; color: #a9b1d6; font-size: 15px; line-height: 1.7; }
+  .gallery-fan { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; min-height: 530px; overflow: hidden; border: 1px solid #414868; background-color: #15161e; background-image: radial-gradient(rgb(65 72 104 / .45) 1px, transparent 1px); background-size: 24px 24px; }
+  .gallery-fan-copy { padding: 48px; position: relative; z-index: 2; background: #15161e; border-right: 1px solid #414868; }
+  .gallery-eyebrow { margin: 0 0 18px; color: #e0af68; font: 400 14px/1.5 'JetBrains Mono',monospace; }
+  .gallery-fan-copy h4 { margin: 0 0 18px; color: #c0caf5; font: 700 clamp(32px,3.2vw,46px)/1.08 Archivo,sans-serif; letter-spacing: -.045em; }
+  .gallery-fan-copy > p:last-child { margin: 0; color: #a9b1d6; font-size: 16px; line-height: 1.65; }
+  .gallery-fan-stage { position: relative; height: 530px; }
+  .fan-phone { position: absolute; bottom: 30px; width: 210px; transform-origin: center bottom; }
+  .fan-phone-1 { left: 12%; transform: rotate(-11deg); z-index: 1; }
+  .fan-phone-2 { left: calc(50% - 105px); bottom: 30px; transform: rotate(0deg); z-index: 3; }
+  .fan-phone-3 { right: 9%; transform: rotate(11deg); z-index: 2; }
+  .phone-frame { position: relative; box-sizing: border-box; width: 210px; height: 455px; overflow: hidden; padding: 6px; border: 2px solid #414868; border-radius: 23px; background: #15161e; box-shadow: inset 0 0 0 1px rgb(192 202 245 / .08), 0 18px 50px rgb(0 0 0 / .3); transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out); }
+  .phone-frame::before { content: ''; position: absolute; z-index: 2; top: 6px; left: 50%; width: 52px; height: 12px; transform: translateX(-50%); border: 1px solid #414868; border-top: 0; border-radius: 0 0 8px 8px; background: #15161e; }
+  .phone-frame::after { content: ''; position: absolute; z-index: 2; top: 72px; right: -2px; width: 3px; height: 44px; border-radius: 2px 0 0 2px; background: #414868; }
+  .phone-frame img { display: block; width: 100%; height: 100%; border-radius: 16px; object-fit: contain; object-position: top center; }
+  .fan-phone-2 .phone-frame { transition-delay: 60ms; }
+  .fan-phone-3 .phone-frame { transition-delay: 120ms; }
+  .gallery-fan.can-animate:not(.is-visible) .phone-frame { opacity: 0; transform: translateY(20px); }
+  .gallery-journey, .gallery-carousel { margin-top: 72px; }
+  .gallery-heading { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 26px; }
+  .gallery-heading h4 { margin: 0 0 8px; color: #c0caf5; font: 700 clamp(28px,3vw,40px)/1.2 Archivo,sans-serif; letter-spacing: -.035em; }
+  .gallery-heading p { margin: 0; color: #a9b1d6; font-size: 15px; line-height: 1.6; }
+  .journey-layout { display: grid; grid-template-columns: minmax(230px,.36fr) minmax(0,1fr); border: 1px solid #414868; background: #15161e; }
+  .journey-steps { position: relative; display: grid; align-content: start; border-right: 1px solid #414868; }
+  .journey-steps button { min-height: 92px; display: flex; align-items: center; gap: 18px; text-align: left; padding: 16px 20px 16px 30px; border: 0; border-bottom: 1px solid #414868; background: transparent; color: #a9b1d6; cursor: pointer; }
+  .journey-steps button:last-of-type { border-bottom: 0; }
+  .journey-steps button[data-active="true"] { background: #283457; color: #c0caf5; }
+  .journey-index { width: 38px; height: 38px; flex: none; display: grid; place-items: center; border: 1px solid #414868; background: #15161e; color: #a9b1d6; font: 400 14px 'JetBrains Mono',monospace; }
+  .journey-steps button[data-active="true"] .journey-index { border-color: #7aa2f7; color: #7aa2f7; }
+  .journey-steps strong { display: block; font: 600 16px/1.3 Archivo,sans-serif; }
+  .journey-steps small { display: block; margin-top: 4px; font-size: 14px; line-height: 1.4; }
+  .journey-progress-track { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: #414868; }
+  .journey-progress-track span { display: block; width: 100%; background: #7aa2f7; transition: height 180ms var(--ease-out); }
+  .journey-panels { display: grid; min-width: 0; overflow: hidden; }
+  .journey-panels > [role="tabpanel"] { grid-area: 1 / 1; min-width: 0; padding: 30px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 160ms var(--ease-out), visibility 160ms; }
+  .journey-panels > [data-active="true"] { opacity: 1; visibility: visible; pointer-events: auto; }
+  .journey-panels h5 { margin: 0 0 18px; color: #c0caf5; font: 700 28px/1.2 Archivo,sans-serif; }
+  .journey-panels ul { margin: 0 0 28px; padding-left: 20px; color: #a9b1d6; font-size: 15px; line-height: 1.7; }
+  .journey-panels li + li { margin-top: 7px; }
+  .journey-device-group h6 { margin: 0 0 12px; color: #a9b1d6; font: 400 13px/1.4 'JetBrains Mono',monospace; }
+  .journey-screens { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 4px 12px; }
+  .journey-screens figure { flex: 0 0 210px; width: 210px; margin: 0; scroll-snap-align: start; }
+  .journey-screens a { display: block; width: 210px; }
+  .journey-screens img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: top center; }
+  .journey-screens figcaption { display: grid; gap: 4px; padding-top: 9px; color: #a9b1d6; font-size: 14px; line-height: 1.4; }
+  .journey-screens figcaption strong, .carousel-slide figcaption strong { color: #c0caf5; font-weight: 600; }
+  .journey-screens figcaption span { font: 400 12px/1.4 'JetBrains Mono',monospace; }
+  .carousel-heading { align-items: center; }
+  .carousel-controls { display: flex; align-items: center; gap: 12px; flex: none; }
+  .carousel-controls button { width: 44px; height: 44px; border: 1px solid #414868; background: #15161e; color: #c0caf5; font-size: 20px; cursor: pointer; }
+  .carousel-controls button:disabled { opacity: .4; cursor: default; }
+  .carousel-controls span { min-width: 70px; text-align: center; color: #a9b1d6; font: 400 14px 'JetBrains Mono',monospace; }
+  .carousel-viewport { width: 100%; overflow: hidden; touch-action: pan-y pinch-zoom; }
+  .carousel-viewport:focus-visible { outline: 2px solid #7aa2f7; outline-offset: 4px; }
+  .carousel-track { position: relative; height: 520px; touch-action: pan-y pinch-zoom; }
+  .carousel-slide { position: absolute; top: 0; left: 50%; width: 210px; margin: 0; opacity: var(--slide-opacity, 0); transform: translate(calc(-50% + var(--slide-x, 0px)), 0) scale(var(--slide-scale, .68)); transform-origin: center 42%; transition: transform 360ms var(--ease-out), opacity 360ms var(--ease-out); pointer-events: none; }
+  .carousel-slide[aria-hidden="false"] { pointer-events: auto; }
+  .carousel-slide > a { display: block; width: 210px; }
+  .journey-screens a, .carousel-slide > a { cursor: zoom-in; }
+  .carousel-slide figcaption { display: grid; justify-items: center; gap: 5px; padding-top: 14px; color: #a9b1d6; font-size: 14px; line-height: 1.35; text-align: center; opacity: 0; transition: opacity 180ms var(--ease-out); }
+  .carousel-slide[aria-hidden="false"] figcaption { opacity: 1; }
+  .carousel-slide figcaption strong { color: #c0caf5; font-weight: 600; }
+  .carousel-slide figcaption span { font: 400 12px/1.4 'JetBrains Mono',monospace; }
+  .carousel-controls button:focus-visible { outline: 2px solid #7aa2f7; outline-offset: 3px; }
+  :global(.pswp) { --pswp-bg: #111318; --pswp-icon-color: #c0caf5; --pswp-icon-color-secondary: #24283b; --pswp-icon-stroke-color: #24283b; }
+  :global(.pswp__counter) { color: #c0caf5; font: 400 14px/1.4 'JetBrains Mono',monospace; text-shadow: none; }
+  :global(.pswp__button:focus-visible) { outline: 2px solid #7aa2f7; outline-offset: 2px; }
+  @media (hover: hover) and (pointer: fine) {
+    .journey-steps button:hover:not([data-active="true"]) { background: #283457; }
+    .carousel-controls button:hover:not(:disabled) { background: #283457; }
+  }
+  @media (max-width: 767px) {
+    .case-gallery { margin-top: 40px; padding-top: 32px; }
+    .gallery-fan { grid-template-columns: 1fr; }
+    .gallery-fan-copy { padding: 26px; border-right: 0; border-bottom: 1px solid #414868; }
+    .gallery-fan-copy h4 { font-size: 32px; }
+    .gallery-fan-stage { height: 500px; }
+    .fan-phone { width: 210px; bottom: 30px; }
+    .fan-phone-1 { left: -28px; }
+    .fan-phone-2 { left: calc(50% - 105px); bottom: 30px; }
+    .fan-phone-3 { right: -28px; }
+    .gallery-journey, .gallery-carousel { margin-top: 56px; }
+    .gallery-heading { display: block; }
+    .journey-layout { grid-template-columns: 1fr; }
+    .journey-steps { border-right: 0; border-bottom: 1px solid #414868; }
+    .journey-steps button { min-height: 64px; padding: 10px 16px 10px 24px; }
+    .journey-index { width: 32px; height: 32px; }
+    .journey-steps small { display: none; }
+    .journey-panels > [role="tabpanel"] { padding: 24px 16px; }
+    .journey-panels h5 { font-size: 24px; }
+    .carousel-heading { display: flex; align-items: end; flex-direction: column; }
+    .carousel-heading > div:first-child { align-self: stretch; }
+    .carousel-track { height: 500px; }
+    .carousel-slide { transform-origin: center 40%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .phone-frame,
+    .carousel-slide,
+    .carousel-slide figcaption { transition: none; }
+    .gallery-fan.can-animate:not(.is-visible) .phone-frame { transform: none; }
+    .journey-progress-track span,
+    .journey-panels > [role="tabpanel"] { transition: none; }
+  }
+</style>

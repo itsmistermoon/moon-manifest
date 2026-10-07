@@ -25,7 +25,7 @@ export const home = {
   es: {
     title: 'Juan Pablo Armstrong · Analista Programador',
     tagline: 'Analista Programador · Cloud / AWS',
-    bio: 'Graduate AWS Re/Start 2026. Proyecto serverless en producción. AWS Certified Cloud Practitioner.',
+    bio: 'Desarrollo VecinoClub, plataforma de fidelización en producción para comercios locales. AWS Certified Cloud Practitioner.',
     sidebarNav: [
       { id: 'sobre-mi', label: 'Sobre mí' },
       { id: 'proyecto', label: 'Proyecto Destacado' },
@@ -45,17 +45,17 @@ export const home = {
     about: {
       label: 'Sobre mí',
       paragraphs: [
-        'Analista Programador con experiencia en desarrollo web, administración de servidores y diseño de interfaces. Graduate de AWS Re/Start 2026, con proyecto serverless multi-tenant en producción. AWS Certified Cloud Practitioner. Autodidacta activo, inglés avanzado (TOEFL 101/120).',
+        'Analista Programador con experiencia en desarrollo web, administración de servidores y diseño de interfaces. Desarrollo VecinoClub, plataforma serverless multi-tenant de fidelización en producción, con Imaquinaria como primer comercio. Graduate de AWS Re/Start 2026 y AWS Certified Cloud Practitioner. Autodidacta activo, inglés avanzado (TOEFL 101/120).',
         'Vengo del diseño gráfico — trabajé durante años en identidad visual, editorial y UI antes de hacer el cruce al desarrollo. Eso me da una perspectiva poco común: entiendo tanto la arquitectura del sistema como la experiencia del usuario final.',
         'Actualmente profundizando en el ecosistema AWS e integrando herramientas de IA en flujos de trabajo de desarrollo.',
       ],
     },
-    projectSection: { label: 'Proyecto Destacado', viewCaseStudy: 'Ver caso de estudio', viewPlatform: 'Ver plataforma' },
+    projectSection: { label: 'Proyecto Destacado', viewCaseStudy: 'Ver caso de estudio', viewPlatform: 'Ver VecinoClub' },
     projects: [
       {
-        title: 'Plataforma de Fidelización Serverless',
-        subtitle: 'Proyecto final AWS Re/Start 2026 — Sistema en producción',
-        description: 'Arquitectura multi-tenant diseñada y desplegada desde cero. Backend en FastAPI/Python sobre AWS Lambda, con frontend en React 19 + TypeScript. Implementación completa de CI/CD con GitHub Actions y gestión de identidad con Cognito.',
+        title: 'VecinoClub',
+        subtitle: 'Plataforma SaaS de fidelización para comercios locales · En producción',
+        description: 'Los clientes escanean un QR y consultan sellos y puntos sin instalar una app. Cada comercio configura beneficios, registra compras y consulta estadísticas. Diseñé y desplegué su arquitectura serverless multi-tenant con React, FastAPI y AWS; Imaquinaria es el primer comercio y banco de pruebas.',
         status: 'En Producción',
         statusColor: 'yellow',
         tags: ['AWS Lambda', 'FastAPI / Python', 'React 19 + TS', 'GitHub Actions'],
@@ -63,7 +63,7 @@ export const home = {
     ],
     experienceSection: { label: 'Experiencia' },
     experience: [
-      { role: 'Cofundador · Desarrollo & Gestión', company: 'Imaquinaria Estudio / Tienda SPA', period: '2016 – ACTUALIDAD', description: 'Diseño y despliegue de plataforma serverless de fidelización gamificada. Gestión de identidad visual, producción de contenido y canales de venta.' },
+      { role: 'Cofundador · Desarrollo & Gestión', company: 'Imaquinaria Estudio / Tienda SPA', period: '2016 – ACTUALIDAD', description: 'Imaquinaria es el primer comercio y banco de pruebas de VecinoClub. Diseño y desarrollo del programa Bushidō, además de identidad visual, contenido y canales de venta de la tienda.' },
       { role: 'Cofundador · Administrador Web y Editor', company: 'Cuarto Mundo', period: '2014 – ACTUALIDAD', description: 'Administración y personalización de plataforma WordPress para medio digital de cultura pop. Gestión editorial y producción de contenido desde la fundación.' },
       { role: 'Administrador de Servidores Web', company: 'Lazos S.A.', period: '2014 – 2015', description: 'Administración de servidores e implementación de funcionalidades para clientes. Replicación de navegación e intranet de CONAF para migración interna.' },
     ],
@@ -90,7 +90,7 @@ export const home = {
   en: {
     title: 'Juan Pablo Armstrong · Systems Analyst',
     tagline: 'Systems Analyst · Cloud / AWS',
-    bio: 'AWS Re/Start 2026 Graduate. Serverless project in production. AWS Certified Cloud Practitioner.',
+    bio: 'I build VecinoClub, a live loyalty platform for local businesses. AWS Certified Cloud Practitioner.',
     sidebarNav: [
       { id: 'about', label: 'About' },
       { id: 'project', label: 'Featured Project' },
@@ -110,17 +110,17 @@ export const home = {
     about: {
       label: 'About',
       paragraphs: [
-        'Systems Analyst with experience in web development, server administration, and UI design. AWS Re/Start 2026 Graduate, with a multi-tenant serverless project in production. AWS Certified Cloud Practitioner. Active self-learner, advanced English (TOEFL 101/120).',
+        'Systems Analyst with experience in web development, server administration, and UI design. I build VecinoClub, a live multi-tenant serverless loyalty platform, with Imaquinaria as its first business. AWS Re/Start 2026 Graduate and AWS Certified Cloud Practitioner. Active self-learner, advanced English (TOEFL 101/120).',
         'I come from graphic design — I spent years in visual identity, editorial, and UI before crossing into development. That gives me an uncommon perspective: I understand both system architecture and the end-user experience.',
         'Currently deepening expertise in the AWS ecosystem and integrating AI tools into development workflows.',
       ],
     },
-    projectSection: { label: 'Featured Project', viewCaseStudy: 'View case study', viewPlatform: 'View platform' },
+    projectSection: { label: 'Featured Project', viewCaseStudy: 'View case study', viewPlatform: 'View VecinoClub' },
     projects: [
       {
-        title: 'Serverless Loyalty Platform',
-        subtitle: 'AWS Re/Start 2026 Final Project — Live system in production',
-        description: 'Multi-tenant architecture designed and deployed from scratch. Backend in FastAPI/Python on AWS Lambda, frontend in React 19 + TypeScript. Full CI/CD with GitHub Actions and identity management with Cognito.',
+        title: 'VecinoClub',
+        subtitle: 'Loyalty SaaS platform for local businesses · In production',
+        description: 'Customers scan a QR code to check stamps and points without installing an app. Each business sets benefits, records purchases, and views statistics. I designed and deployed its multi-tenant serverless architecture with React, FastAPI, and AWS; Imaquinaria is the first business and proving ground.',
         status: 'Live',
         statusColor: 'yellow',
         tags: ['AWS Lambda', 'FastAPI / Python', 'React 19 + TS', 'GitHub Actions'],
@@ -128,7 +128,7 @@ export const home = {
     ],
     experienceSection: { label: 'Experience' },
     experience: [
-      { role: 'Co-founder · Development & Operations', company: 'Imaquinaria Estudio / Tienda SPA', period: '2016 – PRESENT', description: 'Design and deployment of a gamified serverless loyalty platform. Brand identity management, content production, and sales channels.' },
+      { role: 'Co-founder · Development & Operations', company: 'Imaquinaria Estudio / Tienda SPA', period: '2016 – PRESENT', description: 'Imaquinaria is VecinoClub’s first business and proving ground. I design and develop its Bushidō program alongside the shop’s brand identity, content, and sales channels.' },
       { role: 'Co-founder · Web Administrator & Editor', company: 'Cuarto Mundo', period: '2014 – PRESENT', description: 'Administration and customization of a WordPress platform for a pop culture digital publication. Editorial management and content production since founding.' },
       { role: 'Web Server Administrator', company: 'Lazos S.A.', period: '2014 – 2015', description: 'Server administration and feature implementation for clients. Replicated CONAF\'s navigation and intranet for an internal migration project.' },
     ],
