@@ -111,7 +111,7 @@ const lightboxItems = allScreens.map(screen => ({
     <div class="gallery-heading carousel-heading">
       <div><h4>{gallery.carousel.title}</h4><p>{gallery.carousel.instruction}</p></div>
       <div class="carousel-controls">
-        <button type="button" data-carousel-prev aria-label={gallery.carousel.previous} disabled>←</button>
+        <button type="button" data-carousel-prev aria-label={gallery.carousel.previous}>←</button>
         <span data-carousel-count aria-live="polite">01 / {String(allScreens.length).padStart(2, '0')}</span>
         <button type="button" data-carousel-next aria-label={gallery.carousel.next}>→</button>
       </div>
