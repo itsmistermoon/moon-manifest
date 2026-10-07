@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/interior.css';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 
@@ -40,7 +41,8 @@ const imageUrl = buildUrl(image);
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1a1b26" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -88,6 +90,7 @@ const imageUrl = buildUrl(image);
   // es requestAnimationFrame en JS, no una transición CSS. Se corta acá directamente.
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!prefersReducedMotion) document.querySelectorAll<HTMLElement>('.brutalist-card').forEach((card) => {
+    if (card.closest('.interior-page')) return;
     let canvas = card.querySelector<HTMLCanvasElement>('.pixel-canvas');
     if (!canvas) {
       canvas = document.createElement('canvas');
@@ -116,8 +119,12 @@ const imageUrl = buildUrl(image);
     function draw(t: number) {
       ctx!.clearRect(0, 0, w, h);
       const radius = 260;
-      for (let y = 0; y < rows; y++) {
-        for (let x = 0; x < cols; x++) {
+      const firstCol = Math.max(0, Math.floor((mx - radius) / cell));
+      const lastCol = Math.min(cols - 1, Math.ceil((mx + radius) / cell));
+      const firstRow = Math.max(0, Math.floor((my - radius) / cell));
+      const lastRow = Math.min(rows - 1, Math.ceil((my + radius) / cell));
+      for (let y = firstRow; y <= lastRow; y++) {
+        for (let x = firstCol; x <= lastCol; x++) {
           const cx = x * cell + cell / 2, cy = y * cell + cell / 2;
           const dist = Math.hypot(cx - mx, cy - my);
           const proximity = Math.max(0, 1 - dist / radius);
