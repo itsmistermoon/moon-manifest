@@ -5,7 +5,7 @@ import { navLinks } from '../../../../lib/routes';
 ---
 <BaseLayout title="ADR-0023: IAM Roles as IaC · DŌJŌ">
   <MobileNav
-    maxWidth="max-w-4xl"
+    maxWidth="site-shell"
     menuLabel="Open menu"
     lang={{ es: '/proyecto/adr/ADR-0023-roles-iam-en-iac', en: '/en/project/adr/ADR-0023-iam-roles-as-iac', current: 'en' }}
     homeHref="/en"
@@ -14,7 +14,7 @@ import { navLinks } from '../../../../lib/routes';
     links={navLinks('en', 'proyecto')}
   />
   <!-- max-md:pt-[var(--nav-offset)] = MobileNav's fixed bar (72px, its own component height) + the original mobile padding-top (py-12, 48px) -->
-  <div class="max-w-4xl mx-auto px-6 py-12 md:py-24 max-md:pt-[var(--nav-offset)]">
+  <div class="interior-page interior-adr site-shell mx-auto py-12 md:py-24 max-md:pt-[var(--nav-offset)]">
     <header class="mb-10">
       <p class="text-xs font-mono text-ink-dim uppercase tracking-widest mb-2">ADR-0023 · 2026-06-24 · Accepted</p>
       <h1 class="text-3xl font-display font-bold text-ink leading-tight">GitHub Actions IAM roles managed as IaC</h1>
@@ -52,27 +52,3 @@ import { navLinks } from '../../../../lib/routes';
     </div>
   </div>
 </BaseLayout>
-
-<style>
-  .prose-adr h2 {
-    @apply text-xs font-mono text-ink-dim uppercase tracking-widest mb-3;
-  }
-  .prose-adr h3 {
-    @apply text-sm font-semibold text-ink-muted mt-5 mb-2;
-  }
-  .prose-adr p {
-    @apply text-ink-muted text-sm leading-relaxed mb-3;
-  }
-  .prose-adr em {
-    @apply italic text-ink-muted;
-  }
-  .prose-adr code {
-    @apply font-mono text-xs text-accent-yellow bg-accent-yellow/10 px-1 py-0.5;
-  }
-  .prose-adr strong {
-    @apply text-ink font-semibold;
-  }
-  .prose-adr section {
-    @apply pb-8 border-b border-dark-border last:border-0 last:pb-0;
-  }
-</style>

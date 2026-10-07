@@ -43,12 +43,14 @@ interface Props {
 }
 
 const { crumbDefault, sections = [], links, menuLabel = 'Abrir menú', maxWidth, lang, homeHref, parentCrumb, breakpoint = 'md', syncSidebarNav = false } = Astro.props;
+const closeMenuLabel = lang.current === 'en' ? 'Close menu' : 'Cerrar menú';
+const panelLabel = lang.current === 'en' ? 'Site menu' : 'Menú del sitio';
 // Tailwind necesita los nombres de clase completos y estáticos — no se pueden interpolar prefijos.
 const bpDesktop = breakpoint === 'lg' ? 'hidden lg:block' : 'hidden md:block';
 const bpMobile = breakpoint === 'lg' ? 'lg:hidden' : 'md:hidden';
 const hasSections = sections.length > 0;
 // Índice corrido para el stagger del fade-in (fila "Inicio" → secciones anidadas → resto de links).
-const rowDelay = (i: number) => `${i * 20}ms`;
+const rowDelay = (i: number) => `${Math.min(i * 10, 80)}ms`;
 
 // Las secciones son sub-páginas del inicio, no hermanas de "Inicio"/"Caso de estudio"/"CV" —
 // se anidan bajo el primer link (siempre "Inicio", por convención de cada página que llama
@@ -71,30 +73,29 @@ const rows: Row[] = hasSections
      ancho máximo que el contenido de la página (prop maxWidth). En el breakpoint md la barra
      se convierte en la versión mobile (hamburger) sin cambiar de altura ni de fondo. -->
 <div class={`${bpDesktop} fixed top-0 inset-x-0 z-40 bg-dark-bg border-b border-dark-line`}>
-  <div class={`${maxWidth} mx-auto px-6 h-[72px] flex items-center justify-between text-xs font-mono`}>
+  <div class={`${maxWidth} mx-auto px-6 h-[72px] flex items-center justify-between text-sm font-mono`}>
     <Breadcrumb homeHref={homeHref} crumbDefault={crumbDefault} parentCrumb={parentCrumb} />
     <span class="flex items-center gap-3">
-      {lang.current === 'es' ? <span class="text-accent-yellow">ES</span> : <a href={lang.es} class="text-ink-dim hover:text-ink-muted transition-colors">ES</a>}
+      {lang.current === 'es' ? <span class="text-accent-yellow">ES</span> : <a href={lang.es} class="text-ink-muted hover:text-ink transition-colors">ES</a>}
       <span class="text-dark-border">|</span>
-      {lang.current === 'en' ? <span class="text-accent-yellow">EN</span> : <a href={lang.en} class="text-ink-dim hover:text-ink-muted transition-colors">EN</a>}
+      {lang.current === 'en' ? <span class="text-accent-yellow">EN</span> : <a href={lang.en} class="text-ink-muted hover:text-ink transition-colors">EN</a>}
     </span>
   </div>
 </div>
 
-<div class={`${bpMobile} fixed top-0 inset-x-0 z-50 bg-dark-bg border-b border-dark-line`}>
-  <div class="flex items-center justify-between px-6 h-[72px]">
+<div data-sync-sidebar-nav={syncSidebarNav} class={`mobile-header ${bpMobile} fixed top-0 inset-x-0 z-50 bg-dark-bg border-b border-dark-line`}>
+  <div class="mobile-header-inner flex items-center justify-between px-6 h-[72px]">
     <Breadcrumb homeHref={homeHref} crumbDefault={crumbDefault} parentCrumb={parentCrumb} id="mobile-nav-crumb" sections={sections} />
-    <button id="mobile-nav-toggle" aria-label={menuLabel} aria-expanded="false" class="relative w-11 h-11 -mr-3 flex items-center justify-center text-ink-muted hover:text-ink transition-colors">
-      <span class="sr-only">{menuLabel}</span>
-      <span id="mobile-nav-bar1" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-200 ease-[ease] -translate-y-[4px]"></span>
-      <span id="mobile-nav-bar2" class="absolute w-[18px] h-[1.5px] bg-current transition-transform duration-200 ease-[ease] translate-y-[4px]"></span>
+    <button id="mobile-nav-toggle" aria-label={menuLabel} data-open-label={menuLabel} data-close-label={closeMenuLabel} aria-controls="mobile-nav-panel" aria-expanded="false" class="relative w-11 h-11 -mr-3 flex items-center justify-center text-ink-muted hover:text-ink">
+      <span id="mobile-nav-bar1" class="absolute w-[18px] h-[1.5px] bg-current -translate-y-[4px]"></span>
+      <span id="mobile-nav-bar2" class="absolute w-[18px] h-[1.5px] bg-current translate-y-[4px]"></span>
     </button>
   </div>
 </div>
 
-<div id="mobile-nav-backdrop" class={`${bpMobile} fixed inset-0 z-40 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-200 ease-[ease]`}></div>
+<div id="mobile-nav-backdrop" class={`${bpMobile} fixed inset-0 z-40 bg-black/60 opacity-0 pointer-events-none`}></div>
 
-<div id="mobile-nav-panel" class={`${bpMobile} fixed top-[72px] inset-x-0 z-[45] bg-dark-bg grid grid-rows-[0fr] pointer-events-none transition-[grid-template-rows] duration-200 ease-[ease]`}>
+<div id="mobile-nav-panel" role="dialog" aria-modal="true" aria-label={panelLabel} inert class={`${bpMobile} fixed top-[72px] inset-x-0 z-[45] bg-dark-bg pointer-events-none`}>
   <div class="overflow-hidden">
     <!-- Sin línea propia arriba: la barra superior ya tiene su border-b justo en este
          borde. z-45 (entre el backdrop en 40 y la barra en 50) garantiza que ese borde siempre
@@ -105,21 +106,21 @@ const rows: Row[] = hasSections
       <CornerBox class="mobile-nav-corner-box bg-dark-bg">
         {rows.map((r, i) => (
           r.kind === 'section' ? (
-            <a href={r.href} data-section={r.id} style={`transition-delay:${rowDelay(i)}`} class={`mobile-nav-link nav-reveal flex items-center gap-2 pl-8 pr-4 h-[72px] text-xs font-mono uppercase tracking-widest text-ink-dim hover:text-ink hover:bg-dark-hover transition-colors ${i > 0 ? 'border-t border-dark-line' : ''}`}>
+            <a href={r.href} data-section={r.id} style={`transition-delay:${rowDelay(i)}`} class={`mobile-nav-link nav-reveal flex items-center gap-2 pl-8 pr-4 h-[72px] text-sm font-mono text-ink-muted hover:text-ink hover:bg-dark-hover transition-colors ${i > 0 ? 'border-t border-dark-line' : ''}`}>
               <Icon name="chevron-right" class="w-3 h-3 text-accent-blue shrink-0" />
               {r.label}
             </a>
           ) : (
-            <a href={r.href} style={`transition-delay:${rowDelay(i)}`} class={`mobile-nav-link nav-reveal flex items-center px-4 h-[72px] text-xs font-mono uppercase tracking-widest transition-colors hover:bg-dark-hover ${r.current ? 'text-ink' : 'text-ink-dim hover:text-ink'} ${i > 0 ? 'border-t border-dark-line' : ''}`}>{r.label}</a>
+            <a href={r.href} style={`transition-delay:${rowDelay(i)}`} class={`mobile-nav-link nav-reveal flex items-center px-4 h-[72px] text-sm font-mono transition-colors hover:bg-dark-hover ${r.current ? 'text-ink' : 'text-ink-muted hover:text-ink'} ${i > 0 ? 'border-t border-dark-line' : ''}`}>{r.label}</a>
           )
         ))}
-        <div class="grid grid-cols-2 h-[72px] text-xs font-mono border-t border-dark-line">
+        <div class="grid grid-cols-2 h-[72px] text-sm font-mono border-t border-dark-line">
           {lang.current === 'es'
             ? <span class="nav-reveal flex items-center justify-center text-accent-yellow border-r border-dark-line" style={`transition-delay:${rowDelay(rows.length)}`}>ESPAÑOL</span>
-            : <a href={lang.es} class="mobile-nav-link nav-reveal flex items-center justify-center text-ink-dim hover:text-ink hover:bg-dark-hover transition-colors border-r border-dark-line" style={`transition-delay:${rowDelay(rows.length)}`}>ESPAÑOL</a>}
+            : <a href={lang.es} class="mobile-nav-link nav-reveal flex items-center justify-center text-ink-muted hover:text-ink hover:bg-dark-hover transition-colors border-r border-dark-line" style={`transition-delay:${rowDelay(rows.length)}`}>ESPAÑOL</a>}
           {lang.current === 'en'
             ? <span class="nav-reveal flex items-center justify-center text-accent-yellow" style={`transition-delay:${rowDelay(rows.length + 1)}`}>ENGLISH</span>
-            : <a href={lang.en} class="mobile-nav-link nav-reveal flex items-center justify-center text-ink-dim hover:text-ink hover:bg-dark-hover transition-colors" style={`transition-delay:${rowDelay(rows.length + 1)}`}>ENGLISH</a>}
+            : <a href={lang.en} class="mobile-nav-link nav-reveal flex items-center justify-center text-ink-muted hover:text-ink hover:bg-dark-hover transition-colors" style={`transition-delay:${rowDelay(rows.length + 1)}`}>ENGLISH</a>}
         </div>
       </CornerBox>
     </div>
@@ -128,6 +129,45 @@ const rows: Row[] = hasSections
 </div>
 
 <style>
+  #mobile-nav-bar1, #mobile-nav-bar2 { transition: transform 200ms var(--ease-in-out); }
+  #mobile-nav-toggle:focus-visible #mobile-nav-bar1,
+  #mobile-nav-toggle:focus-visible #mobile-nav-bar2 { transition: none; }
+  #mobile-nav-backdrop { transition: opacity 200ms var(--ease-out); }
+  #mobile-nav-backdrop.nav-instant,
+  #mobile-nav-panel.nav-instant,
+  #mobile-nav-panel.nav-instant .nav-reveal { transition: none !important; }
+  #mobile-nav-toggle {
+    transition: transform 160ms var(--ease-out), color 150ms ease;
+  }
+  #mobile-nav-toggle:active {
+    transform: scale(0.97);
+  }
+  #mobile-nav-panel {
+    top: calc(72px + var(--safe-area-top));
+    max-height: calc(100dvh - 72px - var(--safe-area-top));
+    padding-bottom: var(--safe-area-bottom);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 200ms var(--ease-drawer), opacity 200ms var(--ease-out);
+  }
+  .mobile-header { padding-top: var(--safe-area-top); }
+  .mobile-header-inner {
+    padding-left: max(24px, var(--safe-area-left));
+    padding-right: max(24px, var(--safe-area-right));
+  }
+  #mobile-nav-panel.nav-open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  #mobile-nav-panel:not(.nav-open) .nav-reveal {
+    transition-delay: 0ms !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #mobile-nav-toggle:active { transform: none; color: var(--color-ink); }
+  }
   /* :global — CornerBox.astro renders this element from a different component,
      so it never carries MobileNav's own scope attribute. */
   :global(.mobile-nav-corner-box) {
@@ -138,7 +178,7 @@ const rows: Row[] = hasSections
   .nav-reveal {
     opacity: 0;
     transform: translateY(-4px);
-    transition: opacity 150ms ease-out, transform 150ms ease-out, color 150ms ease-out;
+    transition: opacity 150ms var(--ease-out), transform 150ms var(--ease-out), color 150ms ease;
   }
   #mobile-nav-panel.nav-open .nav-reveal {
     opacity: 1;
@@ -146,19 +186,50 @@ const rows: Row[] = hasSections
   }
 </style>
 
-<script define:vars={{ syncSidebarNav }}>
+<script>
   const toggle = document.getElementById('mobile-nav-toggle');
   const panel = document.getElementById('mobile-nav-panel');
   const backdrop = document.getElementById('mobile-nav-backdrop');
   const bar1 = document.getElementById('mobile-nav-bar1');
   const bar2 = document.getElementById('mobile-nav-bar2');
   const links = document.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link');
+  let savedScrollY = 0;
+  let previousBodyPosition = '';
+  let previousBodyTop = '';
+  let previousBodyWidth = '';
 
-  function toggleNav(open?: boolean) {
+  function skipKeyboardMotion() {
+    panel?.classList.add('nav-instant');
+    backdrop?.classList.add('nav-instant');
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      panel?.classList.remove('nav-instant');
+      backdrop?.classList.remove('nav-instant');
+    }));
+  }
+
+  function toggleNav(open?: boolean, restoreFocus = false) {
     const willOpen = open ?? panel?.classList.contains('pointer-events-none');
+    if (willOpen === panel?.classList.contains('nav-open')) return;
+    if (willOpen) {
+      savedScrollY = window.scrollY;
+      previousBodyPosition = document.body.style.position;
+      previousBodyTop = document.body.style.top;
+      previousBodyWidth = document.body.style.width;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${savedScrollY}px`;
+      document.body.style.width = '100%';
+    } else {
+      document.body.style.position = previousBodyPosition;
+      document.body.style.top = previousBodyTop;
+      document.body.style.width = previousBodyWidth;
+      const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scrollTo(0, savedScrollY);
+      document.documentElement.style.scrollBehavior = previousScrollBehavior;
+    }
     toggle?.setAttribute('aria-expanded', String(willOpen));
-    panel?.classList.toggle('grid-rows-[0fr]', !willOpen);
-    panel?.classList.toggle('grid-rows-[1fr]', willOpen);
+    toggle?.setAttribute('aria-label', willOpen ? toggle.dataset.closeLabel || 'Close menu' : toggle.dataset.openLabel || 'Open menu');
+    if (panel) panel.inert = !willOpen;
     panel?.classList.toggle('nav-open', willOpen);
     panel?.classList.toggle('pointer-events-none', !willOpen);
     backdrop?.classList.toggle('opacity-0', !willOpen);
@@ -170,10 +241,34 @@ const rows: Row[] = hasSections
     bar2?.classList.toggle('translate-y-[4px]', !willOpen);
     bar2?.classList.toggle('translate-y-0', willOpen);
     bar2?.classList.toggle('-rotate-45', willOpen);
+    if (willOpen) links[0]?.focus();
+    else if (restoreFocus) toggle?.focus();
   }
-  toggle?.addEventListener('click', () => toggleNav());
-  backdrop?.addEventListener('click', () => toggleNav(false));
+  toggle?.addEventListener('click', (event) => {
+    if (event.detail === 0) skipKeyboardMotion();
+    toggleNav();
+  });
+  backdrop?.addEventListener('click', () => toggleNav(false, true));
   links.forEach(l => l.addEventListener('click', () => toggleNav(false)));
+  document.addEventListener('keydown', (event) => {
+    if (!panel?.classList.contains('nav-open')) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      skipKeyboardMotion();
+      toggleNav(false, true);
+    } else if (event.key === 'Tab' && links.length) {
+      if (event.shiftKey && document.activeElement === toggle) {
+        event.preventDefault();
+        links[links.length - 1].focus();
+      } else if (!event.shiftKey && document.activeElement === links[links.length - 1]) {
+        event.preventDefault();
+        toggle?.focus();
+      }
+    }
+  });
+  window.addEventListener('resize', () => {
+    if (panel?.classList.contains('nav-open') && getComputedStyle(panel).display === 'none') toggleNav(false);
+  });
 
   // Scroll-spy breadcrumb — only wired up when the page passed `sections`.
   // `sections` viaja en el data-attribute del crumb mobile; el spy actualiza
@@ -192,7 +287,7 @@ const rows: Row[] = hasSections
     // Desktop sidebar nav (#sidebar-nav, rendered by the page itself) tracks the same
     // sections — driven from here instead of a second observer in the page's own script.
     // Opt-in via `syncSidebarNav`, set by whichever page actually renders that DOM.
-    const sidebarLinks = syncSidebarNav
+    const sidebarLinks = crumbData?.closest('[data-sync-sidebar-nav]')?.getAttribute('data-sync-sidebar-nav') === 'true'
       ? document.querySelectorAll<HTMLAnchorElement>('#sidebar-nav a')
       : [];
     const spy = new IntersectionObserver((entries) => {
@@ -202,7 +297,7 @@ const rows: Row[] = hasSections
           sectionLinks.forEach(l => {
             const isActive = l.dataset.section === entry.target.id;
             l.classList.toggle('text-ink', isActive);
-            l.classList.toggle('text-ink-dim', !isActive);
+            l.classList.toggle('text-ink-muted', !isActive);
           });
           sidebarLinks.forEach(l => {
             l.classList.toggle('active', l.getAttribute('href') === `#${entry.target.id}`);

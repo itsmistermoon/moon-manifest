@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 :root {
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
   /* barra fija de MobileNav (72px, su altura propia) + el padding-top original en mobile (py-12, 48px) */
-  --nav-offset: 120px;
+  --nav-offset: calc(120px + var(--safe-area-top));
   --grid-size: 24px;
   --color-dark-line:     theme('colors.dark.line');
   --color-dark-surface:  theme('colors.dark.surface');
@@ -16,11 +20,16 @@
   --color-ink:           theme('colors.ink.DEFAULT');
   --color-ink-muted:     theme('colors.ink.muted');
   --color-ink-dim:       theme('colors.ink.dim');
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
     /* El primer paint (pestaña nueva, carga directa) usa el fondo oscuro en vez del
        canvas blanco/negro por defecto del navegador — evita el flash antes del CSS. */
     color-scheme: dark;
@@ -29,6 +38,7 @@
 
   body {
     @apply bg-dark-bg text-ink-muted font-body antialiased;
+    padding-bottom: var(--safe-area-bottom);
     background-image: radial-gradient(var(--color-dark-hover) 2px, transparent 2px);
     background-size: var(--grid-size) var(--grid-size);
     /* center top ancla los puntos desde el centro horizontal:
@@ -44,6 +54,17 @@
     outline: 2px solid var(--color-accent-blue);
     outline-offset: 2px;
   }
+
+  a, button, [role='button'] { touch-action: manipulation; }
+  button, [role='button'] {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  @media (pointer: coarse) {
+    a:active { opacity: .82; }
+  }
 }
 
 /* Issue #4 — usuarios con esta preferencia del sistema no ven ninguna animación,
@@ -58,6 +79,19 @@
 }
 
 @layer components {
+  .brand-mark {
+    font-family: Archivo, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    font-stretch: normal;
+    letter-spacing: -.04em;
+    line-height: 1;
+    color: #c0caf5;
+    text-decoration: none;
+  }
+
+  .brand-mark span { color: #7aa2f7; }
+
   .font-display {
     font-stretch: 125%;
     letter-spacing: -0.01em;
@@ -113,29 +147,41 @@
 
   /* Nav sidebar estilo brittanychiang */
   .nav-link {
-    @apply flex items-center gap-4 py-1 transition-all duration-200;
+    @apply flex items-center gap-4 py-1;
   }
 
   .nav-line {
-    @apply h-px flex-shrink-0 transition-all duration-200;
-    width: 2rem;
+    @apply h-px flex-shrink-0;
+    width: 4rem;
+    transform: scaleX(0.5);
+    transform-origin: left center;
+    transition: transform 200ms var(--ease-in-out), background-color 200ms ease;
     background-color: var(--color-dark-border);
   }
 
   .nav-text {
-    @apply text-xs font-mono uppercase tracking-widest transition-colors duration-200;
-    color: var(--color-ink-dim);
+    @apply text-xs font-mono uppercase tracking-widest;
+    color: var(--color-ink-muted);
+    transform: translateX(-2rem);
+    transition: transform 200ms var(--ease-in-out), color 200ms ease;
   }
 
-  .nav-link:hover .nav-line,
   .nav-link.active .nav-line {
-    width: 4rem;
+    transform: scaleX(1);
     background-color: var(--color-ink);
   }
 
-  .nav-link:hover .nav-text,
   .nav-link.active .nav-text {
     color: var(--color-ink);
+    transform: translateX(0);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nav-link:hover .nav-line {
+      transform: scaleX(1);
+      background-color: var(--color-ink);
+    }
+    .nav-link:hover .nav-text { color: var(--color-ink); transform: translateX(0); }
   }
 
   .section-label {

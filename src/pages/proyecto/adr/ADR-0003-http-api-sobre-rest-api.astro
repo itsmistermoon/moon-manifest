@@ -5,7 +5,7 @@ import { navLinks } from '../../../lib/routes';
 ---
 <BaseLayout title="ADR-0003: HTTP API sobre REST API · DŌJŌ">
   <MobileNav
-    maxWidth="max-w-4xl"
+    maxWidth="site-shell"
     lang={{ es: '/proyecto/adr/ADR-0003-http-api-sobre-rest-api', en: '/en/project/adr/ADR-0003-http-api-over-rest-api', current: 'es' }}
     homeHref="/"
     parentCrumb={{ label: 'Caso de estudio', href: '/proyecto' }}
@@ -13,7 +13,7 @@ import { navLinks } from '../../../lib/routes';
     links={navLinks('es', 'proyecto')}
   />
   <!-- --nav-offset (global.css) = barra fija de MobileNav + padding-top original en mobile -->
-  <div class="max-w-4xl mx-auto px-6 py-12 md:py-24 max-md:pt-[var(--nav-offset)]">
+  <div class="interior-page interior-adr site-shell mx-auto py-12 md:py-24 max-md:pt-[var(--nav-offset)]">
     <header class="mb-10">
       <p class="text-xs font-mono text-ink-dim uppercase tracking-widest mb-2">ADR-0003 · 2026-04-20 · Aceptado</p>
       <h1 class="text-3xl font-display font-bold text-ink leading-tight">HTTP API sobre REST API para API Gateway</h1>
@@ -41,18 +41,3 @@ import { navLinks } from '../../../lib/routes';
     </div>
   </div>
 </BaseLayout>
-
-<style>
-  .prose-adr h2 {
-    @apply text-xs font-mono text-ink-dim uppercase tracking-widest mb-3;
-  }
-  .prose-adr p {
-    @apply text-ink-muted text-sm leading-relaxed mb-3;
-  }
-  .prose-adr strong {
-    @apply text-ink font-semibold;
-  }
-  .prose-adr section {
-    @apply pb-8 border-b border-dark-border last:border-0 last:pb-0;
-  }
-</style>
