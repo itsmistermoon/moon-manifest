@@ -5,7 +5,7 @@ export const socialLinks = {
   linkedin: 'https://www.linkedin.com/in/jparmstrong-dev/',
   behance: 'https://www.behance.net/itsmistermoon',
   mastodon: 'https://lile.cl/@itsmistermoon',
-  platform: 'https://df25g3qcnocfo.cloudfront.net/',
+  platform: 'https://vecinoclub.cl',
 };
 
 export const designProjectsMeta = [
