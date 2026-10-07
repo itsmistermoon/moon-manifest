@@ -23,8 +23,8 @@ src/pages/
     └── project.astro
 
 public/
-├── cv.pdf            # CV descargable (ES)
-└── en/cv.pdf         # CV descargable (EN)
+├── cv.pdf            # CV descargable (ES), exportado a mano desde Canva
+└── en/cv.pdf         # CV descargable (EN), exportado a mano desde Canva
 ```
 
 ## Desarrollo
@@ -35,4 +35,4 @@ npm run dev
 npm run build
 ```
 
-Los CVs en PDF se generan desde `src/cv/cv-es.html` y `src/cv/cv-en.html` con Puppeteer.
+Los CVs en PDF (`public/cv.pdf` y `public/en/cv.pdf`) se exportan a mano desde Canva y son aprobados por el captain; no se regeneran desde el repo.

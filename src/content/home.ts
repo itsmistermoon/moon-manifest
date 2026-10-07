@@ -5,7 +5,7 @@ export const socialLinks = {
   linkedin: 'https://www.linkedin.com/in/jparmstrong-dev/',
   behance: 'https://www.behance.net/itsmistermoon',
   mastodon: 'https://lile.cl/@itsmistermoon',
-  platform: 'https://df25g3qcnocfo.cloudfront.net/',
+  platform: 'https://vecinoclub.cl',
 };
 
 export const designProjectsMeta = [
@@ -81,7 +81,7 @@ export const home = {
     ],
     experience: [
       { role: 'Cofundador · Desarrollo & Gestión', company: 'Imaquinaria Estudio / Tienda SPA', period: '2016 – ACTUALIDAD', description: 'Imaquinaria es el primer comercio y banco de pruebas de VecinoClub. Diseño y desarrollo del programa Bushidō, además de identidad visual, contenido y canales de venta de la tienda.' },
-      { role: 'Cofundador · Administrador Web y Editor', company: 'Cuarto Mundo', period: '2014 – ACTUALIDAD', description: 'Administración y personalización de plataforma WordPress para medio digital de cultura pop. Gestión editorial y producción de contenido desde la fundación.' },
+      { role: 'Cofundador · Administrador Web y Editor', company: 'Cuarto Mundo', period: '2014 – 2022', description: 'Administración y personalización de plataforma WordPress para medio digital de cultura pop. Gestión editorial y producción de contenido desde la fundación.' },
       { role: 'Administrador de Servidores Web', company: 'Lazos S.A.', period: '2014 – 2015', description: 'Administración de servidores e implementación de funcionalidades para clientes. Replicación de navegación e intranet de CONAF para migración interna.' },
     ],
     designSection: {
@@ -159,7 +159,7 @@ export const home = {
     ],
     experience: [
       { role: 'Co-founder · Development & Operations', company: 'Imaquinaria Estudio / Tienda SPA', period: '2016 – PRESENT', description: 'Imaquinaria is VecinoClub’s first business and proving ground. I design and develop its Bushidō program alongside the shop’s brand identity, content, and sales channels.' },
-      { role: 'Co-founder · Web Administrator & Editor', company: 'Cuarto Mundo', period: '2014 – PRESENT', description: 'Administration and customization of a WordPress platform for a pop culture digital publication. Editorial management and content production since founding.' },
+      { role: 'Co-founder · Web Administrator & Editor', company: 'Cuarto Mundo', period: '2014 – 2022', description: 'Administration and customization of a WordPress platform for a pop culture digital publication. Editorial management and content production since founding.' },
       { role: 'Web Server Administrator', company: 'Lazos S.A.', period: '2014 – 2015', description: 'Server administration and feature implementation for clients. Replicated CONAF\'s navigation and intranet for an internal migration project.' },
     ],
     designSection: {
