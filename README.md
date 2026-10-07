@@ -17,7 +17,6 @@ src/pages/
 ├── index.astro       # Home (ES)
 ├── cv.astro          # CV web (ES)
 ├── proyecto.astro    # Caso de estudio (ES)
-├── propuesta.astro   # Propuesta de rediseño
 └── en/               # Versión en inglés
     ├── index.astro
     ├── cv.astro

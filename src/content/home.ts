@@ -6,14 +6,7 @@ export const socialLinks = {
   behance: 'https://www.behance.net/itsmistermoon',
   mastodon: 'https://lile.cl/@itsmistermoon',
   platform: 'https://df25g3qcnocfo.cloudfront.net/',
-  tokyoNight: 'https://github.com/tokyo-night/tokyo-night-vscode-theme',
 };
-
-export const skillsMeta = [
-  { color: 'accent-blue' },
-  { color: 'accent-purple' },
-  { color: 'accent-yellow', full: true },
-];
 
 export const designProjectsMeta = [
   { image: 'https://mir-s3-cdn-cf.behance.net/projects/404/8d1ae943812871.Y3JvcCw2OTksNTQ3LDMwMiw0OA.jpeg', link: 'https://www.behance.net/gallery/43812871/iClub-Interactive-menu-for-restaurants-on-tablets' },
@@ -24,32 +17,57 @@ export const designProjectsMeta = [
 export const home = {
   es: {
     title: 'Juan Pablo Armstrong · Analista Programador',
-    tagline: 'Analista Programador · Cloud / AWS',
-    bio: 'Desarrollo VecinoClub, plataforma de fidelización en producción para comercios locales. AWS Certified Cloud Practitioner.',
-    sidebarNav: [
-      { id: 'sobre-mi', label: 'Sobre mí' },
-      { id: 'proyecto', label: 'Proyecto Destacado' },
-      { id: 'experiencia', label: 'Experiencia' },
-      { id: 'diseno', label: 'Diseño Gráfico' },
-      { id: 'stack', label: 'Stack Tecnológico' },
-    ],
-    sections: [
-      { id: 'sobre-mi', label: 'Sobre mí' },
-      { id: 'proyecto', label: 'Proyecto' },
-      { id: 'experiencia', label: 'Experiencia' },
-      { id: 'diseno', label: 'Diseño Gráfico' },
-      { id: 'stack', label: 'Stack' },
-    ],
-    viewCv: 'Ver CV online',
-    downloadCv: 'Descargar CV (PDF)',
-    about: {
-      label: 'Sobre mí',
-      paragraphs: [
-        'Analista Programador con experiencia en desarrollo web, administración de servidores y diseño de interfaces. Desarrollo VecinoClub, plataforma serverless multi-tenant de fidelización en producción, con Imaquinaria como primer comercio. Graduate de AWS Re/Start 2026 y AWS Certified Cloud Practitioner. Autodidacta activo, inglés avanzado (TOEFL 101/120).',
-        'Vengo del diseño gráfico — trabajé durante años en identidad visual, editorial y UI antes de hacer el cruce al desarrollo. Eso me da una perspectiva poco común: entiendo tanto la arquitectura del sistema como la experiencia del usuario final.',
-        'Actualmente profundizando en el ecosistema AWS e integrando herramientas de IA en flujos de trabajo de desarrollo.',
+    landing: {
+      homeLabel: 'Juan Pablo Armstrong, inicio',
+      navLabel: 'Navegación principal',
+      nav: { work: 'Trabajo', experience: 'Experiencia', design: 'Diseño', cv: 'CV' },
+      eyebrow: 'Juan Pablo Armstrong, Analista Programador',
+      heroTitle: ['De la interfaz', 'a producción'],
+      heroLede: 'Combino diseño visual, desarrollo web y arquitectura AWS. Mi proyecto más completo ya funciona en un comercio real de Temuco.',
+      heroCta: 'Leer el caso VecinoClub',
+      heroContact: 'Escribirme',
+      heroFootnote: 'AWS Certified Cloud Practitioner. Vivo en Temuco, Chile.',
+      proof: {
+        label: 'Ver el caso de estudio VecinoClub',
+        top: 'Un producto en producción',
+        text: 'Una plataforma de fidelización para comercios locales, con Imaquinaria, tienda de manga y cultura japonesa en Temuco, como primer comercio.',
+        stack: ['React 19', 'FastAPI', 'AWS'],
+        bottom: 'Ver cómo se construyó',
+      },
+      capabilitiesLabel: 'Áreas de trabajo',
+      capabilities: [
+        { title: 'Diseño la experiencia', text: 'Interfaces e identidad visual' },
+        { title: 'Desarrollo el producto', text: 'React, TypeScript, Python y FastAPI' },
+        { title: 'Lo llevo a producción', text: 'AWS, despliegue y operación' },
       ],
+      work: {
+        title: 'Fidelización que ya funciona en tienda',
+        intro: 'El caso más completo de este portfolio muestra cómo conecto una necesidad de negocio con decisiones de producto y una arquitectura que ya opera en producción.',
+        kicker: 'VecinoClub',
+        heading: 'De compras ocasionales a una relación continua',
+        evidenceLabel: 'Alcance del proyecto',
+        evidence: [
+          { label: 'Producto', text: 'Portal de clientes + panel de administración' },
+          { label: 'Arquitectura', text: 'React, FastAPI, Lambda, DynamoDB y Cognito' },
+          { label: 'Operación', text: 'CI/CD con GitHub Actions y despliegue en AWS' },
+        ],
+      },
+      experience: {
+        title: 'Una trayectoria entre diseño y tecnología',
+        intro: 'Mi trabajo empezó en identidad visual y medios digitales. Esa experiencia ahora informa cómo diseño interfaces, construyo sistemas y los mantengo funcionando.',
+      },
+      design: {
+        title: 'La práctica visual detrás de mis interfaces',
+        intro: 'Antes de programar trabajé en identidad, editorial e interfaces. Estos proyectos muestran la base visual que llevo al desarrollo de productos.',
+      },
+      contact: {
+        title: 'Conversemos',
+        text: 'Si mi experiencia encaja con lo que estás construyendo, puedes escribirme directamente.',
+        cta: 'Enviar correo',
+      },
+      footer: 'Juan Pablo Armstrong · Temuco, Chile',
     },
+    viewCv: 'Ver CV online',
     projectSection: { label: 'Proyecto Destacado', viewCaseStudy: 'Ver caso de estudio', viewPlatform: 'Ver VecinoClub' },
     projects: [
       {
@@ -61,60 +79,73 @@ export const home = {
         tags: ['AWS Lambda', 'FastAPI / Python', 'React 19 + TS', 'GitHub Actions'],
       },
     ],
-    experienceSection: { label: 'Experiencia' },
     experience: [
       { role: 'Cofundador · Desarrollo & Gestión', company: 'Imaquinaria Estudio / Tienda SPA', period: '2016 – ACTUALIDAD', description: 'Imaquinaria es el primer comercio y banco de pruebas de VecinoClub. Diseño y desarrollo del programa Bushidō, además de identidad visual, contenido y canales de venta de la tienda.' },
       { role: 'Cofundador · Administrador Web y Editor', company: 'Cuarto Mundo', period: '2014 – ACTUALIDAD', description: 'Administración y personalización de plataforma WordPress para medio digital de cultura pop. Gestión editorial y producción de contenido desde la fundación.' },
       { role: 'Administrador de Servidores Web', company: 'Lazos S.A.', period: '2014 – 2015', description: 'Administración de servidores e implementación de funcionalidades para clientes. Replicación de navegación e intranet de CONAF para migración interna.' },
     ],
     designSection: {
-      label: 'Diseño Gráfico',
-      intro: 'Antes de programar, diseñé. Trabajo en identidad visual, diseño editorial e interfaces desde 2014. Ese background informa cómo construyo productos: con criterio visual desde el primer commit.',
       viewFullPortfolio: 'Ver portfolio completo en Behance',
-      imagePlaceholder: '[ imagen ]',
     },
     designProjects: [
       { title: 'iClub — Menú interactivo para restaurantes', category: 'UI/UX · App Tablet', description: 'Diseño de aplicación de menú para restaurantes en Android. Del mockup inicial al producto final: navegación de carta, pedidos y pagos desde la mesa.' },
       { title: 'Imaquinaria Estudio', category: 'Identidad Visual', description: 'Creación de identidad gráfica y aplicaciones de marca para Imaquinaria Estudio, estudio colaborativo con ilustradores locales, artesanos y productores.' },
       { title: 'Cuarto Mundo', category: 'Branding · Logo', description: 'Logotipo para Cuarto Mundo, medio especializado en cómics y cultura pop con presencia en prensa, web y redes sociales.' },
     ],
-    stackSection: { label: 'Stack Tecnológico' },
-    skills: [
-      { title: 'Cloud & DevOps', description: 'AWS (Lambda, API Gateway, DynamoDB, Cognito, CloudFront, S3, SES, CloudWatch, SAM) · GitHub Actions · Docker' },
-      { title: 'Desarrollo', description: 'Python · FastAPI · React 19 · TypeScript · HTML/CSS · MySQL · WordPress' },
-      { title: 'IA & Agentes de Código', description: 'Claude Code · OpenAI Codex · Windsurf · Hermes Agent · Ollama · Perplexity' },
-    ],
-    footer: 'Temuco, Chile · Diseñado y construido con Astro & Tailwind · Paleta',
-    footerLinks: { github: '[ GitHub ]', linkedin: '[ LinkedIn ]', behance: '[ Behance ]', mastodon: '[ Mastodon ]' },
   },
   en: {
     title: 'Juan Pablo Armstrong · Systems Analyst',
-    tagline: 'Systems Analyst · Cloud / AWS',
-    bio: 'I build VecinoClub, a live loyalty platform for local businesses. AWS Certified Cloud Practitioner.',
-    sidebarNav: [
-      { id: 'about', label: 'About' },
-      { id: 'project', label: 'Featured Project' },
-      { id: 'experience', label: 'Experience' },
-      { id: 'design', label: 'Graphic Design' },
-      { id: 'stack', label: 'Tech Stack' },
-    ],
-    sections: [
-      { id: 'about', label: 'About' },
-      { id: 'project', label: 'Project' },
-      { id: 'experience', label: 'Experience' },
-      { id: 'design', label: 'Design' },
-      { id: 'stack', label: 'Stack' },
-    ],
-    viewCv: 'View CV online',
-    downloadCv: 'Download CV (PDF)',
-    about: {
-      label: 'About',
-      paragraphs: [
-        'Systems Analyst with experience in web development, server administration, and UI design. I build VecinoClub, a live multi-tenant serverless loyalty platform, with Imaquinaria as its first business. AWS Re/Start 2026 Graduate and AWS Certified Cloud Practitioner. Active self-learner, advanced English (TOEFL 101/120).',
-        'I come from graphic design — I spent years in visual identity, editorial, and UI before crossing into development. That gives me an uncommon perspective: I understand both system architecture and the end-user experience.',
-        'Currently deepening expertise in the AWS ecosystem and integrating AI tools into development workflows.',
+    landing: {
+      homeLabel: 'Juan Pablo Armstrong, home',
+      navLabel: 'Main navigation',
+      nav: { work: 'Work', experience: 'Experience', design: 'Design', cv: 'CV' },
+      eyebrow: 'Juan Pablo Armstrong, Systems Analyst',
+      heroTitle: ['From interface', 'to production'],
+      heroLede: 'I combine visual design, web development, and AWS architecture. My most complete project already runs in a real shop in Temuco.',
+      heroCta: 'Read the VecinoClub case',
+      heroContact: 'Write to me',
+      heroFootnote: 'AWS Certified Cloud Practitioner. Based in Temuco, Chile.',
+      proof: {
+        label: 'View the VecinoClub case study',
+        top: 'A product in production',
+        text: 'A loyalty platform for local businesses, with Imaquinaria, a manga and Japanese culture shop in Temuco, as its first business.',
+        stack: ['React 19', 'FastAPI', 'AWS'],
+        bottom: 'See how it was built',
+      },
+      capabilitiesLabel: 'Areas of work',
+      capabilities: [
+        { title: 'I design the experience', text: 'Interfaces and visual identity' },
+        { title: 'I build the product', text: 'React, TypeScript, Python, and FastAPI' },
+        { title: 'I take it to production', text: 'AWS, deployment, and operations' },
       ],
+      work: {
+        title: 'Loyalty that already works in store',
+        intro: 'The most complete case in this portfolio shows how I connect a business need with product decisions and an architecture that already runs in production.',
+        kicker: 'VecinoClub',
+        heading: 'From occasional purchases to an ongoing relationship',
+        evidenceLabel: 'Project scope',
+        evidence: [
+          { label: 'Product', text: 'Customer portal + admin panel' },
+          { label: 'Architecture', text: 'React, FastAPI, Lambda, DynamoDB, and Cognito' },
+          { label: 'Operations', text: 'CI/CD with GitHub Actions and AWS deployment' },
+        ],
+      },
+      experience: {
+        title: 'A career between design and technology',
+        intro: 'My work started in visual identity and digital media. That experience now informs how I design interfaces, build systems, and keep them running.',
+      },
+      design: {
+        title: 'The visual practice behind my interfaces',
+        intro: 'Before coding I worked in identity, editorial, and interfaces. These projects show the visual foundation I bring to product development.',
+      },
+      contact: {
+        title: 'Let’s talk',
+        text: 'If my experience fits what you are building, you can write to me directly.',
+        cta: 'Send an email',
+      },
+      footer: 'Juan Pablo Armstrong · Temuco, Chile',
     },
+    viewCv: 'View CV online',
     projectSection: { label: 'Featured Project', viewCaseStudy: 'View case study', viewPlatform: 'View VecinoClub' },
     projects: [
       {
@@ -126,30 +157,18 @@ export const home = {
         tags: ['AWS Lambda', 'FastAPI / Python', 'React 19 + TS', 'GitHub Actions'],
       },
     ],
-    experienceSection: { label: 'Experience' },
     experience: [
       { role: 'Co-founder · Development & Operations', company: 'Imaquinaria Estudio / Tienda SPA', period: '2016 – PRESENT', description: 'Imaquinaria is VecinoClub’s first business and proving ground. I design and develop its Bushidō program alongside the shop’s brand identity, content, and sales channels.' },
       { role: 'Co-founder · Web Administrator & Editor', company: 'Cuarto Mundo', period: '2014 – PRESENT', description: 'Administration and customization of a WordPress platform for a pop culture digital publication. Editorial management and content production since founding.' },
       { role: 'Web Server Administrator', company: 'Lazos S.A.', period: '2014 – 2015', description: 'Server administration and feature implementation for clients. Replicated CONAF\'s navigation and intranet for an internal migration project.' },
     ],
     designSection: {
-      label: 'Graphic Design',
-      intro: 'Before coding, I designed. I\'ve worked in visual identity, editorial design, and interfaces since 2014. That background informs how I build products: with visual judgment from the first commit.',
       viewFullPortfolio: 'View full portfolio on Behance',
-      imagePlaceholder: '[ image ]',
     },
     designProjects: [
       { title: 'iClub — Interactive menu for restaurants', category: 'UI/UX · Tablet App', description: 'Menu app design for restaurants on Android. From initial mockup to final product: menu navigation, orders, and table-side payments.' },
       { title: 'Imaquinaria Estudio', category: 'Visual Identity', description: 'Brand identity and brand applications for Imaquinaria Estudio, a collaborative studio working with local illustrators, craftspeople, and producers.' },
       { title: 'Cuarto Mundo', category: 'Branding · Logo', description: 'Logo for Cuarto Mundo, a publication specializing in comics and pop culture with presence in print, web, and social media.' },
     ],
-    stackSection: { label: 'Tech Stack' },
-    skills: [
-      { title: 'Cloud & DevOps', description: 'AWS (Lambda, API Gateway, DynamoDB, Cognito, CloudFront, S3, SES, CloudWatch, SAM) · GitHub Actions · Docker' },
-      { title: 'Development', description: 'Python · FastAPI · React 19 · TypeScript · HTML/CSS · MySQL · WordPress' },
-      { title: 'AI & Code Agents', description: 'Claude Code · OpenAI Codex · Hermes Agent · Ollama' },
-    ],
-    footer: 'Temuco, Chile · Designed and built with Astro & Tailwind · Palette',
-    footerLinks: { github: '[ GitHub ]', linkedin: '[ LinkedIn ]', behance: '[ Behance ]', mastodon: '[ Mastodon ]' },
   },
 };
