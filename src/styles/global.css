@@ -20,6 +20,9 @@
   --color-ink:           theme('colors.ink.DEFAULT');
   --color-ink-muted:     theme('colors.ink.muted');
   --color-ink-dim:       theme('colors.ink.dim');
+  --color-dark-bg:       theme('colors.dark.bg');
+  --color-dark-grid:     rgb(65 72 104 / .55);
+  --color-accent-cyan:   #7dcfff;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
@@ -86,11 +89,11 @@
     font-stretch: normal;
     letter-spacing: -.04em;
     line-height: 1;
-    color: #c0caf5;
+    color: var(--color-ink);
     text-decoration: none;
   }
 
-  .brand-mark span { color: #7aa2f7; }
+  .brand-mark span { color: var(--color-accent-blue); }
 
   .font-display {
     font-stretch: 125%;
