@@ -24,15 +24,15 @@
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
   /* Paleta Tokyo Night compartida por la home (HomeTemplate) y las páginas interiores (interior.css) */
-  --palette-bg: #1a1b26;
-  --palette-surface: #15161e;
-  --palette-line: #414868;
-  --palette-hover: #283457;
-  --palette-text: #c0caf5;
-  --palette-muted: #a9b1d6;
-  --palette-blue: #7aa2f7;
+  --palette-bg: theme('colors.dark.bg');
+  --palette-surface: theme('colors.dark.surface');
+  --palette-line: theme('colors.dark.line');
+  --palette-hover: theme('colors.dark.hover');
+  --palette-text: theme('colors.ink.DEFAULT');
+  --palette-muted: theme('colors.ink.dim');
+  --palette-blue: theme('colors.accent.blue');
   --palette-cyan: #7dcfff;
-  --palette-yellow: #e0af68;
+  --palette-yellow: theme('colors.accent.yellow');
   --palette-grid: rgb(65 72 104 / .55);
 }
 
@@ -97,11 +97,11 @@
     font-stretch: normal;
     letter-spacing: -.04em;
     line-height: 1;
-    color: #c0caf5;
+    color: var(--palette-text);
     text-decoration: none;
   }
 
-  .brand-mark span { color: #7aa2f7; }
+  .brand-mark span { color: var(--palette-blue); }
 
   .font-display {
     font-stretch: 125%;
