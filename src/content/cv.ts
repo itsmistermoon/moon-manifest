@@ -34,7 +34,7 @@ export const cv = {
       { role: 'Diseñador UI · Desarrollador Web', company: 'iClub S.A.', period: '2011 – 2012', location: 'Temuco', bullets: ['Diseño de UI para app Android de pedidos en restaurantes.', 'Desarrollo de sitio web corporativo.'] },
     ],
     education: [
-      { title: 'AWS Re/Start — Graduate', institution: 'Amazon Web Services', period: '2026', location: 'Temuco, Chile', description: 'Programa intensivo de cloud computing. Badge oficial. AWS Cloud Practitioner en proceso de certificación.' },
+      { title: 'AWS Re/Start — Graduate', institution: 'Amazon Web Services', period: '2026', location: 'Temuco, Chile', description: 'Programa intensivo de cloud computing. Badge oficial. AWS Certified Cloud Practitioner.' },
       { title: 'Analista Programador', institution: 'Instituto Santo Tomás', period: '2011 – 2015', location: 'Temuco', description: 'Desarrollo de software, bases de datos MySQL, redes y administración de sistemas.' },
       { title: 'Aprende Python Desde Cero', institution: 'Temuco Lab', period: '2025', location: '', description: 'Lógica de programación, sintaxis Python, Google Colab, librería pandas.' },
       { title: 'PrintLab: Innovando en 3D', institution: 'Temuco Lab', period: '2025', location: '', description: 'Modelado en Onshape (cloud), impresión 3D, Cura Slicer.' },
