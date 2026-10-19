@@ -24,6 +24,56 @@ export const designProjectsMeta = [
 export const home = {
   es: {
     title: 'Juan Pablo Armstrong · Analista Programador',
+    landing: {
+      homeLabel: 'Juan Pablo Armstrong, inicio',
+      navLabel: 'Navegación principal',
+      nav: { work: 'Trabajo', experience: 'Experiencia', design: 'Diseño', cv: 'CV' },
+      eyebrow: 'Juan Pablo Armstrong, Analista Programador',
+      heroTitle: ['De la interfaz', 'a producción'],
+      heroLede: 'Combino diseño visual, desarrollo web y arquitectura AWS. Mi proyecto más completo ya funciona en un comercio real de Temuco.',
+      heroCta: 'Leer el caso VecinoClub',
+      heroContact: 'Escribirme',
+      heroFootnote: 'AWS Certified Cloud Practitioner. Vivo en Temuco, Chile.',
+      proof: {
+        label: 'Ver el caso de estudio VecinoClub',
+        top: 'Un producto en producción',
+        text: 'Una plataforma de fidelización para comercios locales, con Imaquinaria, tienda de manga y cultura japonesa en Temuco, como primer comercio.',
+        stack: ['React 19', 'FastAPI', 'AWS'],
+        bottom: 'Ver cómo se construyó',
+      },
+      capabilitiesLabel: 'Áreas de trabajo',
+      capabilities: [
+        { title: 'Diseño la experiencia', text: 'Interfaces e identidad visual' },
+        { title: 'Desarrollo el producto', text: 'React, TypeScript, Python y FastAPI' },
+        { title: 'Lo llevo a producción', text: 'AWS, despliegue y operación' },
+      ],
+      work: {
+        title: 'Fidelización que ya funciona en tienda',
+        intro: 'El caso más completo de este portfolio muestra cómo conecto una necesidad de negocio con decisiones de producto y una arquitectura que ya opera en producción.',
+        kicker: 'VecinoClub',
+        heading: 'De compras ocasionales a una relación continua',
+        evidenceLabel: 'Alcance del proyecto',
+        evidence: [
+          { label: 'Producto', text: 'Portal de clientes + panel de administración' },
+          { label: 'Arquitectura', text: 'React, FastAPI, Lambda, DynamoDB y Cognito' },
+          { label: 'Operación', text: 'CI/CD con GitHub Actions y despliegue en AWS' },
+        ],
+      },
+      experience: {
+        title: 'Una trayectoria entre diseño y tecnología',
+        intro: 'Mi trabajo empezó en identidad visual y medios digitales. Esa experiencia ahora informa cómo diseño interfaces, construyo sistemas y los mantengo funcionando.',
+      },
+      design: {
+        title: 'La práctica visual detrás de mis interfaces',
+        intro: 'Antes de programar trabajé en identidad, editorial e interfaces. Estos proyectos muestran la base visual que llevo al desarrollo de productos.',
+      },
+      contact: {
+        title: 'Conversemos',
+        text: 'Si mi experiencia encaja con lo que estás construyendo, puedes escribirme directamente.',
+        cta: 'Enviar correo',
+      },
+      footer: 'Juan Pablo Armstrong · Temuco, Chile',
+    },
     tagline: 'Analista Programador · Cloud / AWS',
     bio: 'Desarrollo VecinoClub, plataforma de fidelización en producción para comercios locales. AWS Certified Cloud Practitioner.',
     sidebarNav: [
@@ -89,6 +139,56 @@ export const home = {
   },
   en: {
     title: 'Juan Pablo Armstrong · Systems Analyst',
+    landing: {
+      homeLabel: 'Juan Pablo Armstrong, home',
+      navLabel: 'Main navigation',
+      nav: { work: 'Work', experience: 'Experience', design: 'Design', cv: 'CV' },
+      eyebrow: 'Juan Pablo Armstrong, Systems Analyst',
+      heroTitle: ['From interface', 'to production'],
+      heroLede: 'I combine visual design, web development, and AWS architecture. My most complete project already runs in a real shop in Temuco.',
+      heroCta: 'Read the VecinoClub case',
+      heroContact: 'Write to me',
+      heroFootnote: 'AWS Certified Cloud Practitioner. Based in Temuco, Chile.',
+      proof: {
+        label: 'View the VecinoClub case study',
+        top: 'A product in production',
+        text: 'A loyalty platform for local businesses, with Imaquinaria, a manga and Japanese culture shop in Temuco, as its first business.',
+        stack: ['React 19', 'FastAPI', 'AWS'],
+        bottom: 'See how it was built',
+      },
+      capabilitiesLabel: 'Areas of work',
+      capabilities: [
+        { title: 'I design the experience', text: 'Interfaces and visual identity' },
+        { title: 'I build the product', text: 'React, TypeScript, Python, and FastAPI' },
+        { title: 'I take it to production', text: 'AWS, deployment, and operations' },
+      ],
+      work: {
+        title: 'Loyalty that already works in store',
+        intro: 'The most complete case in this portfolio shows how I connect a business need with product decisions and an architecture that already runs in production.',
+        kicker: 'VecinoClub',
+        heading: 'From occasional purchases to an ongoing relationship',
+        evidenceLabel: 'Project scope',
+        evidence: [
+          { label: 'Product', text: 'Customer portal + admin panel' },
+          { label: 'Architecture', text: 'React, FastAPI, Lambda, DynamoDB, and Cognito' },
+          { label: 'Operations', text: 'CI/CD with GitHub Actions and AWS deployment' },
+        ],
+      },
+      experience: {
+        title: 'A career between design and technology',
+        intro: 'My work started in visual identity and digital media. That experience now informs how I design interfaces, build systems, and keep them running.',
+      },
+      design: {
+        title: 'The visual practice behind my interfaces',
+        intro: 'Before coding I worked in identity, editorial, and interfaces. These projects show the visual foundation I bring to product development.',
+      },
+      contact: {
+        title: 'Let’s talk',
+        text: 'If my experience fits what you are building, you can write to me directly.',
+        cta: 'Send an email',
+      },
+      footer: 'Juan Pablo Armstrong · Temuco, Chile',
+    },
     tagline: 'Systems Analyst · Cloud / AWS',
     bio: 'I build VecinoClub, a live loyalty platform for local businesses. AWS Certified Cloud Practitioner.',
     sidebarNav: [
