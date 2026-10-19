@@ -1,6 +1,5 @@
 /** Datos invariantes al idioma. */
-export const platformUrl = 'https://df25g3qcnocfo.cloudfront.net/';
-// TODO: Confirmar URL pública de VecinoClub antes de sustituir la URL actual.
+export const platformUrl = 'https://vecinoclub.cl';
 // TODO: Confirmar comercios activos además de Imaquinaria, métricas recientes y si el nombre DŌJŌ sigue vigente.
 
 export const levels = [
