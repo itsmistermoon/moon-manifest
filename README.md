@@ -23,8 +23,8 @@ src/pages/
     └── project.astro
 
 public/
-├── cv.pdf            # CV descargable (ES), exportado a mano desde Canva
-└── en/cv.pdf         # CV descargable (EN), exportado a mano desde Canva
+├── cv.pdf            # CV descargable (ES), generado con `npm run cv`
+└── en/cv.pdf         # CV descargable (EN), generado con `npm run cv`
 ```
 
 ## Desarrollo
@@ -35,4 +35,4 @@ npm run dev
 npm run build
 ```
 
-Los CVs en PDF (`public/cv.pdf` y `public/en/cv.pdf`) se exportan a mano desde Canva y son aprobados por el captain; no se regeneran desde el repo.
+El contenido del CV vive en `src/content/cv.ts` (ES y EN) y alimenta tanto la página web `/cv` como la versión de impresión `/cv/print` (una columna, legible por ATS). Tras editarlo, `npm run cv` regenera `public/cv.pdf` y `public/en/cv.pdf` con puppeteer; commitea los PDF junto con el cambio.
