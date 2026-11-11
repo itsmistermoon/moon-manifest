@@ -30,7 +30,7 @@ export const cv = {
       { role: 'Fundador · Cloud & Backend Engineer', company: 'VecinoClub', period: '2026 – Actualidad', location: 'Chile', bullets: ['Construí y opero una plataforma serverless de fidelización en AWS (Lambda, API Gateway, DynamoDB, Cognito, CloudFront, S3, SES) con backend FastAPI/Python; arquitectura multi-tenant, hoy en producción con su primer comercio.', 'Instrumenté observabilidad con métricas de CloudWatch, trazas de X-Ray y alarmas SNS: 0% de errores 5xx y latencia p50 de 151 ms en 3.397 requests en 30 días.', 'Despliegue con CI/CD (GitHub Actions + AWS SAM) y gate manual en staging que detectó 5 bugs antes de producción; entorno local con Docker para pruebas.', 'Lideré el análisis de causa raíz de un incidente de datos y construí un runner de migraciones para evitar su repetición (ADR-0019); 23 ADRs documentan decisiones de arquitectura y costo, como HTTP API en vez de REST API (US$1 vs US$3,5 por millón de requests).'] },
       { role: 'Cofundador · Desarrollo & Gestión', company: 'Imaquinaria Estudio / Tienda SPA', period: '2016 – Actualidad', location: 'Temuco', bullets: ['Implementé y migré los canales de venta online del negocio entre Mercado Libre, Shopify y Jumpseller.', 'Primer comercio y banco de pruebas de VecinoClub en producción.'] },
       { role: 'Cofundador · Administrador Web y Editor', company: 'Cuarto Mundo', period: '2014 – 2022', location: 'Chile', bullets: ['Administración, hosting y personalización de la plataforma WordPress de un medio digital.'] },
-      { role: 'Práctica profesional · Administración de Servidores Web', company: 'Lazos S.A.', period: '2014 – 2015', location: 'Temuco', bullets: ['Trabajé en la migración del backend de un cliente y en la réplica de la intranet de CONAF; apoyo en administración de servidores web.'] },
+      { role: 'Desarrollador Web · Práctica profesional y honorarios', company: 'Lazos S.A.', period: 'sep. 2014 – mar. 2015', location: 'Temuco', bullets: ['Integré y programé extensiones sobre TYPO3 (CMS en PHP) para sitios de clientes.', 'Configuré e implementé funcionalidades en la nueva intranet de CONAF.', 'Administración básica de servidores web.'] },
       { role: 'Diseñador UI · Desarrollador Web', company: 'iClub S.A.', period: '2011 – 2012', location: 'Temuco', bullets: ['Diseño de UI para app Android de pedidos en restaurantes y desarrollo del sitio corporativo.'] },
     ],
     education: [
@@ -40,7 +40,7 @@ export const cv = {
     ],
     skills: [
       { category: 'Cloud / AWS', items: ['Lambda', 'API Gateway', 'DynamoDB', 'Cognito', 'CloudFront', 'S3', 'SES', 'CloudWatch', 'X-Ray', 'SNS', 'AWS SAM'] },
-      { category: 'Desarrollo', items: ['Python', 'FastAPI', 'React 19', 'TypeScript', 'HTML / CSS', 'MySQL'] },
+      { category: 'Desarrollo', items: ['Python', 'FastAPI', 'React 19', 'TypeScript', 'PHP', 'HTML / CSS', 'MySQL'] },
       { category: 'Plataformas & Herramientas', items: ['GitHub Actions', 'Docker', 'Git', 'Cloudflare', 'Vercel', 'WordPress'] },
       { category: 'IA & Agentes de Código', items: ['Claude Code', 'OpenAI Codex', 'Claude API'] },
     ],
@@ -70,7 +70,7 @@ export const cv = {
       { role: 'Founder · Cloud & Backend Engineer', company: 'VecinoClub', period: '2026 – Present', location: 'Chile', bullets: ['Built and operate a serverless loyalty platform on AWS (Lambda, API Gateway, DynamoDB, Cognito, CloudFront, S3, SES) with a FastAPI/Python backend; multi-tenant architecture, currently live with its first merchant.', 'Instrumented observability with CloudWatch metrics, X-Ray tracing and SNS alarms; sustained 0% 5xx errors and 151 ms p50 latency over 3,397 requests in 30 days.', 'Shipped via CI/CD (GitHub Actions + AWS SAM) with a manual staging gate that caught 5 bugs before production; Docker-based local environment for testing.', 'Led root-cause analysis of a data incident and built a migration runner to prevent recurrence (ADR-0019); 23 ADRs document architecture and cost trade-offs, e.g. HTTP API over REST API ($1 vs $3.50 per million requests).'] },
       { role: 'Co-founder · Development & Operations', company: 'Imaquinaria Estudio / Tienda SPA', period: '2016 – Present', location: 'Temuco', bullets: ['Set up and migrated the business’s online sales channels across Mercado Libre, Shopify and Jumpseller.', 'First merchant and production proving ground for VecinoClub.'] },
       { role: 'Co-founder · Web Administrator & Editor', company: 'Cuarto Mundo', period: '2014 – 2022', location: 'Chile', bullets: ['Administered, hosted and customized the WordPress platform of a digital publication.'] },
-      { role: 'Internship · Web Server Administration', company: 'Lazos S.A.', period: '2014 – 2015', location: 'Temuco', bullets: ['Worked on a client backend migration and a replica of CONAF\'s intranet; supported web server administration.'] },
+      { role: 'Web Developer · Internship and contract', company: 'Lazos S.A.', period: 'Sep 2014 – Mar 2015', location: 'Temuco', bullets: ['Integrated and built TYPO3 (PHP CMS) extensions for client websites.', 'Configured and implemented features for CONAF\'s new intranet.', 'Basic web server administration.'] },
       { role: 'UI Designer · Web Developer', company: 'iClub S.A.', period: '2011 – 2012', location: 'Temuco', bullets: ['UI design for an Android restaurant ordering app and corporate website development.'] },
     ],
     education: [
@@ -80,7 +80,7 @@ export const cv = {
     ],
     skills: [
       { category: 'Cloud / AWS', items: ['Lambda', 'API Gateway', 'DynamoDB', 'Cognito', 'CloudFront', 'S3', 'SES', 'CloudWatch', 'X-Ray', 'SNS', 'AWS SAM'] },
-      { category: 'Development', items: ['Python', 'FastAPI', 'React 19', 'TypeScript', 'HTML / CSS', 'MySQL'] },
+      { category: 'Development', items: ['Python', 'FastAPI', 'React 19', 'TypeScript', 'PHP', 'HTML / CSS', 'MySQL'] },
       { category: 'Platforms & Tools', items: ['GitHub Actions', 'Docker', 'Git', 'Cloudflare', 'Vercel', 'WordPress'] },
       { category: 'AI & Code Agents', items: ['Claude Code', 'OpenAI Codex', 'Claude API'] },
     ],
