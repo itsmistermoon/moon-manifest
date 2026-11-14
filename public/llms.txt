@@ -1,4 +1,4 @@
-# Juan Pablo Armstrong
+﻿# Juan Pablo Armstrong
 
 > Portfolio de Juan Pablo Armstrong, analista programador en Temuco, Chile. Incluye su experiencia, CV y un caso de estudio de VecinoClub, una plataforma de fidelización multi-tenant.
 
