@@ -1,32 +1,27 @@
 # Juan Pablo Armstrong
 
-> Portfolio de Juan Pablo Armstrong, analista programador en Temuco, Chile, con experiencia en diseño, desarrollo web y AWS.
+> Cloud engineer in Temuco, Chile, who designed, deployed and operates VecinoClub, a serverless loyalty platform in production on AWS. AWS Certified Cloud Practitioner and AWS Re/Start 2026 graduate.
 
-Juan Pablo combina diseño de interfaces e identidad visual con React, TypeScript, Python, FastAPI y arquitectura AWS. Desarrolla y opera VecinoClub, plataforma serverless multi-tenant de fidelización en producción, con Imaquinaria como primer comercio. Es AWS Certified Cloud Practitioner y tiene inglés avanzado (C1). El portfolio está disponible en español e inglés; contacto: j.p.armstrong@me.com.
+VecinoClub runs on Lambda, API Gateway, DynamoDB, Cognito, CloudFront, S3 and SES, with a FastAPI/Python backend, a React 19 + TypeScript frontend, and CI/CD through GitHub Actions and AWS SAM. It is multi-tenant and live with its first merchant, Imaquinaria. Over 30 days it served 3,397 requests with 0% 5xx errors and 151 ms p50 latency, monitored with CloudWatch, X-Ray and SNS alarms; 23 ADRs record its architecture and cost decisions. Before the cloud, Juan Pablo spent 10+ years running his own businesses in web development and design. He is open to remote roles and to on-site or hybrid roles in Temuco. English: advanced (C1). Contact: j.p.armstrong@me.com. Every page is also available in Spanish; links to the Spanish versions are under Optional.
 
-## Español
+## Profile
 
-- [Inicio](https://jparmstrong.vercel.app/): Presenta su trabajo desde el diseño visual hasta el despliegue en AWS, experiencia en Imaquinaria y proyectos de diseño.
-- [CV](https://jparmstrong.vercel.app/cv): Detalla su trayectoria en VecinoClub, Imaquinaria, Cuarto Mundo y Lazos, formación AWS Re/Start y habilidades técnicas.
-- [Caso de estudio VecinoClub](https://jparmstrong.vercel.app/proyecto): Explica el portal de clientes, panel del comercio, arquitectura AWS y decisiones detrás de la plataforma de fidelización en producción.
+- [CV](https://jparmstrong.vercel.app/en/cv): Experience at VecinoClub, Imaquinaria, Cuarto Mundo, Lazos S.A. and iClub, education, and technical skills.
+- [CV PDF](https://jparmstrong.vercel.app/en/cv.pdf): The same CV as a one-page PDF.
+- [Home](https://jparmstrong.vercel.app/en): Overview of his cloud work, experience and design background.
 
-## English
+## VecinoClub
 
-- [Home](https://jparmstrong.vercel.app/en): Introduces his work from visual design to AWS deployment, experience at Imaquinaria and design projects.
-- [CV](https://jparmstrong.vercel.app/en/cv): Covers his work at VecinoClub, Imaquinaria, Cuarto Mundo and Lazos, AWS Re/Start training and technical skills.
-- [VecinoClub case study](https://jparmstrong.vercel.app/en/project): Explains the customer portal, merchant dashboard, AWS architecture and decisions behind the live loyalty platform.
+- [Case study](https://jparmstrong.vercel.app/en/project): What the customer portal and merchant dashboard do, the AWS architecture, and the decisions behind it.
+- [ADR-0003: HTTP API over REST API](https://jparmstrong.vercel.app/en/project/adr/ADR-0003-http-api-over-rest-api): Why the platform uses HTTP API, including the cost difference ($1 vs $3.50 per million requests).
+- [ADR-0006: AWS production architecture](https://jparmstrong.vercel.app/en/project/adr/ADR-0006-aws-production-architecture): Domain, Lambda, SSM and logging decisions for the first production deployment.
+- [ADR-0019: Data migration runner](https://jparmstrong.vercel.app/en/project/adr/ADR-0019-data-migration-runner): The root-cause analysis of a production data incident and the DynamoDB migration runner built to prevent it from happening again.
+- [ADR-0023: IAM roles as IaC](https://jparmstrong.vercel.app/en/project/adr/ADR-0023-iam-roles-as-iac): How IAM permissions are managed as infrastructure as code.
 
 ## Optional
 
-- [CV en PDF](https://jparmstrong.vercel.app/cv.pdf): Versión descargable del CV en español.
-- [CV PDF](https://jparmstrong.vercel.app/en/cv.pdf): Downloadable English CV.
-- [ADR-0003: HTTP API sobre REST API](https://jparmstrong.vercel.app/proyecto/adr/ADR-0003-http-api-sobre-rest-api): Compara HTTP API y REST API para la plataforma, incluidos sus costos.
-- [ADR-0003: HTTP API over REST API](https://jparmstrong.vercel.app/en/project/adr/ADR-0003-http-api-over-rest-api): Compares HTTP API and REST API for the platform, including costs.
-- [ADR-0006: Arquitectura AWS para producción](https://jparmstrong.vercel.app/proyecto/adr/ADR-0006-arquitectura-aws-produccion): Registra decisiones de dominio, Lambda, SSM y logs para el primer despliegue.
-- [ADR-0006: AWS production architecture](https://jparmstrong.vercel.app/en/project/adr/ADR-0006-aws-production-architecture): Records domain, Lambda, SSM and logging decisions for the first deployment.
-- [ADR-0019: Runner de migraciones de datos](https://jparmstrong.vercel.app/proyecto/adr/ADR-0019-runner-migraciones-datos): Describe la automatización de cambios de datos en DynamoDB después de un incidente de producción.
-- [ADR-0019: Data migration runner](https://jparmstrong.vercel.app/en/project/adr/ADR-0019-data-migration-runner): Describes automated DynamoDB data changes following a production incident.
-- [ADR-0023: Roles IAM como IaC](https://jparmstrong.vercel.app/proyecto/adr/ADR-0023-roles-iam-en-iac): Documenta la gestión de permisos IAM como infraestructura como código.
-- [ADR-0023: IAM roles as IaC](https://jparmstrong.vercel.app/en/project/adr/ADR-0023-iam-roles-as-iac): Documents IAM permissions managed as infrastructure as code.
-- [GitHub](https://github.com/itsmistermoon): Perfil de desarrollo y repositorios de Juan Pablo.
-- [LinkedIn](https://www.linkedin.com/in/jparmstrong-dev/): Perfil profesional de Juan Pablo.
+- [CV (español)](https://jparmstrong.vercel.app/cv): Spanish CV. PDF: https://jparmstrong.vercel.app/cv.pdf
+- [Inicio (español)](https://jparmstrong.vercel.app/): Spanish home page.
+- [Caso de estudio VecinoClub (español)](https://jparmstrong.vercel.app/proyecto): Spanish case study, with Spanish ADRs linked from it.
+- [GitHub](https://github.com/itsmistermoon): Repositories and code.
+- [LinkedIn](https://www.linkedin.com/in/jparmstrong-dev/): Professional profile.
