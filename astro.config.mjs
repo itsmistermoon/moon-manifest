@@ -6,5 +6,6 @@ export default defineConfig({
   site: 'https://jparmstrong.vercel.app',
   integrations: [tailwind()],
   output: 'static',
+  markdown: { syntaxHighlight: false },
   adapter: vercel(),
 });

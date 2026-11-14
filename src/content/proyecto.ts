@@ -200,7 +200,7 @@ export const proyecto = {
     ],
     metricsLabel: 'Production — real metrics',
     metrics: [
-      { label: 'Requests in production', value: '3.397', period: 'last 30 days' },
+      { label: 'Requests in production', value: '3,397', period: 'last 30 days' },
       { label: 'Error rate (5xx)', value: '0%', period: 'Lambda + API Gateway' },
       { label: 'p50 end-to-end latency', value: '151 ms', period: 'API Gateway + Cognito JWT' },
       { label: 'DynamoDB latency', value: '14–17 ms', period: 'average across all operations' },
