@@ -33,7 +33,7 @@ export const home = {
       heroLede: 'Diseño, despliego y opero VecinoClub en AWS, ya en un comercio real de Temuco: 0% de errores 5xx y 151 ms de latencia p50.',
       heroCta: 'Leer el caso VecinoClub',
       heroContact: 'Escribirme',
-      heroFootnote: 'AWS Cloud Practitioner · AWS Re/Start 2026 · Temuco, Chile.',
+      heroFootnote: 'AWS Certified Cloud Practitioner · AWS Re/Start 2026 · Temuco, Chile.',
       proof: {
         label: 'Ver el caso de estudio VecinoClub',
         top: 'Un producto en producción',
@@ -112,7 +112,7 @@ export const home = {
       heroLede: 'I design, deploy, and operate VecinoClub on AWS, live in a real shop in Temuco: 0% 5xx errors and 151 ms p50 latency.',
       heroCta: 'Read the VecinoClub case',
       heroContact: 'Write to me',
-      heroFootnote: 'AWS Cloud Practitioner · AWS Re/Start 2026 · Temuco, Chile.',
+      heroFootnote: 'AWS Certified Cloud Practitioner · AWS Re/Start 2026 · Temuco, Chile.',
       proof: {
         label: 'View the VecinoClub case study',
         top: 'A product in production',
