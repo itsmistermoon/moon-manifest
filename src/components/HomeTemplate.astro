@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { home, designProjectsMeta, socialLinks } from '../content/home';
+import { cv } from '../content/cv';
 import { routes, type Locale } from '../lib/routes';
 
 interface Props {
@@ -13,6 +14,7 @@ const homeHref = routes.home[locale];
 const cvHref = routes.cv[locale];
 const proyectoHref = routes.proyecto[locale];
 const project = t.projects[0];
+const experience = cv[locale].experience;
 ---
 
 <BaseLayout title={t.title}>
@@ -93,11 +95,11 @@ const project = t.projects[0];
             <p>{l.experience.intro}</p>
           </div>
           <div class="experience-list">
-            {t.experience.map((item) => (
+            {experience.map((item) => (
               <div class="experience-row">
                 <span>{item.period}</span>
                 <div><h3>{item.role}</h3><p>{item.company}</p></div>
-                <p>{item.description}</p>
+                <p>{item.bullets[0]}</p>
               </div>
             ))}
           </div>
