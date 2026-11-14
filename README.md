@@ -24,7 +24,9 @@ src/pages/
 
 public/
 ├── cv.pdf            # CV descargable (ES), generado con `npm run cv`
-└── en/cv.pdf         # CV descargable (EN), generado con `npm run cv`
+├── en/cv.pdf         # CV descargable (EN), generado con `npm run cv`
+├── llms.txt          # Guía de contenido para agentes
+└── robots.txt        # Directivas para crawlers
 ```
 
 ## Desarrollo
