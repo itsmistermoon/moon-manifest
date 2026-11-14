@@ -1,0 +1,22 @@
+# Juan Pablo Armstrong
+
+> Portfolio de Juan Pablo Armstrong, analista programador en Temuco, Chile. Incluye su experiencia, CV y un caso de estudio de VecinoClub, una plataforma de fidelización multi-tenant.
+
+## Español
+
+- [Inicio](https://jparmstrong.vercel.app/): perfil, experiencia y contacto.
+- [CV](https://jparmstrong.vercel.app/cv): trayectoria, formación y habilidades.
+- [Caso de estudio VecinoClub](https://jparmstrong.vercel.app/proyecto): producto, arquitectura y decisiones de desarrollo.
+
+## English
+
+- [Home](https://jparmstrong.vercel.app/en): profile, experience and contact.
+- [CV](https://jparmstrong.vercel.app/en/cv): career, education and skills.
+- [VecinoClub case study](https://jparmstrong.vercel.app/en/project): product, architecture and development decisions.
+
+## Decisiones de arquitectura / Architecture decisions
+
+- [HTTP API sobre REST API](https://jparmstrong.vercel.app/proyecto/adr/ADR-0003-http-api-sobre-rest-api) · [English](https://jparmstrong.vercel.app/en/project/adr/ADR-0003-http-api-over-rest-api)
+- [Arquitectura AWS de producción](https://jparmstrong.vercel.app/proyecto/adr/ADR-0006-arquitectura-aws-produccion) · [English](https://jparmstrong.vercel.app/en/project/adr/ADR-0006-aws-production-architecture)
+- [Runner de migraciones de datos](https://jparmstrong.vercel.app/proyecto/adr/ADR-0019-runner-migraciones-datos) · [English](https://jparmstrong.vercel.app/en/project/adr/ADR-0019-data-migration-runner)
+- [Roles IAM en infraestructura como código](https://jparmstrong.vercel.app/proyecto/adr/ADR-0023-roles-iam-en-iac) · [English](https://jparmstrong.vercel.app/en/project/adr/ADR-0023-iam-roles-as-iac)
