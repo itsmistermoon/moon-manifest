@@ -17,7 +17,7 @@ const cvHref = routes.cv[locale];
 const proyectoHref = routes.proyecto[locale];
 ---
 
-<BaseLayout title={t.title}>
+<BaseLayout title={t.title} description={t.description} alternate={routes.proyecto[locale === 'es' ? 'en' : 'es']}>
   <MobileNav
     maxWidth="site-shell"
     lang={{ es: routes.proyecto.es, en: routes.proyecto.en, current: locale }}

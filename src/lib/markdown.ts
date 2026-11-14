@@ -45,7 +45,7 @@ function homeDoc(locale: Locale): Doc {
       `# ${c.name}`,
       `> ${c.tagline}`,
       l.heroLede,
-      l.heroFootnote,
+      `[${l.heroFootnote.cert}](${socialLinks.credly})${l.heroFootnote.rest}`,
       `## ${l.capabilitiesLabel}`,
       list(l.capabilities.map((cap) => `**${cap.title}:** ${cap.text}`)),
       `## ${l.work.title}`,
@@ -57,10 +57,10 @@ function homeDoc(locale: Locale): Doc {
       `[${t.viewCv}](${mdUrl(routes.cv[locale])})`,
       `## ${l.design.title}`,
       l.design.intro,
-      list(t.designProjects.map((p, i) => `[${p.title}](${designProjectsMeta[i].link}) (${p.category}): ${p.description}`)),
+      list(t.designProjects.map((p, i) => `[${p.title}](${designProjectsMeta[i].link ?? mdUrl(routes.proyecto[locale])}) (${p.category}): ${p.description}`)),
       `## ${l.contact.title}`,
       `${l.contact.text} ${contact.email}`,
-      list([`GitHub: ${socialLinks.github}`, `LinkedIn: ${socialLinks.linkedin}`, `Behance: ${socialLinks.behance}`]),
+      list([`GitHub: ${socialLinks.github}`, `LinkedIn: ${socialLinks.linkedin}`, `Behance: ${socialLinks.behance}`, `X: ${socialLinks.x}`]),
     ),
   };
 }
@@ -90,7 +90,7 @@ function cvDoc(locale: Locale): Doc {
       ...t.experience.map((x) => blocks(`### ${x.role} · ${x.company}`, `${x.period} · ${x.location}`, list(x.bullets)).trimEnd()),
       `## ${t.sections.education}`,
       ...t.education.map((e) =>
-        blocks(`### ${e.title} · ${e.institution}`, [e.period, e.location].filter(Boolean).join(' · '), e.description).trimEnd(),
+        blocks(`### ${e.title} · ${e.institution}`, [e.period, e.location].filter(Boolean).join(' · '), e.description, 'link' in e && `[${t.verifyBadge}](${e.link})`).trimEnd(),
       ),
       `## ${t.sections.skills}`,
       list(t.skills.map((s) => `**${s.category}:** ${s.items.join(', ')}`)),

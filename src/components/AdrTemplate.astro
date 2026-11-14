@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import MobileNav from './MobileNav.astro';
 import { navLinks, navLabels, routes } from '../lib/routes';
 import { adrHref } from '../lib/adr';
+import { proyecto } from '../content/proyecto';
 
 interface Props {
   entry: CollectionEntry<'adr'>;
@@ -12,8 +13,9 @@ const { entry } = Astro.props;
 const { locale, id, shortTitle, title, date, status, translation } = entry.data;
 const href = (l: 'es' | 'en') => adrHref(l, l === locale ? entry.id : translation);
 const { Content } = await render(entry);
+const summary = proyecto[locale].adrs.find((x) => x.id === id)?.summary ?? title;
 ---
-<BaseLayout title={`${id}: ${shortTitle} · DŌJŌ`}>
+<BaseLayout title={`${id}: ${shortTitle} · VecinoClub · Juan Pablo Armstrong`} description={summary} alternate={href(locale === 'es' ? 'en' : 'es')}>
   <MobileNav
     maxWidth="site-shell"
     menuLabel={locale === 'en' ? 'Open menu' : undefined}

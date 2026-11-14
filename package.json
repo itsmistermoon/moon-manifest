@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "cv": "node scripts/cv-pdf.mjs"
+    "cv": "node scripts/cv-pdf.mjs",
+    "og": "node scripts/og-image.mjs"
   },
   "dependencies": {
     "@astrojs/vercel": "^8.0.0",

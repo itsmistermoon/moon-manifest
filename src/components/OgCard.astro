@@ -1,0 +1,49 @@
+---
+// Tarjeta 1200×630 para vistas previas de enlaces (og:image). La exporta `npm run og`.
+import { home } from '../content/home';
+import { cv } from '../content/cv';
+import type { Locale } from '../lib/routes';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const l = home[locale].landing;
+const c = cv[locale];
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,700&family=JetBrains+Mono:wght@400&family=Manrope:wght@500&display=swap" />
+  </head>
+  <body>
+    <main>
+      <div class="copy">
+        <p class="eyebrow">{c.name} · Cloud Engineer</p>
+        <h1>{l.heroTitle[0]}<br />{l.heroTitle[1]}</h1>
+        <p class="foot">{l.heroFootnote.cert}{l.heroFootnote.rest}</p>
+      </div>
+      <div class="proof">
+        <span class="top">{l.proof.top}</span>
+        <strong>VecinoClub</strong>
+        <div class="stack">{l.proof.stack.map((s) => <span>{s}</span>)}</div>
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  body { width: 1200px; height: 630px; background: #1a1b26 radial-gradient(#24283b 2px, transparent 2px) 0 0 / 28px 28px; color: #c0caf5; font-family: Manrope, sans-serif; }
+  main { height: 100%; display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: center; padding: 0 64px; }
+  .eyebrow { font-size: 22px; color: #a9b1d6; margin-bottom: 22px; }
+  h1 { font: 700 76px/1.02 Archivo, sans-serif; font-stretch: 125%; letter-spacing: -.055em; margin-bottom: 30px; }
+  .foot { font: 400 15px 'JetBrains Mono', monospace; color: #a9b1d6; }
+  .proof { border: 1px solid #e0af68; background: #15161e; padding: 30px; display: grid; gap: 26px; }
+  .top { color: #e0af68; font-size: 18px; }
+  strong { font: 700 40px/1 Archivo, sans-serif; font-stretch: 125%; letter-spacing: -.05em; }
+  .stack { display: flex; flex-wrap: wrap; gap: 6px; }
+  .stack span { border: 1px solid #414868; padding: 6px 8px; font: 400 14px 'JetBrains Mono', monospace; }
+</style>
