@@ -1,0 +1,36 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MobileNav from './MobileNav.astro';
+import { navLinks, navLabels, routes } from '../lib/routes';
+import { adrHref } from '../lib/adr';
+
+interface Props {
+  entry: CollectionEntry<'adr'>;
+}
+const { entry } = Astro.props;
+const { locale, id, shortTitle, title, date, status, translation } = entry.data;
+const href = (l: 'es' | 'en') => adrHref(l, l === locale ? entry.id : translation);
+const { Content } = await render(entry);
+---
+<BaseLayout title={`${id}: ${shortTitle} · DŌJŌ`}>
+  <MobileNav
+    maxWidth="site-shell"
+    menuLabel={locale === 'en' ? 'Open menu' : undefined}
+    lang={{ es: href('es'), en: href('en'), current: locale }}
+    homeHref={routes.home[locale]}
+    parentCrumb={{ label: navLabels.proyecto[locale], href: routes.proyecto[locale] }}
+    crumbDefault={id}
+    links={navLinks(locale, 'proyecto')}
+  />
+  <!-- --nav-offset (global.css) = barra fija de MobileNav + padding-top original en mobile -->
+  <div class="interior-page interior-adr site-shell mx-auto py-12 md:py-24 max-md:pt-[var(--nav-offset)]">
+    <header class="mb-10">
+      <p class="text-xs font-mono text-ink-dim uppercase tracking-widest mb-2">{id} · {date.toISOString().slice(0, 10)} · {status}</p>
+      <h1 class="text-3xl font-display font-bold text-ink leading-tight">{title}</h1>
+    </header>
+    <div class="prose-adr">
+      <Content />
+    </div>
+  </div>
+</BaseLayout>

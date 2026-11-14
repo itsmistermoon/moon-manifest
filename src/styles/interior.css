@@ -150,12 +150,14 @@ body:has(.interior-page) .corner-box .c {
 
 .interior-adr .prose-adr > :not([hidden]) ~ :not([hidden]) { margin-top: 0; }
 
-.interior-adr .prose-adr section {
-  padding: 40px 0;
-  border-bottom: 1px solid #414868;
-}
+.interior-adr .prose-adr { padding-top: 40px; }
 
-.interior-adr .prose-adr section:last-child { border-bottom: 0; }
+/* Cada h2 abre una sección del ADR: el separador va antes de todas menos la primera. */
+.interior-adr .prose-adr h2 ~ h2 {
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid #414868;
+}
 
 .interior-adr .prose-adr h2 {
   margin: 0 0 18px;
