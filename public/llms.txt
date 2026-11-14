@@ -1,4 +1,4 @@
-﻿# Juan Pablo Armstrong
+# Juan Pablo Armstrong
 
 > Portfolio de Juan Pablo Armstrong, analista programador en Temuco, Chile. Incluye su experiencia, CV y un caso de estudio de VecinoClub, una plataforma de fidelización multi-tenant.
 
@@ -6,12 +6,14 @@
 
 - [Inicio](https://jparmstrong.vercel.app/): perfil, experiencia y contacto.
 - [CV](https://jparmstrong.vercel.app/cv): trayectoria, formación y habilidades.
+- [CV en PDF](https://jparmstrong.vercel.app/cv.pdf): versión descargable en español.
 - [Caso de estudio VecinoClub](https://jparmstrong.vercel.app/proyecto): producto, arquitectura y decisiones de desarrollo.
 
 ## English
 
 - [Home](https://jparmstrong.vercel.app/en): profile, experience and contact.
 - [CV](https://jparmstrong.vercel.app/en/cv): career, education and skills.
+- [CV PDF](https://jparmstrong.vercel.app/en/cv.pdf): downloadable English version.
 - [VecinoClub case study](https://jparmstrong.vercel.app/en/project): product, architecture and development decisions.
 
 ## Decisiones de arquitectura / Architecture decisions
