@@ -40,6 +40,7 @@ export const galleryScreens = {
 export const proyecto = {
   es: {
     title: 'VecinoClub · Caso de Estudio · Juan Pablo Armstrong',
+    description: 'Caso de estudio de VecinoClub: plataforma serverless de fidelización en AWS, en producción. Arquitectura, decisiones y métricas reales.',
     kicker: 'Caso de estudio · Plataforma SaaS de fidelización · En producción',
     heroTitle: 'VecinoClub',
     heroSubtitle: 'Plataforma serverless de fidelización para comercios locales de Chile',
@@ -134,6 +135,7 @@ export const proyecto = {
   },
   en: {
     title: 'VecinoClub · Case Study · Juan Pablo Armstrong',
+    description: 'VecinoClub case study: a serverless loyalty platform on AWS, in production. Architecture, decisions, and real metrics.',
     kicker: 'Case study · Loyalty SaaS platform · In production',
     heroTitle: 'VecinoClub',
     heroSubtitle: 'Serverless loyalty platform for local businesses in Chile',

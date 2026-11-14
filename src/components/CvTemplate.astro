@@ -17,7 +17,7 @@ const cvHref = routes.cv[locale];
 const proyectoHref = routes.proyecto[locale];
 ---
 
-<BaseLayout title={t.title}>
+<BaseLayout title={t.title} description={t.description} alternate={routes.cv[locale === 'es' ? 'en' : 'es']}>
   <MobileNav
     maxWidth="site-shell"
     lang={{ es: routes.cv.es, en: routes.cv.en, current: locale }}
@@ -148,6 +148,7 @@ const proyectoHref = routes.proyecto[locale];
               </div>
               <p class="text-ink-muted text-sm mb-3">{edu.institution}{edu.location && ` · ${edu.location}`}</p>
               <p class="text-ink-muted text-sm leading-relaxed">{edu.description}</p>
+              {edu.link && <a href={edu.link} target="_blank" rel="noopener" class="inline-flex items-center mt-3 text-sm text-accent-blue hover:underline">{t.verifyBadge}<Icon name="external-link" class="w-3.5 h-3.5 ml-1.5" /></a>}
             </div>
           ))}
         </CornerBox>

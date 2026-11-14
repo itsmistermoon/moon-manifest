@@ -1,10 +1,13 @@
+import { credlyUrl } from './cv';
+
 /** Datos invariantes al idioma — hrefs externos, viven una sola vez. */
 export const socialLinks = {
   email: 'mailto:j.p.armstrong@me.com',
   github: 'https://github.com/itsmistermoon',
   linkedin: 'https://www.linkedin.com/in/jparmstrong-dev/',
   behance: 'https://www.behance.net/itsmistermoon',
-  mastodon: 'https://lile.cl/@itsmistermoon',
+  x: 'https://x.com/itsmistermoon',
+  credly: credlyUrl,
   platform: 'https://vecinoclub.cl',
   tokyoNight: 'https://github.com/tokyo-night/tokyo-night-vscode-theme',
 };
@@ -16,6 +19,8 @@ export const skillsMeta = [
 ];
 
 export const designProjectsMeta = [
+  // VecinoClub enlaza al caso de estudio del idioma actual.
+  { image: '/vecinoclub/inicio-claro.webp', link: null, position: 'top' },
   { image: 'https://mir-s3-cdn-cf.behance.net/projects/404/8d1ae943812871.Y3JvcCw2OTksNTQ3LDMwMiw0OA.jpeg', link: 'https://www.behance.net/gallery/43812871/iClub-Interactive-menu-for-restaurants-on-tablets' },
   { image: 'https://mir-s3-cdn-cf.behance.net/projects/404/6f6c3c91696533.Y3JvcCw4MTEsNjM0LDI5NSw4Mg.jpg', link: 'https://www.behance.net/gallery/91696533/Imaquinaria-Estudio' },
   { image: 'https://mir-s3-cdn-cf.behance.net/projects/404/24f1ea91699409.Y3JvcCw2MjIsNDg2LDY5MCw1NzE.jpg', link: 'https://www.behance.net/gallery/91699409/Cuarto-Mundo' },
@@ -24,6 +29,7 @@ export const designProjectsMeta = [
 export const home = {
   es: {
     title: 'Juan Pablo Armstrong · Cloud Engineer',
+    description: 'Cloud Engineer en Temuco, Chile. Diseño, despliego y opero VecinoClub, plataforma serverless en producción en AWS. AWS Certified Cloud Practitioner.',
     landing: {
       homeLabel: 'Juan Pablo Armstrong, inicio',
       navLabel: 'Navegación principal',
@@ -33,12 +39,13 @@ export const home = {
       heroLede: 'Diseño, despliego y opero VecinoClub en AWS, ya en un comercio real de Temuco: 0% de errores 5xx y 151 ms de latencia p50.',
       heroCta: 'Leer el caso VecinoClub',
       heroContact: 'Escribirme',
-      heroFootnote: 'AWS Cloud Practitioner · AWS Re/Start 2026 · Temuco, Chile.',
+      heroCv: 'Descargar CV (PDF)',
+      heroFootnote: { cert: 'AWS Certified Cloud Practitioner', rest: ' · AWS Re/Start 2026 · Temuco, Chile.' },
       proof: {
         label: 'Ver el caso de estudio VecinoClub',
         top: 'Un producto en producción',
         text: 'Una plataforma de fidelización para comercios locales, con Imaquinaria, tienda de manga y cultura japonesa en Temuco, como primer comercio.',
-        stack: ['React 19', 'FastAPI', 'AWS'],
+        stack: ['0% 5xx', 'p50 151 ms', '23 ADRs'],
         bottom: 'Ver cómo se construyó',
       },
       capabilitiesLabel: 'Áreas de trabajo',
@@ -66,11 +73,11 @@ export const home = {
       },
       design: {
         title: 'La práctica visual detrás de mis interfaces',
-        intro: 'Antes de programar trabajé en identidad, editorial e interfaces. Estos proyectos muestran la base visual que llevo al desarrollo de productos.',
+        intro: 'Diseño las interfaces de lo que construyo, como VecinoClub. Esa práctica viene de años en identidad visual, editorial e interfaces.',
       },
       contact: {
         title: 'Conversemos',
-        text: 'Si mi experiencia encaja con lo que estás construyendo, puedes escribirme directamente.',
+        text: 'Disponible para trabajo remoto, o presencial e híbrido en Temuco. Si mi experiencia encaja con lo que estás construyendo, escríbeme directamente.',
         cta: 'Enviar correo',
       },
       footer: 'Juan Pablo Armstrong · Temuco, Chile',
@@ -88,21 +95,18 @@ export const home = {
       },
     ],
     designSection: {
-      label: 'Diseño Gráfico',
-      intro: 'Antes de programar, diseñé. Trabajo en identidad visual, diseño editorial e interfaces desde 2014. Ese background informa cómo construyo productos: con criterio visual desde el primer commit.',
       viewFullPortfolio: 'Ver portfolio completo en Behance',
-      imagePlaceholder: '[ imagen ]',
     },
     designProjects: [
+      { title: 'VecinoClub', category: 'UI/UX · Web App', description: 'Interfaz móvil del portal de clientes: misiones, sellos, niveles y recompensas, en tema claro y oscuro.' },
       { title: 'iClub — Menú interactivo para restaurantes', category: 'UI/UX · App Tablet', description: 'Diseño de aplicación de menú para restaurantes en Android. Del mockup inicial al producto final: navegación de carta, pedidos y pagos desde la mesa.' },
       { title: 'Imaquinaria Estudio', category: 'Identidad Visual', description: 'Creación de identidad gráfica y aplicaciones de marca para Imaquinaria Estudio, estudio colaborativo con ilustradores locales, artesanos y productores.' },
       { title: 'Cuarto Mundo', category: 'Branding · Logo', description: 'Logotipo para Cuarto Mundo, medio especializado en cómics y cultura pop con presencia en prensa, web y redes sociales.' },
     ],
-    footer: 'Temuco, Chile · Diseñado y construido con Astro & Tailwind · Paleta',
-    footerLinks: { github: '[ GitHub ]', linkedin: '[ LinkedIn ]', behance: '[ Behance ]', mastodon: '[ Mastodon ]' },
   },
   en: {
     title: 'Juan Pablo Armstrong · Cloud Engineer',
+    description: 'Cloud Engineer in Temuco, Chile. I design, deploy, and operate VecinoClub, a serverless platform in production on AWS. AWS Certified Cloud Practitioner.',
     landing: {
       homeLabel: 'Juan Pablo Armstrong, home',
       navLabel: 'Main navigation',
@@ -112,12 +116,13 @@ export const home = {
       heroLede: 'I design, deploy, and operate VecinoClub on AWS, live in a real shop in Temuco: 0% 5xx errors and 151 ms p50 latency.',
       heroCta: 'Read the VecinoClub case',
       heroContact: 'Write to me',
-      heroFootnote: 'AWS Cloud Practitioner · AWS Re/Start 2026 · Temuco, Chile.',
+      heroCv: 'Download CV (PDF)',
+      heroFootnote: { cert: 'AWS Certified Cloud Practitioner', rest: ' · AWS Re/Start 2026 · Temuco, Chile.' },
       proof: {
         label: 'View the VecinoClub case study',
         top: 'A product in production',
         text: 'A loyalty platform for local businesses, with Imaquinaria, a manga and Japanese culture shop in Temuco, as its first business.',
-        stack: ['React 19', 'FastAPI', 'AWS'],
+        stack: ['0% 5xx', 'p50 151 ms', '23 ADRs'],
         bottom: 'See how it was built',
       },
       capabilitiesLabel: 'Areas of work',
@@ -145,11 +150,11 @@ export const home = {
       },
       design: {
         title: 'The visual practice behind my interfaces',
-        intro: 'Before coding I worked in identity, editorial, and interfaces. These projects show the visual foundation I bring to product development.',
+        intro: 'I design the interfaces of what I build, like VecinoClub. That practice comes from years of visual identity, editorial, and interface work.',
       },
       contact: {
         title: 'Let’s talk',
-        text: 'If my experience fits what you are building, you can write to me directly.',
+        text: 'Available for remote work, or on-site and hybrid in Temuco. If my experience fits what you are building, write to me directly.',
         cta: 'Send an email',
       },
       footer: 'Juan Pablo Armstrong · Temuco, Chile',
@@ -167,17 +172,13 @@ export const home = {
       },
     ],
     designSection: {
-      label: 'Graphic Design',
-      intro: 'Before coding, I designed. I\'ve worked in visual identity, editorial design, and interfaces since 2014. That background informs how I build products: with visual judgment from the first commit.',
       viewFullPortfolio: 'View full portfolio on Behance',
-      imagePlaceholder: '[ image ]',
     },
     designProjects: [
+      { title: 'VecinoClub', category: 'UI/UX · Web App', description: 'Mobile interface for the customer portal: missions, stamps, levels, and rewards, in light and dark themes.' },
       { title: 'iClub — Interactive menu for restaurants', category: 'UI/UX · Tablet App', description: 'Menu app design for restaurants on Android. From initial mockup to final product: menu navigation, orders, and table-side payments.' },
       { title: 'Imaquinaria Estudio', category: 'Visual Identity', description: 'Brand identity and brand applications for Imaquinaria Estudio, a collaborative studio working with local illustrators, craftspeople, and producers.' },
       { title: 'Cuarto Mundo', category: 'Branding · Logo', description: 'Logo for Cuarto Mundo, a publication specializing in comics and pop culture with presence in print, web, and social media.' },
     ],
-    footer: 'Temuco, Chile · Designed and built with Astro & Tailwind · Palette',
-    footerLinks: { github: '[ GitHub ]', linkedin: '[ LinkedIn ]', behance: '[ Behance ]', mastodon: '[ Mastodon ]' },
   },
 };

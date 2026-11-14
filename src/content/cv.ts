@@ -5,12 +5,17 @@ export const contact = {
   location: 'Temuco, Chile',
 };
 
+/** Badge verificable de AWS Certified Cloud Practitioner. */
+export const credlyUrl = 'https://www.credly.com/badges/2585a63a-a7b3-47bd-9ae8-7295dccba30c';
+
 export const cv = {
   es: {
     title: 'CV · Juan Pablo Armstrong',
+    description: 'CV de Juan Pablo Armstrong, Cloud Engineer: VecinoClub en producción en AWS, AWS Re/Start y AWS Certified Cloud Practitioner.',
     name: 'Juan Pablo Armstrong',
     tagline: 'Cloud Engineer · AWS Certified Cloud Practitioner · Python / Serverless',
     downloadPdf: 'Descargar PDF',
+    verifyBadge: 'Verificar en Credly',
     sections: { profile: 'Perfil', project: 'Proyecto Destacado', experience: 'Experiencia', education: 'Formación', skills: 'Habilidades', language: 'Idioma' },
     profile: 'Cloud engineer con una plataforma serverless propia en producción en AWS, que diseñé, desplegué y opero con observabilidad (CloudWatch, X-Ray, alarmas SNS) y decisiones documentadas en 23 ADRs. Graduate de AWS Re/Start 2026 y AWS Certified Cloud Practitioner. Analista Programador con más de 10 años al frente de emprendimientos propios: criterio de producto y de costo, no solo de código.',
     project: {
@@ -34,7 +39,7 @@ export const cv = {
       { role: 'Diseñador UI · Desarrollador Web (freelance)', company: 'iClub S.A.', period: 'dic. 2011 – abr. 2012', location: 'Remoto', bullets: ['Diseño de UI para app Android de pedidos en restaurantes y desarrollo del sitio corporativo.'] },
     ],
     education: [
-      { title: 'AWS Re/Start — Graduate', institution: 'Amazon Web Services', period: '2026', location: 'Temuco, Chile', description: 'Programa intensivo de cloud computing. Badge oficial. AWS Certified Cloud Practitioner.' },
+      { title: 'AWS Re/Start — Graduate', institution: 'Amazon Web Services', period: '2026', location: 'Temuco, Chile', link: credlyUrl, description: 'Programa intensivo de cloud computing. Badge oficial. AWS Certified Cloud Practitioner.' },
       { title: 'Analista Programador', institution: 'Instituto Santo Tomás', period: '2011 – 2015', location: 'Temuco', description: 'Desarrollo de software, bases de datos MySQL, redes y administración de sistemas.' },
       { title: 'Aprende Python Desde Cero', institution: 'Temuco Lab', period: '2025', location: '', description: 'Lógica de programación, sintaxis Python, Google Colab, librería pandas.' },
     ],
@@ -48,9 +53,11 @@ export const cv = {
   },
   en: {
     title: 'CV · Juan Pablo Armstrong',
+    description: 'CV of Juan Pablo Armstrong, Cloud Engineer: VecinoClub in production on AWS, AWS Re/Start, and AWS Certified Cloud Practitioner.',
     name: 'Juan Pablo Armstrong',
     tagline: 'Cloud Engineer · AWS Certified Cloud Practitioner · Python / Serverless',
     downloadPdf: 'Download PDF',
+    verifyBadge: 'Verify on Credly',
     sections: { profile: 'Profile', project: 'Featured Project', experience: 'Experience', education: 'Education', skills: 'Skills', language: 'Language' },
     profile: 'Cloud engineer running a self-built serverless platform in production on AWS, designed, deployed and operated with full observability (CloudWatch, X-Ray, SNS alarms) and 23 documented architecture decisions (ADRs). AWS Re/Start 2026 graduate and AWS Certified Cloud Practitioner. Systems analyst with 10+ years running my own businesses: product and cost judgment, not just code.',
     project: {
@@ -74,7 +81,7 @@ export const cv = {
       { role: 'UI Designer · Web Developer (freelance)', company: 'iClub S.A.', period: 'Dec 2011 – Apr 2012', location: 'Remote', bullets: ['UI design for an Android restaurant ordering app and corporate website development.'] },
     ],
     education: [
-      { title: 'AWS Re/Start — Graduate', institution: 'Amazon Web Services', period: '2026', location: 'Temuco, Chile', description: 'Intensive cloud computing program. Official badge. AWS Certified Cloud Practitioner.' },
+      { title: 'AWS Re/Start — Graduate', institution: 'Amazon Web Services', period: '2026', location: 'Temuco, Chile', link: credlyUrl, description: 'Intensive cloud computing program. Official badge. AWS Certified Cloud Practitioner.' },
       { title: 'Systems Analyst Programmer', institution: 'Instituto Santo Tomás', period: '2011 – 2015', location: 'Temuco', description: 'Software development, MySQL databases, networking, and systems administration.' },
       { title: 'Learn Python From Scratch', institution: 'Temuco Lab', period: '2025', location: '', description: 'Programming logic, Python syntax, Google Colab, pandas library.' },
     ],
