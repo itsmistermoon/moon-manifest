@@ -34,7 +34,7 @@ export const plaid = {
       { label: 'Ver el kit', href: kitUrl },
       { label: 'Código en GitHub', href: repoUrl },
     ],
-    badges: ['[ CÓDIGO ABIERTO ]', '63 pruebas unitarias', '16 specs de Playwright', 'ES / EN'],
+    badges: ['[ CÓDIGO ABIERTO ]', '63 pruebas unitarias', '16 pruebas de layout', 'ES / EN'],
     origin: {
       label: 'El origen',
       text: [
@@ -79,7 +79,7 @@ export const plaid = {
       label: 'Qué muestra',
       items: [
         'La interfaz de 2011 y su reconstrucción son mías, del diseño al código.',
-        'Reglas de diseño comprobadas en cada cambio: 63 pruebas unitarias y 16 specs de Playwright que miden el layout.',
+        'Reglas de diseño comprobadas en cada cambio: 63 pruebas unitarias y 16 pruebas de Playwright que miden el layout.',
         'Un kit completo: 27 paneles en la galería, dos pieles y dos idiomas, español e inglés.',
       ],
       cloud: 'Mi trabajo en cloud está en VecinoClub, una plataforma serverless en producción en AWS.',
@@ -100,7 +100,7 @@ export const plaid = {
       { label: 'View the kit', href: kitUrl },
       { label: 'Code on GitHub', href: repoUrl },
     ],
-    badges: ['[ OPEN SOURCE ]', '63 unit tests', '16 Playwright specs', 'ES / EN'],
+    badges: ['[ OPEN SOURCE ]', '63 unit tests', '16 layout tests', 'ES / EN'],
     origin: {
       label: 'The origin',
       text: [
@@ -145,7 +145,7 @@ export const plaid = {
       label: 'What it shows',
       items: [
         'The 2011 interface and its rebuild are both mine, from design to code.',
-        'Design rules checked on every change: 63 unit tests and 16 Playwright specs that measure the layout.',
+        'Design rules checked on every change: 63 unit tests and 16 Playwright tests that measure the layout.',
         'A complete kit: 27 panels in the gallery, two skins and two languages, Spanish and English.',
       ],
       cloud: 'My cloud work is VecinoClub, a serverless platform running in production on AWS.',
