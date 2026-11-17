@@ -4,7 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import { cv, contact } from '../content/cv';
 import { home, designProjectsMeta, socialLinks } from '../content/home';
 import { proyecto, platformUrl, stack, levels } from '../content/proyecto';
-import { plaid, stack as plaidStack } from '../content/plaid';
+import { plaid, iclubUrl, stack as plaidStack } from '../content/plaid';
 import { routes, type Locale } from './routes';
 import { adrHref, getAdrs } from './adr';
 
@@ -162,7 +162,7 @@ function plaidDoc(locale: Locale): Doc {
       `> ${t.heroSubtitle}. ${t.kicker}.`,
       list(t.links.map((l) => `[${l.label}](${l.href})`)),
       `## ${t.origin.label}`,
-      t.origin.text,
+      `${t.origin.text} [${t.origin.linkLabel}](${iclubUrl})`,
       `## ${t.what.label}`,
       list([t.what.demo, t.what.kit].map((x) => `**${x.title}:** ${x.text}`)),
       `## ${t.designLabel}`,

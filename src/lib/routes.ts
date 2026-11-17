@@ -6,7 +6,7 @@ export const routes = {
   home: { es: '/', en: '/en' },
   cv: { es: '/cv', en: '/en/cv' },
   proyecto: { es: '/proyecto', en: '/en/project' },
-  plaid: { es: '/plaid', en: '/en/plaid' },
+  plaid: { es: '/plaid-ui-kit', en: '/en/plaid-ui-kit' },
 } satisfies Record<string, Record<Locale, string>>;
 
 export const navLabels = {

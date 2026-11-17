@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import MobileNav from './MobileNav.astro';
 import Icon from './Icon.astro';
 import CornerBox from './CornerBox.astro';
-import { plaid, demoUrl, stack, screens } from '../content/plaid';
+import { plaid, demoUrl, iclubUrl, stack, screens } from '../content/plaid';
 import { routes, navLinks, type Locale } from '../lib/routes';
 
 interface Props {
@@ -61,6 +61,10 @@ const [primaryLink, ...secondaryLinks] = t.links;
         <CornerBox>
           <div class="brutalist-card p-5 border-0">
             <p class="text-ink-muted text-sm leading-relaxed">{t.origin.text}</p>
+            <a href={iclubUrl} target="_blank" rel="noopener" class="inline-flex items-center mt-3 text-sm font-semibold text-accent-blue hover:underline">
+              {t.origin.linkLabel}
+              <Icon name="external-link" class="w-4 h-4 ml-2" />
+            </a>
           </div>
         </CornerBox>
       </section>
@@ -83,9 +87,9 @@ const [primaryLink, ...secondaryLinks] = t.links;
 
       <section>
         <h2 class="section-label">{t.gallery.label}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {screens.map(screen => (
-            <figure class="m-0">
+        <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
+          {screens.map((screen, i) => (
+            <figure class={i < 2 ? 'm-0 md:col-span-3' : 'm-0 md:col-span-2'}>
               <a href={`/plaid/${screen.id}.webp`} target="_blank" rel="noopener" class="block border border-dark-border hover:border-accent-blue/40 transition-colors">
                 <img
                   src={`/plaid/${screen.id}.webp`}

@@ -1,7 +1,9 @@
 /** Datos invariantes al idioma. */
 export const demoUrl = 'https://plaid-ui-kit.vercel.app/';
 export const kitUrl = 'https://plaid-ui-kit.vercel.app/componentes';
-export const repoUrl = 'https://github.com/itsmistermoon/plaid';
+export const repoUrl = 'https://github.com/itsmistermoon/plaid-ui-kit';
+
+export const iclubUrl = 'https://www.behance.net/gallery/43812871/iClub-Interactive-menu-for-restaurants-on-tablets';
 
 export const stack = ['Vite', 'React 19', 'TypeScript', 'UI SDK', 'wouter', 'zustand', 'Vitest', 'Playwright', 'Biome', 'Vercel'];
 
@@ -29,8 +31,8 @@ export const plaid = {
     badges: ['[ CÓDIGO ABIERTO ]', '2 pieles', '3 roles'],
     origin: {
       label: 'El origen',
-      // TODO [VERIFICAR]: año y rol de moon en iClub.
-      text: 'iClub fue una app de pedidos para restaurantes en tablet. Plaid la reconstruye desde cero con herramientas actuales: la misma idea de pedir desde la mesa, con la estética de las interfaces de principios de los 2000, elegida a propósito.',
+      text: 'iClub fue una app Android de pedidos para restaurantes en tablet. Entre diciembre de 2011 y abril de 2012 diseñé su interfaz como diseñador UI freelance. Plaid la reconstruye desde cero con herramientas actuales: la misma idea de pedir desde la mesa, con la estética de las interfaces de principios de los 2000, elegida a propósito.',
+      linkLabel: 'Ver iClub en Behance',
     },
     what: {
       label: 'Qué hay',
@@ -78,8 +80,8 @@ export const plaid = {
     badges: ['[ OPEN SOURCE ]', '2 skins', '3 roles'],
     origin: {
       label: 'The origin',
-      // TODO [VERIFICAR]: año y rol de moon en iClub.
-      text: 'iClub was an ordering app for restaurants on tablets. Plaid rebuilds it from scratch with current tools: the same idea of ordering from the table, with the look of early-2000s interfaces, chosen on purpose.',
+      text: 'iClub was an Android ordering app for restaurants on tablets. From December 2011 to April 2012 I designed its interface as a freelance UI designer. Plaid rebuilds it from scratch with current tools: the same idea of ordering from the table, with the look of early-2000s interfaces, chosen on purpose.',
+      linkLabel: 'See iClub on Behance',
     },
     what: {
       label: 'What’s in it',
