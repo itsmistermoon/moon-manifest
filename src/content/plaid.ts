@@ -54,7 +54,7 @@ export const plaid = {
     },
     what: {
       label: 'Qué hay',
-      demo: { title: 'Restaurant El Clan', text: 'La demo. El comensal pide desde la mesa, sigue su pedido y paga la cuenta (propina y división incluidas). El garzón ve la sala, mueve y une mesas y cobra. La cocina recibe las comandas en un riel. Hay libro de reservas, pizarra de especiales y paleta de comandos (⌘K).' },
+      demo: { title: 'Restaurant El Clan', text: 'La demo. El comensal pide desde la mesa, sigue su pedido y paga la cuenta (propina y división incluidas). El garzón ve la sala, mueve y une mesas y cobra. La cocina recibe las comandas en un riel. En la carta, la pestaña «Hoy» es una pizarra de especiales. En la vista del garzón están el libro de reservas (botón «Reservar») y una búsqueda rápida de mesas y acciones (botón «Buscar» o ⌘K).' },
       kit: { title: 'Plaid UI Kit', text: 'La galería de componentes: 27 paneles que muestran cada pieza en todos sus estados y qué componente de UI SDK usa por dentro. Incluye un diseñador de tartán para armar el patrón escocés que da nombre al kit.' },
     },
     gallery: {
@@ -121,7 +121,7 @@ export const plaid = {
     },
     what: {
       label: 'What’s in it',
-      demo: { title: 'Restaurant El Clan', text: 'The demo. The diner orders from the table, follows the order and pays the bill (tip and split included). The waiter sees the floor, moves and joins tables, and takes payment. The kitchen gets tickets on a rail. There is a reservation book, a specials board and a command palette (⌘K).' },
+      demo: { title: 'Restaurant El Clan', text: 'The demo. The diner orders from the table, follows the order and pays the bill (tip and split included). The waiter sees the floor, moves and joins tables, and takes payment. The kitchen gets tickets on a rail. In the menu, the "Today" tab is a specials board. The waiter view has the reservation book (the "Book" button) and a quick search for tables and actions (the "Search" button or ⌘K).' },
       kit: { title: 'Plaid UI Kit', text: 'The component gallery: 27 panels that show every piece in all its states and which UI SDK component it uses underneath. It includes a tartan designer to build the plaid pattern the kit is named after.' },
     },
     gallery: {
