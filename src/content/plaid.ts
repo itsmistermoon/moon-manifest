@@ -79,7 +79,7 @@ export const plaid = {
       label: 'Qué muestra',
       items: [
         'La interfaz de 2011 y su reconstrucción son mías, del diseño al código.',
-        'Reglas de diseño comprobadas en cada cambio: 63 pruebas unitarias y 16 pruebas de Playwright que miden el layout.',
+        'Reglas de diseño que se comprueban solas: 63 pruebas unitarias y 16 pruebas de Playwright que miden el layout.',
         'Un kit completo: 27 paneles en la galería, dos pieles y dos idiomas, español e inglés.',
       ],
       cloud: 'Mi trabajo en cloud está en VecinoClub, una plataforma serverless en producción en AWS.',
@@ -145,7 +145,7 @@ export const plaid = {
       label: 'What it shows',
       items: [
         'The 2011 interface and its rebuild are both mine, from design to code.',
-        'Design rules checked on every change: 63 unit tests and 16 Playwright tests that measure the layout.',
+        'Design rules that check themselves: 63 unit tests and 16 Playwright tests that measure the layout.',
         'A complete kit: 27 panels in the gallery, two skins and two languages, Spanish and English.',
       ],
       cloud: 'My cloud work is VecinoClub, a serverless platform running in production on AWS.',
