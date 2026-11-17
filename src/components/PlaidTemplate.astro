@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MobileNav from './MobileNav.astro';
+import Icon from './Icon.astro';
+import CornerBox from './CornerBox.astro';
+import { plaid, demoUrl, stack, screens } from '../content/plaid';
+import { routes, navLinks, type Locale } from '../lib/routes';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = plaid[locale];
+const [primaryLink, ...secondaryLinks] = t.links;
+---
+
+<BaseLayout title={t.title} description={t.description} alternate={routes.plaid[locale === 'es' ? 'en' : 'es']}>
+  <MobileNav
+    maxWidth="site-shell"
+    lang={{ es: routes.plaid.es, en: routes.plaid.en, current: locale }}
+    homeHref={routes.home[locale]}
+    crumbDefault={t.crumb}
+    menuLabel={locale === 'en' ? 'Open menu' : undefined}
+    links={navLinks(locale, 'plaid')}
+  />
+  <div class="interior-page interior-project site-shell mx-auto py-12 md:py-24 max-md:pt-[var(--nav-offset)]">
+
+    <header class="mb-12">
+      <p class="text-xs font-mono text-ink-dim uppercase tracking-widest mb-6">
+        {t.kicker}
+      </p>
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-display font-bold text-ink mb-2 leading-[1.1]">{t.heroTitle}</h1>
+          <p class="text-xl text-accent-blue font-medium">{t.heroSubtitle}</p>
+        </div>
+        <div class="flex flex-wrap gap-3 shrink-0">
+          <a href={primaryLink.href} target="_blank" rel="noopener" class="inline-flex items-center px-5 py-2.5 bg-accent-yellow hover:bg-accent-yellow-light text-black font-semibold text-sm transition-colors">
+            {primaryLink.label}
+            <Icon name="external-link" class="w-4 h-4 ml-2" />
+          </a>
+          {secondaryLinks.map(link => (
+            <a href={link.href} target="_blank" rel="noopener" class="inline-flex items-center px-5 py-2.5 text-sm font-semibold text-ink-muted border border-dark-border hover:text-accent-blue hover:border-accent-blue/40 transition-colors">
+              {link.label}
+              <Icon name="external-link" class="w-4 h-4 ml-2" />
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        {t.badges.map((badge, i) => (
+          <span class={i === 0 ? 'px-3 py-1 text-xs font-mono font-medium text-accent-yellow bg-accent-yellow/10 border border-accent-yellow/20' : 'px-3 py-1 text-xs font-mono text-ink-muted border border-dark-border'}>{badge}</span>
+        ))}
+      </div>
+    </header>
+
+    <div class="space-y-12">
+
+      <section>
+        <h2 class="section-label">{t.origin.label}</h2>
+        <CornerBox>
+          <div class="brutalist-card p-5 border-0">
+            <p class="text-ink-muted text-sm leading-relaxed">{t.origin.text}</p>
+          </div>
+        </CornerBox>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.what.label}</h2>
+        <CornerBox middle>
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="brutalist-card p-6 border-0 group">
+              <h3 class="text-ink font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">{t.what.demo.title}</h3>
+              <p class="text-ink-muted text-sm leading-relaxed">{t.what.demo.text}</p>
+            </div>
+            <div class="brutalist-card p-6 border-0 md:border-l border-dark-border border-t md:border-t-0 group">
+              <h3 class="text-ink font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">{t.what.kit.title}</h3>
+              <p class="text-ink-muted text-sm leading-relaxed">{t.what.kit.text}</p>
+            </div>
+          </div>
+        </CornerBox>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.gallery.label}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {screens.map(screen => (
+            <figure class="m-0">
+              <a href={`/plaid/${screen.id}.webp`} target="_blank" rel="noopener" class="block border border-dark-border hover:border-accent-blue/40 transition-colors">
+                <img
+                  src={`/plaid/${screen.id}.webp`}
+                  width={screen.width}
+                  height={screen.height}
+                  alt={t.gallery.images[screen.id].alt}
+                  loading="lazy"
+                  class="block w-full h-auto"
+                />
+              </a>
+              <figcaption class="mt-2 text-ink-dim text-xs font-mono">{t.gallery.images[screen.id].caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.designLabel}</h2>
+        <CornerBox>
+          <div class="brutalist-card p-5 border-0">
+            <ul class="space-y-1.5">
+              {t.design.map(item => (
+                <li class="text-ink-muted text-sm flex gap-2">
+                  <span class="text-dark-border mt-1.5 shrink-0">—</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </CornerBox>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.builtLabel}</h2>
+        <CornerBox>
+          <div class="brutalist-card p-5 border-0">
+            <ul class="space-y-1.5">
+              {t.built.map(item => (
+                <li class="text-ink-muted text-sm flex gap-2">
+                  <span class="text-dark-border mt-1.5 shrink-0">—</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </CornerBox>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.stackLabel}</h2>
+        <CornerBox>
+          <div class="brutalist-card p-5 border-0">
+            <div class="flex flex-wrap gap-1.5">
+              {stack.map(item => (
+                <span class="px-2.5 py-1 text-xs font-mono text-ink-muted bg-dark-bg border border-dark-border">{item}</span>
+              ))}
+            </div>
+          </div>
+        </CornerBox>
+      </section>
+
+    </div>
+
+    <footer class="mt-16 pt-8 border-t border-dark-border">
+      <div class="flex justify-center">
+        <a href={demoUrl} target="_blank" rel="noopener" class="inline-flex items-center text-sm font-semibold text-accent-yellow hover:text-yellow-300 transition-colors">
+          {t.footerCta}
+          <Icon name="external-link" class="w-4 h-4 ml-2" />
+        </a>
+      </div>
+    </footer>
+
+  </div>
+</BaseLayout>

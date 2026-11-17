@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import { cv, contact } from '../content/cv';
 import { home, designProjectsMeta, socialLinks } from '../content/home';
 import { proyecto, platformUrl, stack, levels } from '../content/proyecto';
+import { plaid, stack as plaidStack } from '../content/plaid';
 import { routes, type Locale } from './routes';
 import { adrHref, getAdrs } from './adr';
 
@@ -32,7 +33,7 @@ function homeDoc(locale: Locale): Doc {
   const l = t.landing;
   const c = cv[locale];
   const en = locale === 'en';
-  const project = t.projects[0];
+  const [project, secondary] = t.projects;
   return {
     locale,
     href: routes.home[locale],
@@ -51,6 +52,7 @@ function homeDoc(locale: Locale): Doc {
       `## ${l.work.title}`,
       `${project.description} [${t.projectSection.viewCaseStudy}](${mdUrl(routes.proyecto[locale])})`,
       list(l.work.evidence.map((e) => `**${e.label}:** ${e.text}`)),
+      `**${secondary.title}:** ${secondary.description} [${t.projectSection.viewCaseStudy}](${mdUrl(routes.plaid[locale])})`,
       `## ${l.experience.title}`,
       l.experience.intro,
       list(c.experience.map((x) => `**${x.role}**, ${x.company} (${x.period}): ${x.bullets[0]}`)),
@@ -147,6 +149,32 @@ function proyectoDoc(locale: Locale): Doc {
   };
 }
 
+function plaidDoc(locale: Locale): Doc {
+  const t = plaid[locale];
+  return {
+    locale,
+    href: routes.plaid[locale],
+    mdPath: mdPathFor(routes.plaid[locale]),
+    title: locale === 'en' ? 'Plaid case study' : 'Caso de estudio Plaid',
+    description: t.description,
+    markdown: blocks(
+      `# ${t.heroTitle}`,
+      `> ${t.heroSubtitle}. ${t.kicker}.`,
+      list(t.links.map((l) => `[${l.label}](${l.href})`)),
+      `## ${t.origin.label}`,
+      t.origin.text,
+      `## ${t.what.label}`,
+      list([t.what.demo, t.what.kit].map((x) => `**${x.title}:** ${x.text}`)),
+      `## ${t.designLabel}`,
+      list(t.design),
+      `## ${t.builtLabel}`,
+      list(t.built),
+      `## ${t.stackLabel}`,
+      plaidStack.join(', '),
+    ),
+  };
+}
+
 function adrDoc(entry: CollectionEntry<'adr'>): Doc {
   const { locale, id, shortTitle, title, date, status } = entry.data;
   const href = adrHref(locale, entry.id);
@@ -166,7 +194,7 @@ function adrDoc(entry: CollectionEntry<'adr'>): Doc {
 export async function getDocs(): Promise<Doc[]> {
   const docs: Doc[] = [];
   for (const locale of ['en', 'es'] as const) {
-    docs.push(cvDoc(locale), homeDoc(locale), proyectoDoc(locale));
+    docs.push(cvDoc(locale), homeDoc(locale), proyectoDoc(locale), plaidDoc(locale));
     const adrs = (await getAdrs(locale)).sort((x, y) => x.data.id.localeCompare(y.data.id));
     docs.push(...adrs.map(adrDoc));
   }

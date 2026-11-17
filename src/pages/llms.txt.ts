@@ -11,7 +11,8 @@ export const GET: APIRoute = async () => {
   const en = docs.filter((d) => d.locale === 'en');
   const es = docs.filter((d) => d.locale === 'es');
   const profile = en.filter((d) => d.href === routes.cv.en || d.href === routes.home.en);
-  const project = en.filter((d) => !profile.includes(d));
+  const plaidDocs = en.filter((d) => d.href === routes.plaid.en);
+  const project = en.filter((d) => !profile.includes(d) && !plaidDocs.includes(d));
   const t = cv.en;
 
   const body = [
@@ -23,6 +24,8 @@ export const GET: APIRoute = async () => {
     [...profile.map(link), `- [CV PDF](${site}${routes.cv.en}.pdf): The same CV as a one-page PDF.`].join('\n'),
     '## VecinoClub',
     project.map(link).join('\n'),
+    '## Plaid',
+    plaidDocs.map(link).join('\n'),
     '## Optional',
     [
       ...es.map(link),
