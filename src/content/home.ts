@@ -93,6 +93,14 @@ export const home = {
         statusColor: 'yellow',
         tags: ['AWS Lambda', 'FastAPI / Python', 'React 19 + TS', 'GitHub Actions'],
       },
+      {
+        title: 'Plaid UI Kit',
+        subtitle: 'Kit de componentes esqueumórficos y demo de restaurante · Código abierto',
+        description: 'Un kit de componentes esqueumórficos sobre UI SDK y un restaurante completo hecho con él: el comensal pide desde la mesa, el garzón atiende la sala y la cocina recibe las comandas.',
+        status: 'Código abierto',
+        statusColor: 'blue',
+        tags: ['React 19 + TS', 'UI SDK', 'Playwright', 'Vercel'],
+      },
     ],
     designSection: {
       viewFullPortfolio: 'Ver portfolio completo en Behance',
@@ -169,6 +177,14 @@ export const home = {
         status: 'Live',
         statusColor: 'yellow',
         tags: ['AWS Lambda', 'FastAPI / Python', 'React 19 + TS', 'GitHub Actions'],
+      },
+      {
+        title: 'Plaid UI Kit',
+        subtitle: 'Skeuomorphic component kit and restaurant demo · Open source',
+        description: 'A skeuomorphic component kit built on UI SDK and a complete restaurant made with it: the diner orders from the table, the waiter runs the floor and the kitchen gets the tickets.',
+        status: 'Open source',
+        statusColor: 'blue',
+        tags: ['React 19 + TS', 'UI SDK', 'Playwright', 'Vercel'],
       },
     ],
     designSection: {
