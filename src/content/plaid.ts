@@ -18,9 +18,12 @@ export const screens = [
 
 /** Pantallas del diseño original de iClub (2011), a 1024 × 600 como la tablet. */
 export const originScreens = [
-  { id: 'iclub-2011-inicio', width: 1024, height: 600 },
-  { id: 'iclub-2011-menu', width: 1024, height: 600 },
+  { id: 'iclub-2011-inicio', nowId: 'iclub-2026-inicio', width: 1024, height: 600 },
+  { id: 'iclub-2011-menu', nowId: 'iclub-2026-menu', width: 1024, height: 600 },
 ] as const;
+
+/** Captura grande de la demo (solo la tablet, piel Plaid, vista del comensal), a 1920 px de ancho. */
+export const heroScreen = { id: 'demo-comensal-hero', width: 1920, height: 1142 } as const;
 
 export const plaid = {
   es: {
@@ -35,6 +38,7 @@ export const plaid = {
       { label: 'Código en GitHub', href: repoUrl },
     ],
     badges: ['[ CÓDIGO ABIERTO ]', '63 pruebas unitarias', '16 pruebas de layout', 'ES / EN'],
+    heroAlt: 'Demo de Plaid en la piel Plaid: la tablet con la vista del comensal en la Mesa 7, mostrando la carta con los especiales del día.',
     origin: {
       label: 'El origen',
       text: [
@@ -42,8 +46,8 @@ export const plaid = {
         'Catorce años después la reconstruí, esta vez también con el código. Mantuve el estilo de entonces, el esqueumorfismo: pantallas que imitan materiales reales como la madera, el cuero o la tela, con relieve y sombras. Era el estilo habitual antes de que se impusiera el diseño plano.',
       ],
       screens: {
-        'iclub-2011-inicio': { alt: 'Pantalla de inicio de iClub en 2011: fondo de madera, botones de Menú, Tragos y Promos, y barra inferior con Opciones, Perfil y Garzón.' },
-        'iclub-2011-menu': { alt: 'Carta de iClub en 2011: lista de sándwiches con foto, ingredientes, precio y casilla para elegir, sobre fondo de madera.' },
+        'iclub-2011-inicio': { alt: 'Pantalla de inicio de iClub en 2011: fondo de madera, botones de Menú, Tragos y Promos, y barra inferior con Opciones, Perfil y Garzón.', nowAlt: 'Plaid en 2026, la pantalla de inicio del comensal: Mesa 7, menú lateral y la pizarra de especiales del día.' },
+        'iclub-2011-menu': { alt: 'Carta de iClub en 2011: lista de sándwiches con foto, ingredientes, precio y casilla para elegir, sobre fondo de madera.', nowAlt: 'Plaid en 2026, la carta de sándwiches con foto, ingredientes, precio y casilla para elegir.' },
       },
       caption: 'Diseño original, 2011',
       linkLabel: 'Ver iClub en Behance',
@@ -101,6 +105,7 @@ export const plaid = {
       { label: 'Code on GitHub', href: repoUrl },
     ],
     badges: ['[ OPEN SOURCE ]', '63 unit tests', '16 layout tests', 'ES / EN'],
+    heroAlt: 'Plaid demo in the Plaid skin: the tablet with the diner view at Table 7, showing the menu with the specials of the day.',
     origin: {
       label: 'The origin',
       text: [
@@ -108,8 +113,8 @@ export const plaid = {
         'Fourteen years later I rebuilt it, this time writing the code as well. I kept the style of the time, skeuomorphism: screens that imitate real materials like wood, leather or cloth, with depth and shadows. It was the usual look before flat design took over.',
       ],
       screens: {
-        'iclub-2011-inicio': { alt: 'iClub home screen in 2011: wood background, Menu, Drinks and Promos buttons, and a bottom bar with Options, Profile and Waiter.' },
-        'iclub-2011-menu': { alt: 'iClub menu in 2011: a list of sandwiches with photo, ingredients, price and a checkbox to pick each one, on a wood background.' },
+        'iclub-2011-inicio': { alt: 'iClub home screen in 2011: wood background, Menu, Drinks and Promos buttons, and a bottom bar with Options, Profile and Waiter.', nowAlt: 'Plaid in 2026, the diner home screen: Table 7, side menu and the specials board for the day.' },
+        'iclub-2011-menu': { alt: 'iClub menu in 2011: a list of sandwiches with photo, ingredients, price and a checkbox to pick each one, on a wood background.', nowAlt: 'Plaid in 2026, the sandwich menu with photo, ingredients, price and a checkbox to pick each one.' },
       },
       caption: 'Original design, 2011',
       linkLabel: 'See iClub on Behance',
