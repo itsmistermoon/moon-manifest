@@ -1,4 +1,4 @@
-// Genera public/og-image.png y public/en/og-image.png desde /og y /en/og.
+// Genera las tarjetas og-image.png (home y caso de Plaid, ES y EN) desde /og*, /en/og*.
 // Uso: npm run og  (levanta `astro dev` y captura cada tarjeta con puppeteer).
 import { dev } from 'astro';
 import puppeteer from 'puppeteer';
@@ -6,6 +6,8 @@ import puppeteer from 'puppeteer';
 const targets = [
   { path: '/og', out: 'public/og-image.png' },
   { path: '/en/og', out: 'public/en/og-image.png' },
+  { path: '/og-plaid', out: 'public/plaid-ui-kit/og-image.png' },
+  { path: '/en/og-plaid', out: 'public/en/plaid-ui-kit/og-image.png' },
 ];
 
 const server = await dev({ logLevel: 'error', server: { port: 4398 }, devToolbar: { enabled: false } });

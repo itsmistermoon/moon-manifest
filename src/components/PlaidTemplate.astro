@@ -14,7 +14,7 @@ const t = plaid[locale];
 const [primaryLink, ...secondaryLinks] = t.links;
 ---
 
-<BaseLayout title={t.title} description={t.description} alternate={routes.plaid[locale === 'es' ? 'en' : 'es']}>
+<BaseLayout title={t.title} description={t.description} alternate={routes.plaid[locale === 'es' ? 'en' : 'es']} image={`${routes.plaid[locale]}/og-image.png`}>
   <MobileNav
     maxWidth="site-shell"
     lang={{ es: routes.plaid.es, en: routes.plaid.en, current: locale }}

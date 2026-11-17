@@ -1,0 +1,45 @@
+---
+// Tarjeta 1200×630 del caso de estudio de Plaid. La exporta `npm run og`.
+import { plaid } from '../content/plaid';
+import { cv } from '../content/cv';
+import type { Locale } from '../lib/routes';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = plaid[locale];
+const c = cv[locale];
+const kicker = locale === 'es' ? 'Caso de estudio' : 'Case study';
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,700&family=JetBrains+Mono:wght@400&family=Manrope:wght@500&display=swap" />
+  </head>
+  <body>
+    <main>
+      <div class="copy">
+        <p class="eyebrow">{c.name} · {kicker}</p>
+        <h1>{t.heroTitle}</h1>
+        <p class="sub">{t.heroSubtitle}</p>
+        <p class="foot">plaid-ui-kit.vercel.app</p>
+      </div>
+      <div class="tartan"></div>
+    </main>
+  </body>
+</html>
+
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  body { width: 1200px; height: 630px; background: #1a1b26 radial-gradient(#24283b 2px, transparent 2px) 0 0 / 28px 28px; color: #c0caf5; font-family: Manrope, sans-serif; }
+  main { height: 100%; display: grid; grid-template-columns: 1fr 340px; }
+  .copy { padding: 0 56px 0 64px; display: flex; flex-direction: column; justify-content: center; }
+  .eyebrow { font-size: 22px; color: #a9b1d6; margin-bottom: 22px; }
+  h1 { font: 700 88px/1.02 Archivo, sans-serif; font-stretch: 125%; letter-spacing: -.055em; margin-bottom: 26px; }
+  .sub { font-size: 28px; line-height: 1.3; color: #c0caf5; margin-bottom: 34px; max-width: 700px; }
+  .foot { font: 400 15px 'JetBrains Mono', monospace; color: #a9b1d6; }
+  .tartan { background: url('/plaid/tartan.png') right center / auto 100% no-repeat; border-left: 1px solid #e0af68; }
+</style>
