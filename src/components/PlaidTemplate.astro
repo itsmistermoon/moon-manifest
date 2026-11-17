@@ -75,10 +75,12 @@ const [primaryLink, ...secondaryLinks] = t.links;
             <div class="brutalist-card p-6 border-0 group">
               <h3 class="text-ink font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">{t.what.demo.title}</h3>
               <p class="text-ink-muted text-sm leading-relaxed">{t.what.demo.text}</p>
+              <a href={t.links[0].href} target="_blank" rel="noopener" class="inline-flex items-center mt-3 text-sm font-semibold text-accent-blue hover:underline">{t.links[0].label}<Icon name="external-link" class="w-4 h-4 ml-2" /></a>
             </div>
             <div class="brutalist-card p-6 border-0 md:border-l border-dark-border border-t md:border-t-0 group">
               <h3 class="text-ink font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">{t.what.kit.title}</h3>
               <p class="text-ink-muted text-sm leading-relaxed">{t.what.kit.text}</p>
+              <a href={t.links[1].href} target="_blank" rel="noopener" class="inline-flex items-center mt-3 text-sm font-semibold text-accent-blue hover:underline">{t.links[1].label}<Icon name="external-link" class="w-4 h-4 ml-2" /></a>
             </div>
           </div>
         </CornerBox>
