@@ -18,10 +18,10 @@ export const screens = [
 
 export const plaid = {
   es: {
-    title: 'Plaid · Caso de estudio · Juan Pablo Armstrong',
-    description: 'Caso de estudio de Plaid: un kit de componentes esqueumórficos sobre UI SDK y una demo de restaurante hecha con él.',
+    title: 'Plaid UI Kit · Caso de estudio · Juan Pablo Armstrong',
+    description: 'Caso de estudio de Plaid UI Kit: un kit de componentes esqueumórficos sobre UI SDK y una demo de restaurante hecha con él.',
     kicker: 'Caso de estudio · Kit de UI y demo · Código abierto',
-    heroTitle: 'Plaid',
+    heroTitle: 'Plaid UI Kit',
     heroSubtitle: 'Un kit de componentes esqueumórficos y un restaurante completo hecho con él',
     links: [
       { label: 'Abrir la demo', href: demoUrl },
@@ -63,14 +63,14 @@ export const plaid = {
       'Construido con agentes de IA bajo mi dirección: yo definí el diseño, las reglas y la revisión; los agentes implementaron en ramas y PRs revisados.',
     ],
     stackLabel: 'Stack',
-    crumb: 'Plaid',
+    crumb: 'Plaid UI Kit',
     footerCta: 'Abrir la demo',
   },
   en: {
-    title: 'Plaid · Case Study · Juan Pablo Armstrong',
-    description: 'Plaid case study: a skeuomorphic component kit built on UI SDK and a restaurant demo made with it.',
+    title: 'Plaid UI Kit · Case Study · Juan Pablo Armstrong',
+    description: 'Plaid UI Kit case study: a skeuomorphic component kit built on UI SDK and a restaurant demo made with it.',
     kicker: 'Case study · UI kit and demo · Open source',
-    heroTitle: 'Plaid',
+    heroTitle: 'Plaid UI Kit',
     heroSubtitle: 'A skeuomorphic component kit and a complete restaurant built with it',
     links: [
       { label: 'Open the demo', href: demoUrl },
@@ -112,7 +112,7 @@ export const plaid = {
       'Built with AI agents under my direction: I defined the design, the rules and the review; the agents implemented in branches and reviewed PRs.',
     ],
     stackLabel: 'Stack',
-    crumb: 'Plaid',
+    crumb: 'Plaid UI Kit',
     footerCta: 'Open the demo',
   },
 };

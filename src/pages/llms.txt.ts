@@ -24,7 +24,7 @@ export const GET: APIRoute = async () => {
     [...profile.map(link), `- [CV PDF](${site}${routes.cv.en}.pdf): The same CV as a one-page PDF.`].join('\n'),
     '## VecinoClub',
     project.map(link).join('\n'),
-    '## Plaid',
+    '## Plaid UI Kit',
     plaidDocs.map(link).join('\n'),
     '## Optional',
     [

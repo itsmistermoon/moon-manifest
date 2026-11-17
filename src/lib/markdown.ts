@@ -155,7 +155,7 @@ function plaidDoc(locale: Locale): Doc {
     locale,
     href: routes.plaid[locale],
     mdPath: mdPathFor(routes.plaid[locale]),
-    title: locale === 'en' ? 'Plaid case study' : 'Caso de estudio Plaid',
+    title: locale === 'en' ? 'Plaid UI Kit case study' : 'Caso de estudio Plaid UI Kit',
     description: t.description,
     markdown: blocks(
       `# ${t.heroTitle}`,
