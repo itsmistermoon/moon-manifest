@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import MobileNav from './MobileNav.astro';
 import Icon from './Icon.astro';
 import CornerBox from './CornerBox.astro';
-import { plaid, demoUrl, iclubUrl, stack, screens } from '../content/plaid';
+import { plaid, demoUrl, iclubUrl, stack, screens, originScreens, heroScreen } from '../content/plaid';
 import { routes, navLinks, type Locale } from '../lib/routes';
 
 interface Props {
@@ -14,7 +14,7 @@ const t = plaid[locale];
 const [primaryLink, ...secondaryLinks] = t.links;
 ---
 
-<BaseLayout title={t.title} description={t.description} alternate={routes.plaid[locale === 'es' ? 'en' : 'es']}>
+<BaseLayout title={t.title} description={t.description} alternate={routes.plaid[locale === 'es' ? 'en' : 'es']} image={`${routes.plaid[locale]}/og-image.png`}>
   <MobileNav
     maxWidth="site-shell"
     lang={{ es: routes.plaid.es, en: routes.plaid.en, current: locale }}
@@ -54,20 +54,19 @@ const [primaryLink, ...secondaryLinks] = t.links;
       </div>
     </header>
 
-    <div class="space-y-12">
+    <figure class="m-0 mb-12 flex justify-center">
+      <a href={`/plaid/${heroScreen.id}.webp`} target="_blank" rel="noopener" class="block border border-dark-border hover:border-accent-blue/40 transition-colors">
+        <img
+          src={`/plaid/${heroScreen.id}.webp`}
+          width={heroScreen.width}
+          height={heroScreen.height}
+          alt={t.heroAlt}
+          class="block w-full h-auto"
+        />
+      </a>
+    </figure>
 
-      <section>
-        <h2 class="section-label">{t.origin.label}</h2>
-        <CornerBox>
-          <div class="brutalist-card p-5 border-0">
-            <p class="text-ink-muted text-sm leading-relaxed">{t.origin.text}</p>
-            <a href={iclubUrl} target="_blank" rel="noopener" class="inline-flex items-center mt-3 text-sm font-semibold text-accent-blue hover:underline">
-              {t.origin.linkLabel}
-              <Icon name="external-link" class="w-4 h-4 ml-2" />
-            </a>
-          </div>
-        </CornerBox>
-      </section>
+    <div class="space-y-12">
 
       <section>
         <h2 class="section-label">{t.what.label}</h2>
@@ -76,10 +75,12 @@ const [primaryLink, ...secondaryLinks] = t.links;
             <div class="brutalist-card p-6 border-0 group">
               <h3 class="text-ink font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">{t.what.demo.title}</h3>
               <p class="text-ink-muted text-sm leading-relaxed">{t.what.demo.text}</p>
+              <a href={t.links[0].href} target="_blank" rel="noopener" class="inline-flex items-center mt-3 text-sm font-semibold text-accent-blue hover:underline">{t.links[0].label}<Icon name="external-link" class="w-4 h-4 ml-2" /></a>
             </div>
             <div class="brutalist-card p-6 border-0 md:border-l border-dark-border border-t md:border-t-0 group">
               <h3 class="text-ink font-semibold mb-3 text-base group-hover:text-accent-blue transition-colors">{t.what.kit.title}</h3>
               <p class="text-ink-muted text-sm leading-relaxed">{t.what.kit.text}</p>
+              <a href={t.links[1].href} target="_blank" rel="noopener" class="inline-flex items-center mt-3 text-sm font-semibold text-accent-blue hover:underline">{t.links[1].label}<Icon name="external-link" class="w-4 h-4 ml-2" /></a>
             </div>
           </div>
         </CornerBox>
@@ -134,6 +135,76 @@ const [primaryLink, ...secondaryLinks] = t.links;
                 </li>
               ))}
             </ul>
+          </div>
+        </CornerBox>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.origin.label}</h2>
+        <CornerBox>
+          <div class="brutalist-card p-5 border-0">
+            <div class="space-y-3">
+              {t.origin.text.map(paragraph => (
+                <p class="text-ink-muted text-sm leading-relaxed">{paragraph}</p>
+              ))}
+            </div>
+            <a href={iclubUrl} target="_blank" rel="noopener" class="inline-flex items-center mt-3 text-sm font-semibold text-accent-blue hover:underline">
+              {t.origin.linkLabel}
+              <Icon name="external-link" class="w-4 h-4 ml-2" />
+            </a>
+            <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-6">
+              {originScreens.map(screen => (
+                <>
+                  <figure class="m-0">
+                    <a href={`/plaid/${screen.id}.webp`} target="_blank" rel="noopener" class="block border border-dark-border hover:border-accent-blue/40 transition-colors">
+                      <img
+                        src={`/plaid/${screen.id}.webp`}
+                        width={screen.width}
+                        height={screen.height}
+                        alt={t.origin.screens[screen.id].alt}
+                        loading="lazy"
+                        class="block w-full h-auto"
+                      />
+                    </a>
+                    <figcaption class="mt-2 text-ink-dim text-xs font-mono">2011</figcaption>
+                  </figure>
+                  <figure class="m-0">
+                    <a href={`/plaid/${screen.nowId}.webp`} target="_blank" rel="noopener" class="block border border-dark-border hover:border-accent-blue/40 transition-colors">
+                      <img
+                        src={`/plaid/${screen.nowId}.webp`}
+                        width={screen.width}
+                        height={screen.height}
+                        alt={t.origin.screens[screen.id].nowAlt}
+                        loading="lazy"
+                        class="block w-full h-auto"
+                      />
+                    </a>
+                    <figcaption class="mt-2 text-ink-dim text-xs font-mono">2026</figcaption>
+                  </figure>
+                </>
+              ))}
+            </div>
+            <p class="mt-3 text-ink-dim text-xs font-mono">{t.origin.caption}</p>
+          </div>
+        </CornerBox>
+      </section>
+
+      <section>
+        <h2 class="section-label">{t.shows.label}</h2>
+        <CornerBox>
+          <div class="brutalist-card p-5 border-0">
+            <ul class="space-y-1.5">
+              {t.shows.items.map(item => (
+                <li class="text-ink-muted text-sm flex gap-2">
+                  <span class="text-dark-border mt-1.5 shrink-0">—</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="mt-4 pt-4 border-t border-dark-border text-ink-dim text-sm">
+              {t.shows.cloud}
+              <a href={routes.proyecto[locale]} class="ml-1 font-semibold text-accent-blue hover:underline">{t.shows.cloudLink}</a>
+            </p>
           </div>
         </CornerBox>
       </section>

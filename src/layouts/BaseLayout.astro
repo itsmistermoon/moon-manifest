@@ -9,12 +9,15 @@ interface Props {
   description: string;
   /** Ruta de esta misma página en el otro idioma. */
   alternate: string;
+  /** Ruta de la imagen og; por defecto la tarjeta del portafolio. */
+  image?: string;
 }
 
 const { 
   title, 
   description,
   alternate,
+  image,
 } = Astro.props;
 
 const pathname = Astro.url.pathname;
@@ -30,7 +33,7 @@ const normalizedPath = pathname.endsWith('/') && pathname.length > 1 ? pathname.
 const canonicalURL = buildUrl(normalizedPath);
 
 const alternateURL = buildUrl(alternate);
-const imageUrl = buildUrl(isEnglish ? '/en/og-image.png' : '/og-image.png');
+const imageUrl = buildUrl(image ?? (isEnglish ? '/en/og-image.png' : '/og-image.png'));
 ---
 
 <!doctype html>

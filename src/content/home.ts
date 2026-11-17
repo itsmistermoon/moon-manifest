@@ -95,8 +95,8 @@ export const home = {
       },
       {
         title: 'Plaid UI Kit',
-        subtitle: 'Kit de componentes esqueumórficos y demo de restaurante · Código abierto',
-        description: 'Un kit de componentes esqueumórficos sobre UI SDK y un restaurante completo hecho con él: el comensal pide desde la mesa, el garzón atiende la sala y la cocina recibe las comandas.',
+        subtitle: 'Kit de componentes y app de restaurante · Código abierto',
+        description: 'La reconstrucción de iClub, una app de pedidos que diseñé en 2011, ahora con mi código: un kit de componentes y un restaurante completo donde el comensal pide desde la mesa, el garzón atiende la sala y la cocina recibe las comandas.',
         status: 'Código abierto',
         statusColor: 'blue',
         tags: ['React 19 + TS', 'UI SDK', 'Playwright', 'Vercel'],
@@ -180,8 +180,8 @@ export const home = {
       },
       {
         title: 'Plaid UI Kit',
-        subtitle: 'Skeuomorphic component kit and restaurant demo · Open source',
-        description: 'A skeuomorphic component kit built on UI SDK and a complete restaurant made with it: the diner orders from the table, the waiter runs the floor and the kitchen gets the tickets.',
+        subtitle: 'Component kit and restaurant app · Open source',
+        description: 'A rebuild of iClub, an ordering app I designed in 2011, now with my own code: a component kit and a complete restaurant where the diner orders from the table, the waiter runs the floor and the kitchen gets the tickets.',
         status: 'Open source',
         statusColor: 'blue',
         tags: ['React 19 + TS', 'UI SDK', 'Playwright', 'Vercel'],

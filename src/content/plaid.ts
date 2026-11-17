@@ -16,28 +16,46 @@ export const screens = [
   { id: 'kit-slate', width: 1440, height: 900 },
 ] as const;
 
+/** Pantallas del diseño original de iClub (2011), a 1024 × 600 como la tablet. */
+export const originScreens = [
+  { id: 'iclub-2011-inicio', nowId: 'iclub-2026-inicio', width: 1024, height: 600 },
+  { id: 'iclub-2011-menu', nowId: 'iclub-2026-menu', width: 1024, height: 600 },
+] as const;
+
+/** Captura grande de la demo (solo la tablet, piel Plaid, vista del comensal), a 1920 px de ancho. */
+export const heroScreen = { id: 'demo-comensal-hero', width: 1920, height: 1142 } as const;
+
 export const plaid = {
   es: {
     title: 'Plaid UI Kit · Caso de estudio · Juan Pablo Armstrong',
-    description: 'Caso de estudio de Plaid UI Kit: un kit de componentes esqueumórficos sobre UI SDK y una demo de restaurante hecha con él.',
+    description: 'Plaid UI Kit: un kit de componentes y una app de restaurante que reconstruyen iClub, una app de pedidos que diseñé en 2011. Diseño, código y pruebas de Juan Pablo Armstrong.',
     kicker: 'Caso de estudio · Kit de UI y demo · Código abierto',
     heroTitle: 'Plaid UI Kit',
-    heroSubtitle: 'Un kit de componentes esqueumórficos y un restaurante completo hecho con él',
+    heroSubtitle: 'Un kit de componentes y un restaurante completo hecho con él. Diseñé y programé los dos.',
     links: [
       { label: 'Abrir la demo', href: demoUrl },
       { label: 'Ver el kit', href: kitUrl },
       { label: 'Código en GitHub', href: repoUrl },
     ],
-    badges: ['[ CÓDIGO ABIERTO ]', '2 pieles', '3 roles'],
+    badges: ['[ CÓDIGO ABIERTO ]', '63 pruebas unitarias', '16 pruebas de layout', 'ES / EN'],
+    heroAlt: 'Demo de Plaid en la piel Plaid: la tablet con la vista del comensal en la Mesa 7, mostrando la carta con los especiales del día.',
     origin: {
       label: 'El origen',
-      text: 'iClub fue una app Android de pedidos para restaurantes en tablet. Entre diciembre de 2011 y abril de 2012 diseñé su interfaz como diseñador UI freelance. Plaid la reconstruye desde cero con herramientas actuales: la misma idea de pedir desde la mesa, con la estética esqueumórfica de esos años, antes del diseño plano, elegida a propósito.',
+      text: [
+        'iClub fue una app Android para pedir desde la mesa en restaurantes, con tablets. Entre diciembre de 2011 y abril de 2012 diseñé toda su interfaz como diseñador UI freelance.',
+        'Catorce años después la reconstruí, esta vez también con el código. Mantuve el estilo de entonces, el esqueumorfismo: pantallas que imitan materiales reales como la madera, el cuero o la tela, con relieve y sombras. Era el estilo habitual antes de que se impusiera el diseño plano.',
+      ],
+      screens: {
+        'iclub-2011-inicio': { alt: 'Pantalla de inicio de iClub en 2011: fondo de madera, botones de Menú, Tragos y Promos, y barra inferior con Opciones, Perfil y Garzón.', nowAlt: 'Plaid en 2026, la pantalla de inicio del comensal: Mesa 7, menú lateral y la pizarra de especiales del día.' },
+        'iclub-2011-menu': { alt: 'Carta de iClub en 2011: lista de sándwiches con foto, ingredientes, precio y casilla para elegir, sobre fondo de madera.', nowAlt: 'Plaid en 2026, la carta de sándwiches con foto, ingredientes, precio y casilla para elegir.' },
+      },
+      caption: 'Diseño original, 2011',
       linkLabel: 'Ver iClub en Behance',
     },
     what: {
       label: 'Qué hay',
-      demo: { title: 'Restaurant El Clan', text: 'La demo. El comensal pide desde la mesa, sigue su pedido y paga la cuenta (propina y división incluidas). El garzón ve la sala, mueve y une mesas y cobra. La cocina recibe las comandas en un riel. Hay libro de reservas, pizarra de especiales y paleta de comandos (⌘K).' },
-      kit: { title: 'Plaid UI Kit', text: 'La galería de componentes. Cada pieza en todos sus estados, con los componentes de UI SDK que usa, y un diseñador de tartán.' },
+      demo: { title: 'Restaurant El Clan', text: 'La demo. El comensal pide desde la mesa, sigue su pedido y paga la cuenta (propina y división incluidas). El garzón ve la sala, mueve y une mesas y cobra. La cocina recibe las comandas en un riel. En la carta, la pestaña «Hoy» es una pizarra de especiales. En la vista del garzón están el libro de reservas (botón «Reservar») y una búsqueda rápida de mesas y acciones (botón «Buscar» o ⌘K).' },
+      kit: { title: 'Plaid UI Kit', text: 'La galería de componentes: 27 paneles que muestran cada pieza en todos sus estados y qué componente de UI SDK usa por dentro. Incluye un diseñador de tartán para armar el patrón escocés que da nombre al kit.' },
     },
     gallery: {
       label: 'La demo y el kit',
@@ -53,40 +71,58 @@ export const plaid = {
     design: [
       'Dos pieles, Plaid (táctil) y Slate (plana, con modo claro y oscuro), sobre los mismos componentes. Cambiar de piel o de idioma nunca mueve ni cambia de tamaño un control.',
       'Un solo verde por tema; todo el resto de la paleta se deriva de él.',
-      'Tokens con nombres textiles donde la metáfora es honesta: urdimbre (--warp), trama (--weft), orilla (--selvedge), costura (--stitch) e hilos para cada tipo de llamado.',
-      'Las reglas viven en DESIGN.md, cada una con su porqué.',
+      'Los tokens llevan nombres de telar cuando el nombre describe bien lo que hacen: urdimbre (--warp), trama (--weft), orilla (--selvedge), costura (--stitch) e hilos para cada tipo de llamado.',
+      'Las reglas están escritas en DESIGN.md, cada una con su razón.',
     ],
     builtLabel: 'Cómo está hecho',
     built: [
-      'Vite, React 19 y TypeScript. El comportamiento (menús, diálogos, tooltips, toasts, selects, campos numéricos, paleta de comandos) viene de UI SDK de Vercel; Plaid solo pone la piel.',
-      'Pruebas que vigilan el diseño, no solo la lógica: Playwright mide posición y tamaño de los controles en cada piel, idioma y esquema, y un test rechaza cualquier color fuera de los tokens.',
-      'Construido con agentes de IA bajo mi dirección: yo definí el diseño, las reglas y la revisión; los agentes implementaron en ramas y PRs revisados.',
+      'Vite, React 19 y TypeScript. UI SDK de Vercel aporta el comportamiento accesible (menús, diálogos, tooltips, toasts, selects, campos numéricos, paleta de comandos); Plaid pone solo la apariencia.',
+      'Las pruebas también revisan el diseño. Playwright mide la posición y el tamaño de los controles en cada piel, idioma y modo claro u oscuro, y un test falla si aparece un color que no sale de los tokens.',
     ],
+    shows: {
+      label: 'Qué muestra',
+      items: [
+        'La interfaz de 2011 y su reconstrucción son mías, del diseño al código.',
+        'Reglas de diseño que se comprueban solas: 63 pruebas unitarias y 16 pruebas de Playwright que miden el layout.',
+        'Un kit completo: 27 paneles en la galería, dos pieles y dos idiomas, español e inglés.',
+      ],
+      cloud: 'Mi trabajo en cloud está en VecinoClub, una plataforma serverless en producción en AWS.',
+      cloudLink: 'Ver el caso VecinoClub',
+    },
     stackLabel: 'Stack',
     crumb: 'Plaid UI Kit',
     footerCta: 'Abrir la demo',
   },
   en: {
     title: 'Plaid UI Kit · Case Study · Juan Pablo Armstrong',
-    description: 'Plaid UI Kit case study: a skeuomorphic component kit built on UI SDK and a restaurant demo made with it.',
+    description: 'Plaid UI Kit: a component kit and a restaurant app that rebuild iClub, an ordering app I designed in 2011. Design, code and tests by Juan Pablo Armstrong.',
     kicker: 'Case study · UI kit and demo · Open source',
     heroTitle: 'Plaid UI Kit',
-    heroSubtitle: 'A skeuomorphic component kit and a complete restaurant built with it',
+    heroSubtitle: 'A component kit and a complete restaurant built with it. I designed and coded both.',
     links: [
       { label: 'Open the demo', href: demoUrl },
       { label: 'View the kit', href: kitUrl },
       { label: 'Code on GitHub', href: repoUrl },
     ],
-    badges: ['[ OPEN SOURCE ]', '2 skins', '3 roles'],
+    badges: ['[ OPEN SOURCE ]', '63 unit tests', '16 layout tests', 'ES / EN'],
+    heroAlt: 'Plaid demo in the Plaid skin: the tablet with the diner view at Table 7, showing the menu with the specials of the day.',
     origin: {
       label: 'The origin',
-      text: 'iClub was an Android ordering app for restaurants on tablets. From December 2011 to April 2012 I designed its interface as a freelance UI designer. Plaid rebuilds it from scratch with current tools: the same idea of ordering from the table, with the skeuomorphic look of those years, before flat design, chosen on purpose.',
+      text: [
+        'iClub was an Android app for ordering from the table in restaurants, on tablets. From December 2011 to April 2012 I designed its whole interface as a freelance UI designer.',
+        'Fourteen years later I rebuilt it, this time writing the code as well. I kept the style of the time, skeuomorphism: screens that imitate real materials like wood, leather or cloth, with depth and shadows. It was the usual look before flat design took over.',
+      ],
+      screens: {
+        'iclub-2011-inicio': { alt: 'iClub home screen in 2011: wood background, Menu, Drinks and Promos buttons, and a bottom bar with Options, Profile and Waiter.', nowAlt: 'Plaid in 2026, the diner home screen: Table 7, side menu and the specials board for the day.' },
+        'iclub-2011-menu': { alt: 'iClub menu in 2011: a list of sandwiches with photo, ingredients, price and a checkbox to pick each one, on a wood background.', nowAlt: 'Plaid in 2026, the sandwich menu with photo, ingredients, price and a checkbox to pick each one.' },
+      },
+      caption: 'Original design, 2011',
       linkLabel: 'See iClub on Behance',
     },
     what: {
       label: 'What’s in it',
-      demo: { title: 'Restaurant El Clan', text: 'The demo. The diner orders from the table, follows the order and pays the bill (tip and split included). The waiter sees the floor, moves and joins tables, and takes payment. The kitchen gets tickets on a rail. There is a reservation book, a specials board and a command palette (⌘K).' },
-      kit: { title: 'Plaid UI Kit', text: 'The component gallery. Every piece in all its states, with the UI SDK components it uses, and a tartan designer.' },
+      demo: { title: 'Restaurant El Clan', text: 'The demo. The diner orders from the table, follows the order and pays the bill (tip and split included). The waiter sees the floor, moves and joins tables, and takes payment. The kitchen gets tickets on a rail. In the menu, the "Today" tab is a specials board. The waiter view has the reservation book (the "Book" button) and a quick search for tables and actions (the "Search" button or ⌘K).' },
+      kit: { title: 'Plaid UI Kit', text: 'The component gallery: 27 panels that show every piece in all its states and which UI SDK component it uses underneath. It includes a tartan designer to build the plaid pattern the kit is named after.' },
     },
     gallery: {
       label: 'The demo and the kit',
@@ -102,15 +138,24 @@ export const plaid = {
     design: [
       'Two skins, Plaid (tactile) and Slate (flat, with light and dark modes), on the same components. Switching skin or language never moves or resizes a control.',
       'A single green per theme; the rest of the palette is derived from it.',
-      'Tokens with textile names where the metaphor is honest: warp (--warp), weft (--weft), selvedge (--selvedge), stitch (--stitch) and threads for each kind of call.',
-      'The rules live in DESIGN.md, each with its reason.',
+      'Tokens take weaving names when the name describes what they do: warp (--warp), weft (--weft), selvedge (--selvedge), stitch (--stitch) and threads for each kind of call.',
+      'The rules are written down in DESIGN.md, each with its reason.',
     ],
     builtLabel: 'How it’s built',
     built: [
-      'Vite, React 19 and TypeScript. The behavior (menus, dialogs, tooltips, toasts, selects, number fields, command palette) comes from Vercel’s UI SDK; Plaid only adds the skin.',
-      'Tests that guard the design, not just the logic: Playwright measures the position and size of controls in every skin, language and color scheme, and a test rejects any color outside the tokens.',
-      'Built with AI agents under my direction: I defined the design, the rules and the review; the agents implemented in branches and reviewed PRs.',
+      'Vite, React 19 and TypeScript. Vercel’s UI SDK provides the accessible behavior (menus, dialogs, tooltips, toasts, selects, number fields, command palette); Plaid only adds the look.',
+      'The tests check the design too. Playwright measures the position and size of controls in every skin, language and light or dark mode, and one test fails if a color does not come from the tokens.',
     ],
+    shows: {
+      label: 'What it shows',
+      items: [
+        'The 2011 interface and its rebuild are both mine, from design to code.',
+        'Design rules that check themselves: 63 unit tests and 16 Playwright tests that measure the layout.',
+        'A complete kit: 27 panels in the gallery, two skins and two languages, Spanish and English.',
+      ],
+      cloud: 'My cloud work is VecinoClub, a serverless platform running in production on AWS.',
+      cloudLink: 'Read the VecinoClub case',
+    },
     stackLabel: 'Stack',
     crumb: 'Plaid UI Kit',
     footerCta: 'Open the demo',
