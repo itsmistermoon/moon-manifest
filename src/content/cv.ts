@@ -36,7 +36,7 @@ export const cv = {
       { role: 'Cofundador', company: 'Imaquinaria Estudio / Tienda SPA', period: 'ago. 2016 – Actualidad', location: 'Temuco', bullets: ['Implementé y migré los canales de venta online del negocio entre Mercado Libre, Shopify y Jumpseller.', 'Primer comercio y banco de pruebas de VecinoClub en producción.'] },
       { role: 'Cofundador · Administrador Web y Editor', company: 'Cuarto Mundo', period: 'feb. 2014 – mar. 2022', location: 'Remoto', bullets: ['Administración, hosting y personalización de la plataforma WordPress de un medio digital.'] },
       { role: 'Desarrollador Web · Práctica profesional y honorarios', company: 'Lazos S.A.', period: 'sep. 2014 – mar. 2015', location: 'Temuco', bullets: ['Integré y programé extensiones sobre TYPO3 (CMS en PHP) para sitios de clientes.', 'Configuré e implementé funcionalidades en la nueva intranet de CONAF.', 'Administración básica de servidores web.'] },
-      { role: 'Diseñador UI · Desarrollador Web (freelance)', company: 'iClub S.A.', period: 'dic. 2011 – abr. 2012', location: 'Remoto', bullets: ['Diseño de UI para app Android de pedidos en restaurantes y desarrollo del sitio corporativo.'] },
+      { role: 'Diseñador UI · Desarrollador Web (freelance)', company: 'iClub S.A.', period: 'dic. 2011 – abr. 2012', location: 'Remoto', caseRoute: 'plaid' as const, bullets: ['Diseño de UI para app Android de pedidos en restaurantes y desarrollo del sitio corporativo.'] },
     ],
     education: [
       { title: 'AWS Re/Start — Graduate', institution: 'Amazon Web Services', period: '2026', location: 'Temuco, Chile', link: credlyUrl, description: 'Programa intensivo de cloud computing. Badge oficial. AWS Certified Cloud Practitioner.' },
@@ -78,7 +78,7 @@ export const cv = {
       { role: 'Co-founder', company: 'Imaquinaria Estudio / Tienda SPA', period: 'Aug 2016 – Present', location: 'Temuco', bullets: ['Set up and migrated the business’s online sales channels across Mercado Libre, Shopify and Jumpseller.', 'First merchant and production proving ground for VecinoClub.'] },
       { role: 'Co-founder · Web Administrator & Editor', company: 'Cuarto Mundo', period: 'Feb 2014 – Mar 2022', location: 'Remote', bullets: ['Administered, hosted and customized the WordPress platform of a digital publication.'] },
       { role: 'Web Developer · Internship and contract', company: 'Lazos S.A.', period: 'Sep 2014 – Mar 2015', location: 'Temuco', bullets: ['Integrated and built TYPO3 (PHP CMS) extensions for client websites.', 'Configured and implemented features for CONAF\'s new intranet.', 'Basic web server administration.'] },
-      { role: 'UI Designer · Web Developer (freelance)', company: 'iClub S.A.', period: 'Dec 2011 – Apr 2012', location: 'Remote', bullets: ['UI design for an Android restaurant ordering app and corporate website development.'] },
+      { role: 'UI Designer · Web Developer (freelance)', company: 'iClub S.A.', period: 'Dec 2011 – Apr 2012', location: 'Remote', caseRoute: 'plaid' as const, bullets: ['UI design for an Android restaurant ordering app and corporate website development.'] },
     ],
     education: [
       { title: 'AWS Re/Start — Graduate', institution: 'Amazon Web Services', period: '2026', location: 'Temuco, Chile', link: credlyUrl, description: 'Intensive cloud computing program. Official badge. AWS Certified Cloud Practitioner.' },

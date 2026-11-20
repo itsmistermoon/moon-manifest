@@ -2,6 +2,7 @@
 export const demoUrl = 'https://plaid-ui-kit.vercel.app/';
 export const kitUrl = 'https://plaid-ui-kit.vercel.app/componentes';
 export const repoUrl = 'https://github.com/itsmistermoon/plaid-ui-kit';
+export const specwallUrl = 'https://specwall.dev/themes/plaid-ui-kit/';
 
 export const iclubUrl = 'https://www.behance.net/gallery/43812871/iClub-Interactive-menu-for-restaurants-on-tablets';
 
@@ -86,6 +87,8 @@ export const plaid = {
         'Reglas de diseño que se comprueban solas: 63 pruebas unitarias y 16 pruebas de Playwright que miden el layout.',
         'Un kit completo: 27 paneles en la galería, dos pieles y dos idiomas, español e inglés.',
       ],
+      specwall: 'Plaid figura en Specwall, un directorio independiente de temas para UI SDK.',
+      specwallLink: 'Ver la ficha',
       cloud: 'Mi trabajo en cloud está en VecinoClub, una plataforma serverless en producción en AWS.',
       cloudLink: 'Ver el caso VecinoClub',
     },
@@ -153,6 +156,8 @@ export const plaid = {
         'Design rules that check themselves: 63 unit tests and 16 Playwright tests that measure the layout.',
         'A complete kit: 27 panels in the gallery, two skins and two languages, Spanish and English.',
       ],
+      specwall: 'Plaid is listed on Specwall, an independent directory of UI SDK themes.',
+      specwallLink: 'See the listing',
       cloud: 'My cloud work is VecinoClub, a serverless platform running in production on AWS.',
       cloudLink: 'Read the VecinoClub case',
     },

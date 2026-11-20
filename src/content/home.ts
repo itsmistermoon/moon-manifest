@@ -19,9 +19,9 @@ export const skillsMeta = [
 ];
 
 export const designProjectsMeta = [
-  // VecinoClub enlaza al caso de estudio del idioma actual.
-  { image: '/vecinoclub/inicio-claro.webp', link: null, position: 'top' },
-  { image: 'https://mir-s3-cdn-cf.behance.net/projects/404/8d1ae943812871.Y3JvcCw2OTksNTQ3LDMwMiw0OA.jpeg', link: 'https://www.behance.net/gallery/43812871/iClub-Interactive-menu-for-restaurants-on-tablets' },
+  // `route` enlaza al caso de estudio del idioma actual; `link` a un sitio externo.
+  { image: '/vecinoclub/inicio-claro.webp', route: 'proyecto', position: 'top' },
+  { image: '/plaid/demo-comensal-plaid.webp', route: 'plaid' },
   { image: 'https://mir-s3-cdn-cf.behance.net/projects/404/6f6c3c91696533.Y3JvcCw4MTEsNjM0LDI5NSw4Mg.jpg', link: 'https://www.behance.net/gallery/91696533/Imaquinaria-Estudio' },
   { image: 'https://mir-s3-cdn-cf.behance.net/projects/404/24f1ea91699409.Y3JvcCw2MjIsNDg2LDY5MCw1NzE.jpg', link: 'https://www.behance.net/gallery/91699409/Cuarto-Mundo' },
 ];
@@ -70,6 +70,7 @@ export const home = {
       experience: {
         title: 'Experiencia',
         intro: 'Más de 10 años al frente de emprendimientos propios, de la web y el diseño a la nube. Ese recorrido me da criterio de producto y de costo, no solo de código.',
+        plaidLink: 'Rehecho como Plaid UI Kit',
       },
       design: {
         title: 'La práctica visual detrás de mis interfaces',
@@ -107,7 +108,7 @@ export const home = {
     },
     designProjects: [
       { title: 'VecinoClub', category: 'UI/UX · Web App', description: 'Interfaz móvil del portal de clientes: misiones, sellos, niveles y recompensas, en tema claro y oscuro.' },
-      { title: 'iClub — Menú interactivo para restaurantes', category: 'UI/UX · App Tablet', description: 'Diseño de aplicación de menú para restaurantes en Android. Del mockup inicial al producto final: navegación de carta, pedidos y pagos desde la mesa.' },
+      { title: 'Plaid UI Kit', category: 'UI/UX · Kit de componentes', description: 'Kit de componentes esqueumórfico y app de restaurante que rehacen la interfaz de iClub, la app de pedidos que diseñé en 2011.' },
       { title: 'Imaquinaria Estudio', category: 'Identidad Visual', description: 'Creación de identidad gráfica y aplicaciones de marca para Imaquinaria Estudio, estudio colaborativo con ilustradores locales, artesanos y productores.' },
       { title: 'Cuarto Mundo', category: 'Branding · Logo', description: 'Logotipo para Cuarto Mundo, medio especializado en cómics y cultura pop con presencia en prensa, web y redes sociales.' },
     ],
@@ -155,6 +156,7 @@ export const home = {
       experience: {
         title: 'Experience',
         intro: '10+ years running my own businesses, from web and design to the cloud. That path gives me product and cost judgment, not just code.',
+        plaidLink: 'Rebuilt as Plaid UI Kit',
       },
       design: {
         title: 'The visual practice behind my interfaces',
@@ -192,7 +194,7 @@ export const home = {
     },
     designProjects: [
       { title: 'VecinoClub', category: 'UI/UX · Web App', description: 'Mobile interface for the customer portal: missions, stamps, levels, and rewards, in light and dark themes.' },
-      { title: 'iClub — Interactive menu for restaurants', category: 'UI/UX · Tablet App', description: 'Menu app design for restaurants on Android. From initial mockup to final product: menu navigation, orders, and table-side payments.' },
+      { title: 'Plaid UI Kit', category: 'UI/UX · Component kit', description: 'A skeuomorphic component kit and restaurant app that rebuild the interface of iClub, the ordering app I designed in 2011.' },
       { title: 'Imaquinaria Estudio', category: 'Visual Identity', description: 'Brand identity and brand applications for Imaquinaria Estudio, a collaborative studio working with local illustrators, craftspeople, and producers.' },
       { title: 'Cuarto Mundo', category: 'Branding · Logo', description: 'Logo for Cuarto Mundo, a publication specializing in comics and pop culture with presence in print, web, and social media.' },
     ],

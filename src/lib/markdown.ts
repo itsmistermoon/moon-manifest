@@ -4,7 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import { cv, contact } from '../content/cv';
 import { home, designProjectsMeta, socialLinks } from '../content/home';
 import { proyecto, platformUrl, stack, levels } from '../content/proyecto';
-import { plaid, iclubUrl, stack as plaidStack } from '../content/plaid';
+import { plaid, iclubUrl, specwallUrl, stack as plaidStack } from '../content/plaid';
 import { routes, type Locale } from './routes';
 import { adrHref, getAdrs } from './adr';
 
@@ -59,7 +59,7 @@ function homeDoc(locale: Locale): Doc {
       `[${t.viewCv}](${mdUrl(routes.cv[locale])})`,
       `## ${l.design.title}`,
       l.design.intro,
-      list(t.designProjects.map((p, i) => `[${p.title}](${designProjectsMeta[i].link ?? mdUrl(routes.proyecto[locale])}) (${p.category}): ${p.description}`)),
+      list(t.designProjects.map((p, i) => `[${p.title}](${'link' in designProjectsMeta[i] ? designProjectsMeta[i].link : mdUrl(routes[designProjectsMeta[i].route][locale])}) (${p.category}): ${p.description}`)),
       `## ${l.contact.title}`,
       `${l.contact.text} ${contact.email}`,
       list([`GitHub: ${socialLinks.github}`, `LinkedIn: ${socialLinks.linkedin}`, `Behance: ${socialLinks.behance}`, `X: ${socialLinks.x}`]),
@@ -172,6 +172,7 @@ function plaidDoc(locale: Locale): Doc {
       list(t.built),
       `## ${t.shows.label}`,
       list(t.shows.items),
+      `${t.shows.specwall} [${t.shows.specwallLink}](${specwallUrl})`,
       `${t.shows.cloud} [${t.shows.cloudLink}](${mdUrl(routes.proyecto[locale])})`,
       `## ${t.stackLabel}`,
       plaidStack.join(', '),
